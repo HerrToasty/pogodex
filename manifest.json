@@ -1,6 +1,6 @@
 {
-  "name": "Pokémon GO Hub",
-  "short_name": "PoGO Hub",
+  "name": "Pokémon GO Dex",
+  "short_name": "Pokémon GO Dex",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
