@@ -71,23 +71,11 @@
       --shadow-card: 0 10px 28px rgba(0, 0, 0, 0.35);
     }
 
-    #themeIconMoon {
-      display: none;
-    }
+    #themeIconMoon { display: none; }
+    [data-theme="dark"] #themeIconSun { display: none; }
+    [data-theme="dark"] #themeIconMoon { display: block; }
 
-    [data-theme="dark"] #themeIconSun {
-      display: none;
-    }
-
-    [data-theme="dark"] #themeIconMoon {
-      display: block;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       min-height: 100vh;
@@ -104,15 +92,8 @@
       transition: background 0.25s ease, color 0.25s ease;
     }
 
-    .container {
-      width: 100%;
-      max-width: 1020px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
+    .container { width: 100%; max-width: 1020px; display: flex; flex-direction: column; gap: 18px; }
 
-    /* Kopfleiste im Stil der Header-Card */
     .top-bar {
       background-color: var(--surface-cream);
       border: 1px solid var(--border-soft);
@@ -126,12 +107,7 @@
       gap: 16px;
     }
 
-    .top-bar-left {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 6px;
-    }
+    .top-bar-left { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
 
     .eyebrow-pill {
       display: inline-flex;
@@ -148,20 +124,8 @@
       line-height: 1.2;
     }
 
-    .top-bar h1 {
-      font-size: clamp(1.45rem, 2.5vw, 1.75rem);
-      font-weight: 800;
-      letter-spacing: -0.025em;
-      color: var(--text-heading);
-      line-height: 1.2;
-    }
-
-    .top-bar-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+    .top-bar h1 { font-size: clamp(1.45rem, 2.5vw, 1.75rem); font-weight: 800; letter-spacing: -0.025em; color: var(--text-heading); line-height: 1.2; }
+    .top-bar-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
     .status-pill {
       background-color: var(--surface-pill);
@@ -178,13 +142,7 @@
       line-height: 1.2;
     }
 
-    .dot-green {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: #10b981;
-      flex-shrink: 0;
-    }
+    .dot-green { width: 8px; height: 8px; border-radius: 50%; background-color: #10b981; flex-shrink: 0; }
 
     .theme-btn {
       width: 38px;
@@ -200,24 +158,10 @@
       transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
     }
 
-    .theme-btn:hover {
-      transform: translateY(-1px);
-      border-color: var(--emerald);
-    }
+    .theme-btn:hover { transform: translateY(-1px); border-color: var(--emerald); }
+    .theme-btn:focus-visible, .btn-pill:focus-visible { outline: 2px solid var(--emerald); outline-offset: 2px; }
 
-    .theme-btn:focus-visible,
-    .btn-pill:focus-visible,
-    .btn-subtle:focus-visible {
-      outline: 2px solid var(--emerald);
-      outline-offset: 2px;
-    }
-
-    /* Haupt-Grid für Angaben & Kontakt */
-    .grid-two {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
+    .grid-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 
     .card-frame {
       background-color: var(--surface-cream);
@@ -240,17 +184,9 @@
       gap: 22px;
     }
 
-    .card-inner-green {
-      background: var(--card-green-bg);
-      border: 1px solid var(--card-green-border);
-    }
+    .card-inner-green { background: var(--card-green-bg); border: 1px solid var(--card-green-border); }
+    .card-inner-amber { background: var(--card-amber-bg); border: 1px solid var(--card-amber-border); }
 
-    .card-inner-amber {
-      background: var(--card-amber-bg);
-      border: 1px solid var(--card-amber-border);
-    }
-
-    /* Dezentes Ring-Wasserzeichen wie auf den Tierlist-Karten */
     .card-inner::after {
       content: "";
       position: absolute;
@@ -263,14 +199,7 @@
       pointer-events: none;
     }
 
-    .card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      position: relative;
-      z-index: 1;
-    }
+    .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; position: relative; z-index: 1; }
 
     .badge {
       display: inline-flex;
@@ -285,13 +214,8 @@
       line-height: 1.2;
     }
 
-    .badge-green {
-      background: var(--emerald-grad);
-    }
-
-    .badge-amber {
-      background: var(--amber-grad);
-    }
+    .badge-green { background: var(--emerald-grad); }
+    .badge-amber { background: var(--amber-grad); }
 
     .card-icon-chip {
       width: 34px;
@@ -305,82 +229,15 @@
       flex-shrink: 0;
     }
 
-    .card-icon-green {
-      color: var(--emerald-soft-text);
-    }
+    .card-icon-green { color: var(--emerald-soft-text); }
+    .card-icon-amber { color: #d97706; }
+    [data-theme="dark"] .card-icon-amber { color: #fbbf24; }
 
-    .card-icon-amber {
-      color: #d97706;
-    }
+    .card-content { position: relative; z-index: 1; margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+    .card-content h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text-heading); line-height: 1.25; }
+    .card-desc { color: var(--text-body); font-size: 0.95rem; line-height: 1.6; }
 
-    [data-theme="dark"] .card-icon-amber {
-      color: #fbbf24;
-    }
-
-    .card-content {
-      position: relative;
-      z-index: 1;
-      margin-top: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .card-content h2 {
-      font-size: 1.25rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--text-heading);
-      line-height: 1.25;
-    }
-
-    .address-block {
-      font-style: normal;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      color: var(--text-body);
-      font-size: 0.96rem;
-    }
-
-    .address-name {
-      font-weight: 700;
-      font-size: 1.04rem;
-      color: var(--text-heading);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .address-lines {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      color: var(--text-body);
-      line-height: 1.55;
-    }
-
-    .inline-icon {
-      flex-shrink: 0;
-      margin-top: 3px;
-      opacity: 0.72;
-    }
-
-    .card-desc {
-      color: var(--text-body);
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    /* Pill-Buttons am Kartenboden (Slot A / Slot B Stil) */
-    .card-actions {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-    }
+    .card-actions { position: relative; z-index: 1; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 
     .btn-pill {
       display: inline-flex;
@@ -400,49 +257,10 @@
       line-height: 1.25;
     }
 
-    .btn-pill:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.06);
-    }
+    .btn-pill:hover { transform: translateY(-1px); filter: brightness(1.06); }
+    .btn-pill:active { transform: translateY(0); }
+    .btn-emerald { background-color: var(--emerald); box-shadow: var(--shadow-emerald); }
 
-    .btn-pill:active {
-      transform: translateY(0);
-    }
-
-    .btn-emerald {
-      background-color: var(--emerald);
-      box-shadow: var(--shadow-emerald);
-    }
-
-    .btn-teal {
-      background-color: var(--teal);
-      box-shadow: var(--shadow-teal);
-    }
-
-    .btn-subtle {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      background-color: var(--inner-chip-bg);
-      border: 1px solid var(--inner-chip-border);
-      border-radius: 999px;
-      padding: 8px 16px;
-      font-family: inherit;
-      font-size: 0.84rem;
-      font-weight: 700;
-      color: var(--text-heading);
-      cursor: pointer;
-      transition: transform 0.15s ease, border-color 0.15s ease;
-      line-height: 1.25;
-    }
-
-    .btn-subtle:hover {
-      transform: translateY(-1px);
-      border-color: var(--emerald);
-    }
-
-    /* Untere Leiste für den Disclaimer im Split-Sidebar-Stil */
     .disclaimer-box {
       background-color: var(--surface-cream);
       border: 1px solid var(--border-soft);
@@ -463,11 +281,7 @@
       gap: 14px;
     }
 
-    .sidebar-head {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .sidebar-head { display: flex; align-items: center; gap: 12px; }
 
     .sidebar-icon {
       width: 40px;
@@ -480,86 +294,30 @@
       flex-shrink: 0;
     }
 
-    .sidebar-eyebrow {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.84);
-      line-height: 1.2;
-      margin-bottom: 2px;
-    }
-
-    .disclaimer-sidebar h3 {
-      font-size: 1.15rem;
-      font-weight: 800;
-      letter-spacing: -0.015em;
-      color: #ffffff;
-      line-height: 1.2;
-    }
-
-    .sidebar-divider {
-      height: 1px;
-      background-color: rgba(255, 255, 255, 0.24);
-      width: 100%;
-    }
-
-    .sidebar-tag {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: rgba(255, 255, 255, 0.95);
-      line-height: 1.3;
-    }
-
-    .disclaimer-body {
-      padding: 24px 28px;
-      display: flex;
-      align-items: center;
-    }
-
-    .disclaimer-body p {
-      color: var(--text-body);
-      font-size: 0.93rem;
-      line-height: 1.65;
-    }
+    .sidebar-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.84); line-height: 1.2; margin-bottom: 2px; }
+    .disclaimer-sidebar h3 { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.015em; color: #ffffff; line-height: 1.2; }
+    .sidebar-divider { height: 1px; background-color: rgba(255, 255, 255, 0.24); width: 100%; }
+    .sidebar-tag { font-size: 0.82rem; font-weight: 700; color: rgba(255, 255, 255, 0.95); line-height: 1.3; }
+    .disclaimer-body { padding: 24px 28px; display: flex; align-items: center; }
+    .disclaimer-body p { color: var(--text-body); font-size: 0.93rem; line-height: 1.65; }
 
     @media (max-width: 760px) {
-      .grid-two {
-        grid-template-columns: 1fr;
-      }
-
-      .disclaimer-box {
-        grid-template-columns: 1fr;
-      }
-
-      .disclaimer-sidebar {
-        padding: 18px 22px;
-      }
-
-      .disclaimer-body {
-        padding: 20px 22px;
-      }
+      .grid-two { grid-template-columns: 1fr; }
+      .disclaimer-box { grid-template-columns: 1fr; }
+      .disclaimer-sidebar { padding: 18px 22px; }
+      .disclaimer-body { padding: 20px 22px; }
     }
 
     @media (max-width: 480px) {
-      body {
-        padding: 16px 12px 28px;
-      }
-
-      .top-bar {
-        padding: 18px 20px;
-      }
-
-      .card-inner {
-        padding: 18px;
-      }
+      body { padding: 16px 12px 28px; }
+      .top-bar { padding: 18px 20px; }
+      .card-inner { padding: 18px; }
     }
   </style>
 </head>
 <body>
 
   <main class="container">
-    <!-- Kopfleiste -->
     <header class="top-bar">
       <div class="top-bar-left">
         <span class="eyebrow-pill">Rechtliche Angaben</span>
@@ -589,8 +347,7 @@
       </div>
     </header>
 
-    <!-- Zwei Karten nebeneinander -->
-    <section class="grid-two" aria-label="Betreiber und Kontakt">
+    <section class="grid-two" aria-label="Angaben zum Betreiber">
       <article class="card-frame">
         <div class="card-inner card-inner-green">
           <div>
@@ -605,30 +362,8 @@
             </div>
             <div class="card-content">
               <h2>Betreiber &amp; Anschrift</h2>
-              <address class="address-block">
-                <span class="address-name">David Hofweber</span>
-                <span class="address-lines">
-                  <svg class="inline-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                  </svg>
-                  <span>
-                    Schlossgasse 5<br>
-                    73337 Bad Überkingen
-                  </span>
-                </span>
-              </address>
+              <p class="card-desc">Diese Angaben wurden entfernt.</p>
             </div>
-          </div>
-
-          <div class="card-actions">
-            <button type="button" class="btn-subtle" id="copyAddressBtn" data-copy="David Hofweber&#10;Schlossgasse 5&#10;73337 Bad Überkingen">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-              </svg>
-              <span>Anschrift kopieren</span>
-            </button>
           </div>
         </div>
       </article>
@@ -647,33 +382,13 @@
             </div>
             <div class="card-content">
               <h2>Kontakt</h2>
-              <p class="card-desc">
-                Bei Fragen, Hinweisen oder Anliegen erreichst du mich jederzeit per E-Mail:
-              </p>
+              <p class="card-desc">Die persönlichen Kontaktdaten wurden entfernt.</p>
             </div>
-          </div>
-
-          <div class="card-actions">
-            <a href="mailto:Herr.toasty@gmail.com" class="btn-pill btn-emerald">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
-              <span>Herr.toasty@gmail.com</span>
-            </a>
-            <button type="button" class="btn-pill btn-teal" id="copyEmailBtn" data-copy="Herr.toasty@gmail.com">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-              </svg>
-              <span>Kopieren</span>
-            </button>
           </div>
         </div>
       </article>
     </section>
 
-    <!-- Untere Leiste für den Disclaimer -->
     <footer class="disclaimer-box">
       <div class="disclaimer-sidebar">
         <div class="sidebar-head">
@@ -709,38 +424,6 @@
         const isDark = root.getAttribute("data-theme") === "dark";
         root.setAttribute("data-theme", isDark ? "light" : "dark");
       });
-
-      function wireCopyButton(buttonId) {
-        const btn = document.getElementById(buttonId);
-        if (!btn) return;
-        const label = btn.querySelector("span");
-        const originalText = label.textContent;
-        let resetTimer;
-
-        btn.addEventListener("click", async () => {
-          const text = btn.getAttribute("data-copy");
-          try {
-            await navigator.clipboard.writeText(text);
-          } catch {
-            const ta = document.createElement("textarea");
-            ta.value = text;
-            ta.style.position = "fixed";
-            ta.style.opacity = "0";
-            document.body.appendChild(ta);
-            ta.select();
-            document.execCommand("copy");
-            ta.remove();
-          }
-          clearTimeout(resetTimer);
-          label.textContent = "Kopiert!";
-          resetTimer = setTimeout(() => {
-            label.textContent = originalText;
-          }, 1800);
-        });
-      }
-
-      wireCopyButton("copyAddressBtn");
-      wireCopyButton("copyEmailBtn");
     })();
   </script>
 
