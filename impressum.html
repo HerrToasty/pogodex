@@ -23,24 +23,10 @@
       --emerald-soft: #dff7ec;
       --emerald-soft-border: #b8ead3;
       --emerald-soft-text: #087a52;
-      --teal: #0b818c;
-      --teal-hover: #086b74;
 
-      --amber-grad: linear-gradient(135deg, #ea6a12, #d97706);
-      --emerald-grad: linear-gradient(135deg, #0ca170, #07875d);
       --slate-sidebar-grad: linear-gradient(160deg, #8ba2b2 0%, #758c9c 100%);
-
-      --card-green-bg: linear-gradient(180deg, #edf9f3 0%, #dff2e8 100%);
-      --card-green-border: #bfe5d3;
-      --card-amber-bg: linear-gradient(180deg, #fff2e4 0%, #fce1c6 100%);
-      --card-amber-border: #f2c699;
-
-      --inner-chip-bg: rgba(255, 255, 255, 0.78);
-      --inner-chip-border: rgba(19, 28, 49, 0.09);
-      --watermark-ring: rgba(19, 28, 49, 0.032);
       --shadow-card: 0 6px 22px rgba(19, 28, 49, 0.055), 0 1px 3px rgba(19, 28, 49, 0.03);
       --shadow-emerald: 0 4px 12px rgba(10, 155, 108, 0.26);
-      --shadow-teal: 0 4px 12px rgba(11, 129, 140, 0.24);
     }
 
     [data-theme="dark"] {
@@ -59,15 +45,6 @@
       --emerald-soft-text: #34d399;
 
       --slate-sidebar-grad: linear-gradient(160deg, #3b4b63 0%, #2d3b50 100%);
-
-      --card-green-bg: linear-gradient(180deg, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0.06) 100%);
-      --card-green-border: rgba(16, 185, 129, 0.25);
-      --card-amber-bg: linear-gradient(180deg, rgba(245, 158, 11, 0.14) 0%, rgba(245, 158, 11, 0.07) 100%);
-      --card-amber-border: rgba(245, 158, 11, 0.28);
-
-      --inner-chip-bg: rgba(15, 23, 42, 0.62);
-      --inner-chip-border: rgba(255, 255, 255, 0.16);
-      --watermark-ring: rgba(255, 255, 255, 0.04);
       --shadow-card: 0 10px 28px rgba(0, 0, 0, 0.35);
     }
 
@@ -161,84 +138,6 @@
     .theme-btn:hover { transform: translateY(-1px); border-color: var(--emerald); }
     .theme-btn:focus-visible, .btn-pill:focus-visible { outline: 2px solid var(--emerald); outline-offset: 2px; }
 
-    .grid-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-
-    .card-frame {
-      background-color: var(--surface-cream);
-      border: 1px solid var(--border-soft);
-      border-radius: 22px;
-      padding: 14px;
-      box-shadow: var(--shadow-card);
-      display: flex;
-    }
-
-    .card-inner {
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      border-radius: 16px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 22px;
-    }
-
-    .card-inner-green { background: var(--card-green-bg); border: 1px solid var(--card-green-border); }
-    .card-inner-amber { background: var(--card-amber-bg); border: 1px solid var(--card-amber-border); }
-
-    .card-inner::after {
-      content: "";
-      position: absolute;
-      right: -34px;
-      bottom: -38px;
-      width: 156px;
-      height: 156px;
-      border-radius: 50%;
-      border: 18px solid var(--watermark-ring);
-      pointer-events: none;
-    }
-
-    .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; position: relative; z-index: 1; }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      font-size: 0.7rem;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 5px 12px;
-      border-radius: 999px;
-      color: #ffffff;
-      line-height: 1.2;
-    }
-
-    .badge-green { background: var(--emerald-grad); }
-    .badge-amber { background: var(--amber-grad); }
-
-    .card-icon-chip {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      background-color: var(--inner-chip-bg);
-      border: 1px solid var(--inner-chip-border);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .card-icon-green { color: var(--emerald-soft-text); }
-    .card-icon-amber { color: #d97706; }
-    [data-theme="dark"] .card-icon-amber { color: #fbbf24; }
-
-    .card-content { position: relative; z-index: 1; margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
-    .card-content h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text-heading); line-height: 1.25; }
-    .card-desc { color: var(--text-body); font-size: 0.95rem; line-height: 1.6; }
-
-    .card-actions { position: relative; z-index: 1; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
-
     .btn-pill {
       display: inline-flex;
       align-items: center;
@@ -258,7 +157,6 @@
     }
 
     .btn-pill:hover { transform: translateY(-1px); filter: brightness(1.06); }
-    .btn-pill:active { transform: translateY(0); }
     .btn-emerald { background-color: var(--emerald); box-shadow: var(--shadow-emerald); }
 
     .disclaimer-box {
@@ -302,7 +200,6 @@
     .disclaimer-body p { color: var(--text-body); font-size: 0.93rem; line-height: 1.65; }
 
     @media (max-width: 760px) {
-      .grid-two { grid-template-columns: 1fr; }
       .disclaimer-box { grid-template-columns: 1fr; }
       .disclaimer-sidebar { padding: 18px 22px; }
       .disclaimer-body { padding: 20px 22px; }
@@ -311,7 +208,6 @@
     @media (max-width: 480px) {
       body { padding: 16px 12px 28px; }
       .top-bar { padding: 18px 20px; }
-      .card-inner { padding: 18px; }
     }
   </style>
 </head>
@@ -346,48 +242,6 @@
         </button>
       </div>
     </header>
-
-    <section class="grid-two" aria-label="Angaben zum Betreiber">
-      <article class="card-frame">
-        <div class="card-inner card-inner-green">
-          <div>
-            <div class="card-top">
-              <span class="badge badge-green">Angaben gemäß § 5 DDG</span>
-              <span class="card-icon-chip card-icon-green" aria-hidden="true">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-              </span>
-            </div>
-            <div class="card-content">
-              <h2>Betreiber &amp; Anschrift</h2>
-              <p class="card-desc">Diese Angaben wurden entfernt.</p>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article class="card-frame">
-        <div class="card-inner card-inner-amber">
-          <div>
-            <div class="card-top">
-              <span class="badge badge-amber">Direkter Draht</span>
-              <span class="card-icon-chip card-icon-amber" aria-hidden="true">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
-              </span>
-            </div>
-            <div class="card-content">
-              <h2>Kontakt</h2>
-              <p class="card-desc">Die persönlichen Kontaktdaten wurden entfernt.</p>
-            </div>
-          </div>
-        </div>
-      </article>
-    </section>
 
     <footer class="disclaimer-box">
       <div class="disclaimer-sidebar">
