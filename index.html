@@ -2042,12 +2042,12 @@
             <span>Go-Dex &copy;2026</span>
             <span>•</span>
             <a
-                href="https://pogo.herrtoasty.de/impressum.html"
+                href="https://pogo.herrtoasty.de/impressum"
                 target="_blank"
                 rel="noopener noreferrer"
-                onclick="window.open('https://pogo.herrtoasty.de/impressum.html', '_blank', 'noopener,noreferrer'); return false;"
+                onclick="window.open('https://pogo.herrtoasty.de/impressum', '_blank', 'noopener,noreferrer'); return false;"
                 class="text-emerald-600 dark:text-emerald-400 hover:underline font-extrabold inline-flex items-center gap-1"
-                title="GO-Dex - Impressum (https://pogo.herrtoasty.de/impressum.html)"
+                title="GO-Dex - Impressum (https://pogo.herrtoasty.de/impressum)"
             >
                 <span>GO-Dex - Impressum</span>
                 <span>&#8599;</span>
@@ -2076,7 +2076,7 @@
             <p class="text-[11px] sm:text-xs font-semibold leading-snug" style="color: var(--text-muted);">
                 Diese Seite verwendet ausschließlich technisch notwendige Cookies &amp; lokalen Browser-Speicher (z.&nbsp;B. für Dark-Mode und schnelles Laden von Pokémon-Daten) – kein Tracking, keine Werbung.
                 <a
-                    href="https://pogo.herrtoasty.de/impressum.html"
+                    href="https://pogo.herrtoasty.de/impressum"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="text-emerald-600 dark:text-emerald-400 hover:underline font-extrabold whitespace-nowrap ml-1"
@@ -2549,12 +2549,42 @@
             { minLvl: 35.0, maxLvl: 36.5, stardust: 8000,  candy: 10, xlCandy: 0 },
             { minLvl: 37.0, maxLvl: 38.5, stardust: 9000,  candy: 12, xlCandy: 0 },
             { minLvl: 39.0, maxLvl: 39.5, stardust: 10000, candy: 15, xlCandy: 0 },
-            { minLvl: 40.0, maxLvl: 41.5, stardust: 11000, candy: 0,  xlCandy: 10 },
-            { minLvl: 42.0, maxLvl: 43.5, stardust: 12000, candy: 0,  xlCandy: 12 },
-            { minLvl: 44.0, maxLvl: 45.5, stardust: 13000, candy: 0,  xlCandy: 15 },
-            { minLvl: 46.0, maxLvl: 47.5, stardust: 14000, candy: 0,  xlCandy: 17 },
-            { minLvl: 48.0, maxLvl: 49.5, stardust: 15000, candy: 0,  xlCandy: 20 }
+            // Ab Level 40: Sternenstaub-Stufen (je 4 Halblevel) und XL-Stufen sind gegeneinander versetzt
+            { minLvl: 40.0, maxLvl: 40.5, stardust: 10000, candy: 0,  xlCandy: 10 },
+            { minLvl: 41.0, maxLvl: 41.5, stardust: 11000, candy: 0,  xlCandy: 10 },
+            { minLvl: 42.0, maxLvl: 42.5, stardust: 11000, candy: 0,  xlCandy: 12 },
+            { minLvl: 43.0, maxLvl: 43.5, stardust: 12000, candy: 0,  xlCandy: 12 },
+            { minLvl: 44.0, maxLvl: 44.5, stardust: 12000, candy: 0,  xlCandy: 15 },
+            { minLvl: 45.0, maxLvl: 45.5, stardust: 13000, candy: 0,  xlCandy: 15 },
+            { minLvl: 46.0, maxLvl: 46.5, stardust: 13000, candy: 0,  xlCandy: 17 },
+            { minLvl: 47.0, maxLvl: 47.5, stardust: 14000, candy: 0,  xlCandy: 17 },
+            { minLvl: 48.0, maxLvl: 48.5, stardust: 14000, candy: 0,  xlCandy: 20 },
+            { minLvl: 49.0, maxLvl: 49.5, stardust: 15000, candy: 0,  xlCandy: 20 }
         ];
+
+        // Sonderfall Endynalos (#890): eigene, stark erhöhte Bonbon-/XL-Kosten pro Power-Up (Sternenstaub wie normal).
+        // Quelle: Pokémon GO Wiki „Power up“ (Eternatus, Level 15–49.5) – Summe 15→40: 8.900 Bonbons, 40→50: 8.900 XL.
+        const ETERNATUS_CANDY_BRACKETS = [
+            { minLvl: 1.0,  maxLvl: 10.5, candy: 28,  xlCandy: 0 },
+            { minLvl: 11.0, maxLvl: 14.5, candy: 58,  xlCandy: 0 },
+            { minLvl: 15.0, maxLvl: 20.5, candy: 60,  xlCandy: 0 },
+            { minLvl: 21.0, maxLvl: 25.5, candy: 90,  xlCandy: 0 },
+            { minLvl: 26.0, maxLvl: 30.5, candy: 120, xlCandy: 0 },
+            { minLvl: 31.0, maxLvl: 32.5, candy: 175, xlCandy: 0 },
+            { minLvl: 33.0, maxLvl: 34.5, candy: 225, xlCandy: 0 },
+            { minLvl: 35.0, maxLvl: 36.5, candy: 300, xlCandy: 0 },
+            { minLvl: 37.0, maxLvl: 38.5, candy: 375, xlCandy: 0 },
+            { minLvl: 39.0, maxLvl: 39.5, candy: 890, xlCandy: 0 },
+            { minLvl: 40.0, maxLvl: 41.5, candy: 0,   xlCandy: 100 },
+            { minLvl: 42.0, maxLvl: 43.5, candy: 0,   xlCandy: 200 },
+            { minLvl: 44.0, maxLvl: 45.5, candy: 0,   xlCandy: 400 },
+            { minLvl: 46.0, maxLvl: 47.5, candy: 0,   xlCandy: 635 },
+            { minLvl: 48.0, maxLvl: 49.5, candy: 0,   xlCandy: 890 }
+        ];
+
+        function isEternatusEntry(p) {
+            return Boolean(p && (p.id === 'eternatus' || (Number(p.dex) === 890 && !p.isMega)));
+        }
 
         const FAST_MOVES_DATA = {"Rankenhieb":{"type":"Pflanze","power":6,"duration":0.5,"energy":5,"pvpPower":5,"pvpEnergy":8},"Tackle":{"type":"Normal","power":5,"duration":0.5,"energy":5,"pvpPower":3,"pvpEnergy":3},"Rasierblatt":{"type":"Pflanze","power":13,"duration":1,"energy":7,"pvpPower":9,"pvpEnergy":4},"Glut":{"type":"Feuer","power":10,"duration":1,"energy":10,"pvpPower":4,"pvpEnergy":9},"Kratzer":{"type":"Normal","power":6,"duration":0.5,"energy":4,"pvpPower":3,"pvpEnergy":4},"Feuerzahn":{"type":"Feuer","power":13,"duration":1,"energy":9,"pvpPower":8,"pvpEnergy":6},"Feuerwirbel":{"type":"Feuer","power":13,"duration":1,"energy":9,"pvpPower":11,"pvpEnergy":10},"Luftschnitt":{"type":"Flug","power":12,"duration":1,"energy":8,"pvpPower":9,"pvpEnergy":9},"Flügelschlag":{"type":"Flug","power":10,"duration":1,"energy":11,"pvpPower":5,"pvpEnergy":8},"Feuerodem":{"type":"Drache","power":6,"duration":0.5,"energy":4,"pvpPower":3,"pvpEnergy":4},"Blubber":{"type":"Wasser","power":10,"duration":1,"energy":12,"pvpPower":8,"pvpEnergy":11},"Aquaknarre":{"type":"Wasser","power":5,"duration":0.5,"energy":5,"pvpPower":3,"pvpEnergy":3},"Biss":{"type":"Unlicht","power":6,"duration":0.5,"energy":4,"pvpPower":2,"pvpEnergy":4},"Walzer":{"type":"Gestein","power":15,"duration":1.5,"energy":19,"pvpPower":7,"pvpEnergy":13},"Käferbiss":{"type":"Käfer","power":5,"duration":0.5,"energy":6,"pvpPower":4,"pvpEnergy":3},"Käfertrutz":{"type":"Käfer","power":15,"duration":1.5,"energy":15,"pvpPower":9,"pvpEnergy":8},"Konfusion":{"type":"Psycho","power":19,"duration":1.5,"energy":14,"pvpPower":16,"pvpEnergy":14},"Giftstachel":{"type":"Gift","power":4,"duration":0.5,"energy":6,"pvpPower":4,"pvpEnergy":9},"Plage":{"type":"Käfer","power":9,"duration":1,"energy":13,"pvpPower":10,"pvpEnergy":12},"Gifthieb":{"type":"Gift","power":13,"duration":1,"energy":9,"pvpPower":7,"pvpEnergy":7},"Ruckzuckhieb":{"type":"Normal","power":10,"duration":1,"energy":13,"pvpPower":5,"pvpEnergy":8},"Stahlflügel":{"type":"Stahl","power":14,"duration":1,"energy":8,"pvpPower":7,"pvpEnergy":5},"Windstoß":{"type":"Flug","power":25,"duration":2,"energy":20,"pvpPower":16,"pvpEnergy":14},"Pikser":{"type":"Flug","power":10,"duration":1,"energy":10,"pvpPower":6,"pvpEnergy":8},"Säure":{"type":"Gift","power":11,"duration":1,"energy":10,"pvpPower":6,"pvpEnergy":8},"Drachenrute":{"type":"Drache","power":14,"duration":1,"energy":8,"pvpPower":9,"pvpEnergy":12},"Donnerschock":{"type":"Elektro","power":4,"duration":0.5,"energy":7,"pvpPower":4,"pvpEnergy":9},"Geschenk":{"type":"Normal","power":6,"duration":1.5,"energy":23,"pvpPower":3,"pvpEnergy":12},"Voltwechsel":{"type":"Elektro","power":13,"duration":1.5,"energy":20,"pvpPower":14,"pvpEnergy":16},"Funkensprung":{"type":"Elektro","power":4,"duration":0.5,"energy":6,"pvpPower":5,"pvpEnergy":7},"Charme":{"type":"Fee","power":20,"duration":1.5,"energy":11,"pvpPower":12,"pvpEnergy":8},"Lehmschuss":{"type":"Boden","power":4,"duration":0.5,"energy":6,"pvpPower":3,"pvpEnergy":9},"Sandwirbel":{"type":"Boden","power":4,"duration":0.5,"energy":7,"pvpPower":2,"pvpEnergy":4},"Metallklaue":{"type":"Stahl","power":6,"duration":0.5,"energy":5,"pvpPower":5,"pvpEnergy":7},"Pulverschnee":{"type":"Eis","power":6,"duration":1,"energy":15,"pvpPower":6,"pvpEnergy":8},"Dunkelklaue":{"type":"Geist","power":6,"duration":0.5,"energy":4,"pvpPower":6,"pvpEnergy":8},"Lehmschelle":{"type":"Boden","power":19,"duration":1.5,"energy":13,"pvpPower":11,"pvpEnergy":10},"Eisenschweif":{"type":"Stahl","power":14,"duration":1,"energy":6,"pvpPower":10,"pvpEnergy":7},"Doppelkick":{"type":"Kampf","power":10,"duration":1,"energy":13,"pvpPower":8,"pvpEnergy":12},"Zornklinge":{"type":"Käfer","power":4,"duration":0.5,"energy":8,"pvpPower":3,"pvpEnergy":4},"Klaps":{"type":"Normal","power":6,"duration":0.5,"energy":5,"pvpPower":4,"pvpEnergy":4},"Zen-Kopfstoß":{"type":"Psycho","power":11,"duration":1,"energy":9,"pvpPower":8,"pvpEnergy":6},"Ladestrahl":{"type":"Elektro","power":7,"duration":1,"energy":14,"pvpPower":6,"pvpEnergy":11},"Feenbrise":{"type":"Fee","power":9,"duration":1,"energy":13,"pvpPower":4,"pvpEnergy":9},"Finte":{"type":"Unlicht","power":11,"duration":1,"energy":10,"pvpPower":6,"pvpEnergy":6},"Psywelle":{"type":"Psycho","power":4,"duration":0.5,"energy":7,"pvpPower":3,"pvpEnergy":4},"Tiefschlag":{"type":"Unlicht","power":5,"duration":0.5,"energy":6,"pvpPower":8,"pvpEnergy":7},"Metallsound":{"type":"Stahl","power":4,"duration":0.5,"energy":6,"pvpPower":5,"pvpEnergy":8},"Karateschlag":{"type":"Kampf","power":10,"duration":1,"energy":13,"pvpPower":5,"pvpEnergy":9},"Fußkick":{"type":"Kampf","power":5,"duration":0.5,"energy":5,"pvpPower":6,"pvpEnergy":8},"Konter":{"type":"Kampf","power":13,"duration":1,"energy":9,"pvpPower":8,"pvpEnergy":6},"Standpauke":{"type":"Unlicht","power":11,"duration":1,"energy":13,"pvpPower":5,"pvpEnergy":13},"Donnerzahn":{"type":"Elektro","power":10,"duration":1,"energy":13,"pvpPower":8,"pvpEnergy":6},"Zertrümmerer":{"type":"Kampf","power":17,"duration":1.5,"energy":12,"pvpPower":9,"pvpEnergy":7},"Psychoklinge":{"type":"Psycho","power":4,"duration":0.5,"energy":7,"pvpPower":4,"pvpEnergy":9},"Patronenhieb":{"type":"Stahl","power":10,"duration":1,"energy":11,"pvpPower":7,"pvpEnergy":7},"Kugelsaat":{"type":"Pflanze","power":7,"duration":1,"energy":13,"pvpPower":5,"pvpEnergy":13},"Zauberblatt":{"type":"Pflanze","power":17,"duration":1.5,"energy":17,"pvpPower":10,"pvpEnergy":10},"Steinwurf":{"type":"Gestein","power":13,"duration":1,"energy":8,"pvpPower":8,"pvpEnergy":5},"Einäschern":{"type":"Feuer","power":32,"duration":2.5,"energy":22,"pvpPower":20,"pvpEnergy":20},"Zerschneider":{"type":"Normal","power":5,"duration":0.5,"energy":5,"pvpPower":3,"pvpEnergy":2},"Eissplitter":{"type":"Eis","power":10,"duration":1,"energy":10,"pvpPower":9,"pvpEnergy":10},"Schlecker":{"type":"Geist","power":5,"duration":0.5,"energy":6,"pvpPower":3,"pvpEnergy":3},"Eisesodem":{"type":"Eis","power":11,"duration":1,"energy":9,"pvpPower":7,"pvpEnergy":5},"Erstauner":{"type":"Geist","power":7,"duration":1,"energy":13,"pvpPower":12,"pvpEnergy":10},"Bürde":{"type":"Geist","power":8,"duration":1,"energy":13,"pvpPower":7,"pvpEnergy":13},"Sondersensor":{"type":"Psycho","power":11,"duration":1,"energy":11,"pvpPower":8,"pvpEnergy":10},"Kaskade":{"type":"Wasser","power":13,"duration":1,"energy":7,"pvpPower":11,"pvpEnergy":10},"Kraftreserve":{"type":"Normal","power":15,"duration":1.5,"energy":15,"pvpPower":9,"pvpEnergy":8},"Platscher":{"type":"Wasser","power":0,"duration":1.5,"energy":17,"pvpPower":0,"pvpEnergy":12},"Wandler":{"type":"Normal","power":0,"duration":2,"energy":5,"pvpPower":0,"pvpEnergy":5},"Gähner":{"type":"Normal","power":0,"duration":1.5,"energy":13,"pvpPower":0,"pvpEnergy":12},"Eiszahn":{"type":"Eis","power":12,"duration":1.5,"energy":20,"pvpPower":8,"pvpEnergy":6},"Zielschuss":{"type":"Normal","power":2,"duration":0.5,"energy":10,"pvpPower":1,"pvpEnergy":5},"Katapult":{"type":"Gestein","power":13,"duration":1,"energy":7,"pvpPower":11,"pvpEnergy":8},"Bodycheck":{"type":"Normal","power":7,"duration":1,"energy":8,"pvpPower":14,"pvpEnergy":9},"Kraftwelle":{"type":"Kampf","power":10,"duration":1,"energy":16,"pvpPower":13,"pvpEnergy":10},"Blattwerk":{"type":"Pflanze","power":6,"duration":0.5,"energy":4,"pvpPower":6,"pvpEnergy":8},"Wasser-Shuriken":{"type":"Wasser","power":9,"duration":1,"energy":14,"pvpPower":6,"pvpEnergy":14},"Geokontrolle":{"type":"Fee","power":20,"duration":1.5,"energy":14,"pvpPower":8,"pvpEnergy":13}};
 
@@ -11079,11 +11109,19 @@
 
         function syncMegaPresetFromPokemon() {}
 
-        function getSingleHalfStepCost(level, isShadow, isPurified, isLucky) {
+        function getSingleHalfStepCost(level, isShadow, isPurified, isLucky, pokemon = null) {
             const bracket = LEVEL_UP_BRACKETS_DATA.find(b => level >= b.minLvl && level <= b.maxLvl) || LEVEL_UP_BRACKETS_DATA[0];
             let dust = bracket.stardust;
             let candy = bracket.candy;
             let xl = bracket.xlCandy;
+
+            if (isEternatusEntry(pokemon)) {
+                const eb = ETERNATUS_CANDY_BRACKETS.find(b => level >= b.minLvl && level <= b.maxLvl);
+                if (eb) {
+                    candy = eb.candy;
+                    xl = eb.xlCandy;
+                }
+            }
 
             if (isShadow) {
                 dust = Math.ceil(dust * 1.2);
@@ -11138,7 +11176,7 @@
             let totalDust = 0, totalCandy = 0, totalXl = 0;
 
             for (let l = sLvl; l < tLvl - 0.001; l += 0.5) {
-                const step = getSingleHalfStepCost(l, effShadow, effPurified, effLucky);
+                const step = getSingleHalfStepCost(l, effShadow, effPurified, effLucky, p);
                 totalDust += step.dust;
                 totalCandy += step.candy;
                 totalXl += step.xl;
@@ -12501,7 +12539,7 @@
                 let totalDust = 0, totalCandy = 0, totalXl = 0;
 
                 for (let l = sLvl; l < tLvl - 0.001; l += 0.5) {
-                    const step = getSingleHalfStepCost(l, effShadow, effPurified, effLucky);
+                    const step = getSingleHalfStepCost(l, effShadow, effPurified, effLucky, p);
                     totalDust += step.dust;
                     totalCandy += step.candy;
                     totalXl += step.xl;
