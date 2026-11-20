@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PogoDex - Pokémon GO Dex</title>
+    <title>Pokémon GO Hub – Vergleich, Pokédex, Konter, Rechner, Raids & Events</title>
     <link rel="icon" type="image/png" href="./favicon.png">
     <link rel="apple-touch-icon" href="./logo.png">
     <link rel="manifest" href="./manifest.json">
@@ -623,37 +623,107 @@
         .iv-seg-track {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 5px;
-            height: 13px;
+            gap: 3px;
+            height: 11px;
         }
 
         .iv-seg {
             position: relative;
             height: 100%;
-            background: rgba(148, 163, 184, 0.28);
-            border: 1px solid rgba(148, 163, 184, 0.25);
-            border-radius: 999px;
+            background: #e2e4e6;
+            border-radius: 2px;
             overflow: hidden;
         }
 
-        .iv-seg::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            background-image: repeating-linear-gradient(
-                to right,
-                transparent 0%,
-                transparent calc(20% - 1px),
-                rgba(15, 23, 42, 0.22) calc(20% - 1px),
-                rgba(15, 23, 42, 0.22) 20%
-            );
+        body.dark-mode .iv-seg {
+            background: rgba(148, 163, 184, 0.24);
+        }
+
+        .iv-seg:first-child {
+            border-top-left-radius: 999px;
+            border-bottom-left-radius: 999px;
+        }
+
+        .iv-seg:last-child {
+            border-top-right-radius: 999px;
+            border-bottom-right-radius: 999px;
         }
 
         .iv-seg-fill {
             height: 100%;
-            border-radius: 999px;
-            transition: width 0.05s linear;
+            border-radius: 0 999px 999px 0;
+            transition: width 0.05s linear, background-color 0.15s ease;
+        }
+
+        .iv-seg:first-child .iv-seg-fill {
+            border-radius: 999px 999px 999px 999px;
+        }
+
+        .iv-seg-fill[style*="width:100%"],
+        .iv-seg-fill[style*="width: 100%"] {
+            border-radius: 0;
+        }
+
+        .iv-seg:first-child .iv-seg-fill[style*="width:100%"],
+        .iv-seg:first-child .iv-seg-fill[style*="width: 100%"] {
+            border-radius: 999px 0 0 999px;
+        }
+
+        .iv-seg:last-child .iv-seg-fill[style*="width:100%"],
+        .iv-seg:last-child .iv-seg-fill[style*="width: 100%"] {
+            border-radius: 0 999px 999px 0;
+        }
+
+        @keyframes hundoStampPop {
+            0% {
+                opacity: 0.25;
+                transform: scale(0.55) rotate(-18deg);
+                filter: drop-shadow(0 0 0 rgba(244, 114, 182, 0));
+            }
+            48% {
+                opacity: 1;
+                transform: scale(1.22) rotate(6deg);
+                filter: drop-shadow(0 0 16px rgba(244, 114, 182, 0.9)) drop-shadow(0 0 8px rgba(251, 191, 36, 0.8));
+            }
+            76% {
+                transform: scale(0.95) rotate(-2deg);
+                filter: drop-shadow(0 0 10px rgba(244, 114, 182, 0.55));
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+                filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.22));
+            }
+        }
+
+        @keyframes stampSwapSoft {
+            0% { opacity: 0.45; transform: scale(0.84); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes hundoRingPulse {
+            0% { opacity: 0.9; transform: scale(0.65); }
+            100% { opacity: 0; transform: scale(1.75); }
+        }
+
+        .appraisal-stamp-hundo-anim {
+            animation: hundoStampPop 0.52s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            transform-origin: center;
+        }
+
+        .appraisal-stamp-swap-anim {
+            animation: stampSwapSoft 0.24s ease-out forwards;
+            transform-origin: center;
+        }
+
+        .appraisal-hundo-halo {
+            position: absolute;
+            inset: 4px;
+            border-radius: 9999px;
+            border: 3px solid #f472b6;
+            box-shadow: 0 0 12px rgba(251, 191, 36, 0.75);
+            pointer-events: none;
+            animation: hundoRingPulse 0.62s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .pogo-tab-stage {
@@ -1392,7 +1462,7 @@
                                 Alle Infos
                             </button>
                             <button type="button" onclick="setFsDexSubTab('moves')" data-fstab="moves" class="fs-subtab-btn px-3 py-1.5 rounded-xl text-xs font-bold themed-sub cursor-pointer shrink-0">
-                                Attacken &amp; Ranking
+                                Attacken
                             </button>
                             <button type="button" onclick="setFsDexSubTab('counters')" data-fstab="counters" class="fs-subtab-btn px-3 py-1.5 rounded-xl text-xs font-bold themed-sub cursor-pointer shrink-0">
                                 Konter
@@ -2145,6 +2215,54 @@
         const OFFICIAL_WEATHER_ICON_URLS = {"clearDay": "data:image/webp;base64,UklGRqoEAABXRUJQVlA4TJ4EAAAvf8AfEJXQliTZVe3w/z+pV++9BOQDM3sv2At5M8fH1SARIQEAALJtqtm2bdu2bdu2bdu2beO2bb+Yly6ZgPpnl4i0wYP6OIvhiinqUxOQVwul3wGQwtXCeQ+a3dXClXD8nRse1TYMUNkEDvU2dVOeAUVYULcLEWOw3yKmYyg77W43fLYH5WWHsoeA2wt8/YJ2CH/nfQrEuDnCoFTciKLlsrud7f1q5PNDxzw3hyPrQ9CIIqjJtkE6O9hIzs47Zb+58jrrQ9CI4XT97hQG9/ZoALLmdzG0n0DpTXxNkKx/WT9eCEY4UHrbu9YUyfib6VgB+YMEN/Fy5Enm9YZujcBOAc81STrQiZklbxJs3Dp17Y5CwoskJ7fnHWyarP6PZGXfC+lw0SuBVukt+Mk4OYTtYBNlBX3iB4YIjUZAjzyuEUkg7AWHpJoqfgv++H7oxraDhXt//3q0XKigIOX55L8DRjXbD8mRVQguy02PN4YxqEKE8rFmDaEIdFb3sEYzl9/LAbAvt2Xt9tvsJPZCoAcK6OF6Q4OJsiibLhe09se50QYt1IWjFmKU6nfWIqcG4Sjzl26tJHp8lMF+wzozXp16g69Wv09mLmldE4PyPvEJew1EaCmBJzgvDh27JFtDUT1GrXFe9hJhNZgYMAIgmdXzLTo+eY94VGmJmvesOHcsqYbTS7TMSmcET2ocIh+ihzlAMFKnI9YuBmtgP/IOalzpi4AIT3Af0l5S1RS3AGm2l/rH7MTPyFidUUjUT1XFEdhLNW+Aby/3CsUOVgWIVJyDeUKjCjVsL2d4eWZWNIUqqI7lnuMz7YRBFZteqf7yLK2hXgV+j5Scg3FCp4rzGu2XJ20FLPKqgo50n4N3QqaKoNMVPC8PwuEiF/9VVR0fRx4+nkFDdMdQVZKBiwxAXV4hlOOWZ7EnD5TrVFfkEvc4CA8iH+uUqWXPUgcSkNUUxUfNZxwZ+Mh8MGFCidVxSjsWPKvyKWo6o7D6FgEITkt04jv6MeDHlY7N1LRRw0ZtE9EQ+aCU7rxKTtIP7wZI6tRuTRy5r0k7wrEGidZO3VCYWfHI2pe9F8JFVNzu/LHmrirr9kPTK+oTFOSle94LvUA3uU+pjnsLuhvOS3t2PPILCFrqE+6aPVYPFg30mUjNH8tx5Rw+4N/BriESNeOOOzhr3gRNujpidGEMqqh5MsZfvuA7WIxInl8uHTKaCyno7m4vkUcFtff3dh20fDSVm+judspnJqSgOzwkJFWQzC3ALgE6FvRcC6mDQmds5vH4f8cmF1QVCtoidViwa9/qoVsm69rBlkuM2imdWeD2odND/7IzCkv63escKPnRKTy9C0HtIunmNANS906B8sEvpJjds2a1vUfHnd4VQNZ6+ua8tcttQO2t75lzpJvDe0/uCiBr/c1Zd98lDiiB96Q5bQ5/p0ohd7D1/x7v9qm/mAaUdGCyd9schA+RwhqJ9S1oFiNq7+YkAODYXDE5AievNRTXPeI4pLjCnUirCVIy7Z3Nvf0OtoGibNl7W/ea+7mu4W9/OJOnq4XMl8ANqatVMgOddb0h3mDbtWbwK/a38AE=", "clearNight": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAABy1BMVEUAAAD////8/Pz////+/v7////////////////////////////////////+/v7////8/Pz////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+/v7////////////////9/f3////////+/v7////////////////////////+/v7////////////////////////9/f3+/v7////+/v75+fn////////////////////////////////////////////////////////////9/f3////////////////////////////////////////////////////////////////////9/f3////////////////////////19fX////////////////////+/v7////////9/f3////////+/v7////6+vr////////////////////////+/v7////////////9/f3////////////+/v7////+/v7////9/f2UpeSiAAAAmXRSTlMAByZOeJiwws7T0ci4fRkCKGmz4v3/3Roeb8r7hjeo9L1GrSr8RAp28OhtIrumIEvnhdbubgFq85yC4S17ikl+/qTedNRTk1r4oxQz+jsw63sF9WU/YqD3tvYsEDBD+ZQECPIL27mCzQ7XnxbZETQ59XMm5VCXYAZAQoReEnLQTRxdmlKdDD3FjmYhrFiia+TpwAORdYzA8f5T4W3oAAAEvklEQVR4Ae3Y9WPbuhcF8DMqc3PalIdl5nHKzMzMY2Zm5u2//YLlgDInL/McP9Lnt5yCFFnSvQmUvydFURRFURRFURRl1+49e/dFREZFx8TGxSfAXolJySmpDnqlpcNGzozMLPrJhm1ycvP4s/12rf2BOAeNHIQtDkVk0dDhI7BBfkEhjRUVwwYlpQygrBw2qKiklyOqqpq6mto6hF9dfQM9ChtzEo9Sd+y4Lbv/RBbdak46gVPu12m2LH/daQd1rqYSAAnNFJqdsEOLg7rWNi1op3CsHHbo6KTg6urWgp5eavL64Ksb4dE/QKFzcEg8kVIKg3J9jNyNcOhupTA8AmHUJYLIIfga4zjCoZ3ChHt8TIpgahq+ZtLYOwvrzekHztUCXdK8SBbga3GQ5OQSrJYfTX24ROiyRbBcAreV0ZaDq9pEU9fWK6zdi8UUNjahG9oSyTY8ds7Qq/IQLHT2mH79eS/cc2ILus7Dq7yZbhcqYKVaCqe90UWRRC/Cx6XLFBwZ1ra++tqubnqzOBGdhOQKhauw1CkK17zRdf2h3IDkJoVbsFQENWd8Tld5ljgD3ZDcpntrWumO3oPdhdcNfQvUQTJIprbfI0thpft6zXkAr4fGbfCjtIw7GHocWw0rPaFmUirNImuH7NxT0bnkLMJCMdTchg+9F1uHDboPiytHqrLZ7kpsg2d62yfttyoRxiM0O+dg3jWDLYBB9z0UmqrnMO8WNS+k8KUIuxCSVzW88tuHoN7oaIb4xh6RZ+pg1mtq3kjhtAgrQ2o9jk+QHIFZKdTskTsvcTs6jod8lQ9ct3QCiBVpMv5IXfdjh7i0uq18BO4mNfilvzl9bSFzwEWhc+ttcc4mflkjNe8gOaD3xK8QWM97B/0VHsGvyjYs8ZtFIdyFF130t/7rpyGDmibIukR8LOiaPqSffSaqlL7YzZDdoNwlGBukJOKpmWJEwe9vh+6J+LIzlB0kxHbDjA/UPDSuEXyEoCLpUek0fxcb9Hn5WyJ3PUQwZT4TgDkj+jG+DtkbCpUlCOIjPRyJMGVTP0wvIUssDeUbmjP0Soc5cdRUw8/uAQpnAs8gMY8kD4uuKgfmPKTwONBHNp4pRwAJJHvXDiQ1zpPsgDmfavRh6iCrW6Du2ByM5XAqou8TgAefh9kCk+Ip/PQPzsZSN7++CSOjXT3uae/cGoRJ+XnUZCXBjzONbq1HxEiyRfmFWV8o3FsMMgNX3LM6hMkn9zCv4c8ZQw9X7IgT4TFHBmrEd8bpY/jjiZvpQ/oerbP2A6KwbvAddh4l86kbcQdfR0SeWS0rgVWGWqlrr4O//hgGMJAAqyQ1UFfaDX/5LZU09hWWueGi7v1cHfw9ODlAI3GwThs9IpIMLt0vW/xZIyz0xkW35c8G2+v66NVVByUDh2Clik56NHT1DRns1RuR9HH5Jqw1m0ov15nPc93S6LuvRRRKG+ASrLYTR8nyRlf82JUDc6feZLyYbM6ir6nTQwiD+jyGJqYH4eF8zRBU3l1C2PR9y2JwA9npCKue8e8MbLUgAWH3IDlygkbevz2yC/ZwPhyvlnbkjw/f1kfzYae6nZyOvS+eNOW+vXqrvmJ3PhRFURRFURRFURTlN/wXr9kh32cKoaUAAAAASUVORK5CYII=", "partlyCloudy": "data:image/webp;base64,UklGRiwEAABXRUJQVlA4TCAEAAAvf8AfEJXQkSTJkSTV/z95PzhycZcSkQ2kM0fuuI3BwAdESAAAgGybVLNt27Zt27Zt27Zt27a927ZfpBPQf/3/HxOjGv3UbrR/Sd3Bxg8iNxkl2CT8bzIqRdD/asjBrgApxMLQu407/KeRKbxPQ2EK6Dnrde2jsIlvxE8C8zTxn+RJWF3DJt4gXpbNJPHt9Rh6xlIsJO4FkYd77NNFkkB+Y1yWgBLfsBV4rCz6laM+qiA8+NyPUvclkGW14hKPkfUdV69zpnVcG9BtNdUSeK8bQnHJL/E70znfb94b8OB7uX/qld+9JPELl+NcVMU/eE6TOEG2AYsX77EzFp7mqH9euvXAx2NRic2S52oeNmD5oAjvMnbEHTu8DWjEpOX5MIr4DQDvm/A9w5c/jk8bcBSRcuDAz58ivWi0+AnjRHiMkK8D+1j7ZK7eleyHCBdESJo1v5ME2q1WNgiKoVRXSPvM35q+l/zWWA0IU5vAnOq7DAyNFab4g7fPVjQwtBhS+3TO9layDNgqts9H4EnxH9lK7iTd5pL+PSd5QXmBFlbCfSFgMnNh6B2T2NyASz4MFK8D5AV4xE9jKg7xImUbtHskO+Yrh/yLtEfFPA/N2h8eHjQxBplOXMau2IFuwBjfoR5qkHegQAqsubKgiOoc4wWYMTSL2Qi+D2De4PaphDwYBBKY2jYFIztJfznxcTYzqb4y7jPR3Q5O9V0omhPMniFyMhapO5Jtnw3PyDmJxySOgLwWK+b88PPj48NXNQjmurM9kN4XxOj3WfGZ0ogwsMhrZKju7+9R3vXcxHdMcYv4Es3uvNy+DQ7ZqQx6jXJSmfdllSX+6udCAgdpdkb8GcR79N2N0a/iK9xF2C3PcC4ETxE98B4TsT2Ioe7WC1vV9Brh+1Is9xWCaxqE7AbwypDMIrDBFOXX0G14cOiQk6GODVgkgVRh14HV+wJ5P/DycRUEBwKuo99LdrD4x6hvImJQBTIJ8GMDbiSEXpf3xD9OvUz0Aq6q3RbIuCe9AYvEINHZV67LZdkxTXcD1ggi2Jscv64khtCsAEIh7KlXF6/xzgeqMVPFU4LTHZJzfEd5ZE49mWt5lOfhkbhFNRlOyJEFVmhANuC68SvybhBVkwW27q9Y9IzfWLQO/MQ2FZr9a/GPbs8JbqlEzFTMU1X2rHiBZd+aSkmBxDdNGytQoDOZKm56Xv4luGb6tV6sTsR8QHym3/PF0URcBvhn0lD2Xxjm0V7ekcz0x6tE+DTovCvONmBmXP4Xr29nUZ6qeKreR0ucYZ5DGszgdS5ag/giGtXVgdDZNzK00JPvw4PkwYXd63bkU8b7X9yzIbE3mtZPZj39++NUfnHrBWLQDpzHoz+GvUQQOiah5/DqEIyql4nuj4sKE+au27TOQxLp/uv/awY=", "cloudy": "data:image/webp;base64,UklGRswCAABXRUJQVlA4TL8CAAAvf8AfEJVIsm23bSTvf51Vs5p17rZ0O0CySqBGndA5oEKEJAAAyDaKZtu2bdv2vrZt27Zt297ONmeb1QTUV/9/lImHhzrr/rlwaddLHULIAI8HKV9v4Fb7O6VgPhb4U4hTuIs9KEJ1IKR87E0dsT6Ms8v82FsrAB+D+L5F/fCPQGSvv3MLu6r1gsbH9nGFVyIoIq9CQIyHKZillnUCChVxKhTxIxgWTle9OG9Qr5X4dMAuPBq00x9CzW/lkBuTqY6hhD6cgPXMnEXrbTMe0M+OPXyriwna2aB7HsY4HC8i2LN1bfhK2MUW7YDSYCh3LKc2ZbNJu6Mzlqkquke0TanfpN2QGAnQfvSnNkbmZ+DK0tSt32uopZ5/Ih0IgQ7d/tyqKN21r3JpQKqqUPGZdxZa4UA4RYZqe/r4auVPDQtQeMchLhJ5C5fKjFrlOKayiM1ugEYi19fEw7hpiOjuprB6CJrZMK4aI9r7KXWR3ONiHJk6rqcMkc+DQErrycr+gDM2sDMCEGsTnnpxTwUVQBs6mwCzUfUObm2C7rZFJhVQIkyna88CEwGn2r4wSbecPDJ6EC0sC0PYC5x6TXJPZ2edLtfcUcqBwO9e9E8Z77MJEWQnYO/w6U2lDhZ6fg9KwRsudsMDUlnhC/YQ9dkxhQ/Rf7KVmcZ8H1nKQKBjDpWbVwSDPgHXyAtgMrDvQbNOID/6V9mlRmITvGiL6KZjHylJoCuinI5ZpCKBmoh9Op6RrASio6k6nd6IVwL6kRuMyfB4jsgmuCZ2G7RRcCr4Vjp0BEpQGqLWiSQRSmMdy6uMRGGi9ucRcxJsgux37BF7ilK10N2uHGWcb3rllF45kfu+IrvXCJIUQSeDsPOC4wSkJWZnCH7gOQGJMRgfgG5UlZuFV8ms06/8r+Ukz3N25geojO78Mz3FvxI/AV/9/xE0AA==", "rainy": "data:image/webp;base64,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", "windy": "data:image/webp;base64,UklGRrgFAABXRUJQVlA4TKsFAAAvf8AfELXQliRJkiL9/y+PUGUPHpkNSPTz+BwcOzQs0g3OTUVIgACAbKOr23nlI1O3t/9n27Zt27bNbm/bxmzr/7ted937v3iVxwnwTxpSgZTlNQTwPmMPv5KwjvUeoyrlLY77CuC6CkLGsdxP1GWWOxzbQ2ChTyXcQ2/vrI1RtkZBcs+h/QIAW/iKIto8Q1wl/OMGmvtkbYgSbfs3j7YqeaX3v72BKkzhKzjbBoQt7wcJvAP4PUExUiXBw9XtYZAc10bQ+wAAlvAdxMjA8FjXBgm0tRHF/miNrvm2DfSv2CfiIQ8SGMRCaA4sfwQycNvYLnyYWBY2st9QB8lGynVrtEdvbJuxhFcD+0AGXwcJn4k69PUCW6At8sLF5LhqjOxrcrZBwgeiAXdFc5RIK/ZJSJ6xIVC00AcJ6wSeoVpaNfgj7LwU93ATRuZs9tCMcJBQ0RKtUSJd8ziBh+wONkp0wR6Q2xFE/grkw+AzCWE72WjR87s4drRFSfEQPCyk4dYUIKwoJRqYbSwLDBt64Z9AO4zMZIIA2RGntrska75tXOQVfEMPSJU0T34kwVpAfnEeekqGbJMr7ADtB+yrsAViBtxrwiUDxYNbfM0QMoDtd2HM/dIRJczTPE5gQoKe+pUFWjlpXSaF/n7Qgi1soziFHO0ZI4FCM9qAXALnq3z0szZE1xCPQeLFrdsMnyiC6El2IxTs20HtKHwGUoEmhCv8zZh76F15+j2KZjuQoiTaNrKr/yN0pNOUeEdsi2M3EGAL7wHb7OER4gz5cJSNY7uQLHfulqHoH9uMpXxlkpR/2G8CDfAuy6Aw1c39whfWkbX9lGR7JhoAkP0URYT2LgwLF7uhN0qgbWP4wFNy/lgxTf22C5+F3GY4CFfgQ5RJIMwMIAObA41EcGmG2JRQ2DOHYxRhsnFoDl2kyqFmQFBRBCpqM0AZE8REJnmf+xR4IJqxl8Eif18mVrfoxwlasizNUSq8d7/LYJF1DcyI4YKDhpRkm6JLeNPQFa1FeA9Q4RHlqY1XEiqmeCbcaMhXj0WYWuQLlgURh+wDf5CG4auJKyjy3JGv6CnC1L1tHKNcsm1ICWy0JkAfZfVvyYePIoyfoexbeUVbfichcYJjSJVTPRkIV4vwBllso5y3QoCVfEzgJ3BfmjIY+oswzLq8ol2Ye8nbGWpEibANuCs/MFzUt67xS0LE6FF45b6B82YCIcTB//xKeDpiQehozCjybMQNj28SJMfBtRDbmUEzVm0cnCA+CU7VAaHg0ppRYqUIFw8jcIgSrlbsj6LXG0jeV6EZ0MAfCXSUChwFCfje8EM6pv9qQGwSfApyhe9u/QzF8kRov6rQQpDQWnBJGOsNjyj8IlRUV0wmMA7yKQy19sWKIOEk60WoK0xmkr+yMIWM1oiK/jKqUItQWnAsCSTbAFFsO7vigyz8VcPmIOQilIihJmyDsH+YFGh2toZEX20bIrQiVAhVCUL07NVNEH019gVF4G7iVYPvRV5sn5LQbpMsmxtf/aO0uj7xuUByZfsugQrC9ApTjS3yUAXO48Crxrtke7HfEraAmWHhfGNER+nxJMRvyf8kGIB7PMXcQNiRNb+vZ8gCG/yMOQJTgphAK1j4gkdfpEQheZ6DvyQhXtCNcqit54McUd3BmMMq4BFi+4/wF8W2iIoy5J0x57sEAX72Ui0Hdw0UmtyhuZv/8U8CHw9zSxhvi4gozT5PLI8SWLjwRr67Ag1V+APxXIwpDAmcK6G0qzUk+upzxgue1Pg0BewkCEGfl3GEP8GppsiJ0u7zJ+Q4QLTI9wQcqjwBXICJRFix7Z5Ji1LhCyXwtuBVTyD4KjBRvRgfEAu9PREdffZFH5AkIbclcI9y/+fC/HWTENLSV5Q6X8LnLRi2xDNBgNxlMJkIwbcESf74chINtKUfJtATKBAuyc8XAgA=", "snow": "data:image/webp;base64,UklGRn4FAABXRUJQVlA4THIFAAAvf8AfEJVQsm3bVevQ/wZr/OD3ZuFc4Eq+VO2jHDYSERIgACDc5sO6TVOnto30ZnvJvNW2bZuzg8vu56227UbXdlt2We7G3Iq/2v8T0P/hnrSj8rzRovddMxo/2heJK4ZtyIk4Qsldmm8NNnImIa/Lws9iJm4NiBdEJWSu3/QvBaxHkLFdbC9k7TESlH9bGYWY/oWQCR5Yw2L+C9fDf1T5+jKIGdoXwTlwqjEOfSpZOXZK1FwCcgSpal8OwJmo9kq4XQCFqbr7fJSBfxSWB2u++PGP6oSWXsJreW6nut4zSflSNvbytBVD0FOaW8mut7g3/wv/novgXxG6OLapNCY1sGAu7rNY7NmyiubFfRX8abyKqcU9FiPTUMrGW9zuXsxM+yrGFrdfKuYHsCe9DaQXnYtjUEKtu3lv37xDOnbdRN4gHoBuYMFaHNQ2XyR3Q4OSL9QBqU/7Cf9uxA0q18W1VwUb/gA0TpK8fL6ifhIlyXatm3+SgN9W53QJygFo+sZyql3J3aQJiqFePQxRIUbq/vnc1o4RO93dCiGV9/Kab4khCt1NRQnucwI2JvbjAHQLvRVTv3DrI2WoRDe5A1CpIHP4OACVb4b7pb6ALK2U+OFEOYqADh5YVoC0vjsZ4G2QeLMfOEJBhj8Z2r+FyIkFwWC+E3I7xsnPnGpe7c8eIwUN+5rTFcCOeBBaQ6OwBpVJwO7+wg0E2sgDNITQ3eSUJIm8NehMxWfQ3ZIzJvRzwvMVWdsoZna9A8B8Y0OqzjWgDQJyriWAR158U8N4PmdjO9rdfP0bxIxgYsjQuzXQJhgkH8+p5lG7u789IjzBro9O9JCahsFxM7TX0G9oozE+gx5DcX11V41OzRgStmtkD8BxeJkn7eBLr/KJr5UTDFHsexZ8zLzAXulmvPGOgJD6nhHQnkcEzHutiB+j+MLgflji5KixX7jF3MlsX4/EMv/7uL7mRH6LkZFT0afBu5sxuLzBLAXa/wK6DbLHzHrK8IYlqkTsUnikcruCBsBZ3gzsfh2Axi+4pFdiqOD8wjWDjVfkzVJU3j+6260S5IXsevYLt+6m8BmwkY9TqO2XkE/4MJUrFswB6G6S23zxbCFik8Qiha6bMfM7mT5xj7ECuRn4PtKw7Jn0WFYhfFuHmvLTE527JYnOY6ciX5M8s10GSeLCYwYwQ6QJMH4micBlMIdUWjO8G+3WE1ptUbIMR4vlnslt4DvUDOlF5zJ4FBNTSOlOYsfpAzATtRAu45/konZKNy9MRUx6KqdiYxlfBW3S/PcSmFUoL578K2BXIa9gPjAOBfy0CrFF8wNztIB6lW4XggfmVsFdxmvZ9uAflsqiZhm0bScJ2ymw+wHpvGjN0VsULOONoOwxU9CTbBCnGST9K9yW0RhFwwy3UvGhJqAkyQvSOgQWOzQm+DgIkwnAYqzXeSdjI0lkTMAagDfj88hZKfIW0jtY/EQ4D2Vg/Ok8KUlyY7WS/XCJrPNawbYHiS+7Xp/9j6qfRfMBWCm0qQKif16zdxvlF+4AnK88FWUpjVqibcJcJ1KN91qhDZUIfRAUiQbsFtPI1or9/cBD0JvqXS/X3RLi3fre4NEh9ZHaemA2dok/+4F7IouVau/aC2ZKWGJb8L0gaclQTi+ZHagkntzJzEP1M8PtAdSamuvPIC8ok96A4Aw/4HvV+2F/Bsk24DrsecxVbnuQsUe9cFa4o8R3d/cDCCf8wjERbMhaxnbFQ6+sEYG3URIrBp6VSBD5KcddNUTvOU68Hz4Aq98v+XJs6s0ThF4/2U8r0941cOrLSFH69nUKSDPbvpzQTnu0ic6wvTUIZNCX9h9VF+V486hb702Ldx7xZw9/AP63IQ==", "fog": "data:image/webp;base64,UklGRkQBAABXRUJQVlA4TDgBAAAvf8AfEHU4jiTJUfDfSXzgKdOAQmu1RwQUAQAIRrNtNjVG2/bONputaPsJNl+AyGjGWRPwevr/QhLInFcp6bJfi/AxQMsKebtzRItQvvdnai1qxg400FK5C/S1MCV6mwRV66VHPreZAowBq/coIxeevGoCmQFuMa7s1p27CDszQ5LTI6MQF2OOkYmNvA+wltGxAxlalnaBcEvtLiBqoXrobU4AWy9CdzU7cK86GM26SHFYhAz4dVUOTq5cZXiiB8uhuVGIu8WLAU0j7x6xtVSNHSjSWjfvAuMtgV2wbm9B+u/5JWi9OMVrYuuGGaBOasq+g/Bkjvx1pQ0MEh47AEqXf4WyvGc1QDFg2wp1OZ0xdpncEENubWbGDuTeezwtrh0gg9uCdtIz+YojWPYtURbzYhCw9vT/6Rw="};
 
 
+
+        const OFFICIAL_APPRAISAL_STAMP_HUNDO_URL = "data:image/webp;base64,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";
+
+        function getIvStatColor(val) {
+            return Number(val) >= 15 ? '#e07a84' : '#eea243';
+        }
+
+        function renderAppraisalStampHtml(ivTotal, sizeClass = 'w-14 h-14') {
+            const t = Number(ivTotal) || 0;
+            if (t >= 45) {
+                return `<img src="${OFFICIAL_APPRAISAL_STAMP_HUNDO_URL}" alt="4★ 100% IV" class="${sizeClass} object-contain select-none drop-shadow-md" draggable="false" />`;
+            }
+            const stars = t >= 37 ? 3 : (t >= 30 ? 2 : (t >= 23 ? 1 : 0));
+            const starSvg = (cx, cy, filled) => `<path d="M0-10 L2.9-3.5 L10-2.8 L4.6 1.8 L6.2 8.8 L0 5.1 L-6.2 8.8 L-4.6 1.8 L-10-2.8 L-2.9-3.5 Z" transform="translate(${cx},${cy}) scale(1.05)" fill="${filled ? '#fbbf24' : 'rgba(238,162,67,0.22)'}" stroke="${filled ? '#d97706' : 'rgba(217,119,6,0.35)'}" stroke-width="1.4" stroke-linejoin="round"/>`;
+            return `
+                <svg class="${sizeClass} object-contain select-none drop-shadow-md" viewBox="0 0 100 100" role="img" aria-label="${stars}★ Bewertung">
+                    <circle cx="50" cy="50" r="46" fill="#ffffff" stroke="#fbd38d" stroke-width="4" stroke-dasharray="4 3"/>
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#f6ad55" stroke-width="3.5"/>
+                    <path d="M18 36 A35 35 0 0 1 82 36 Z" fill="#f6ad55" opacity="0.65"/>
+                    <path d="M18 64 A35 35 0 0 0 82 64 Z" fill="#f6ad55" opacity="0.65"/>
+                    <circle cx="50" cy="24" r="6" fill="none" stroke="#ffffff" stroke-width="2.2" opacity="0.8"/>
+                    <circle cx="50" cy="76" r="6" fill="none" stroke="#ffffff" stroke-width="2.2" opacity="0.8"/>
+                    ${starSvg(27, 52, stars >= 1)}
+                    ${starSvg(50, 48, stars >= 2)}
+                    ${starSvg(73, 52, stars >= 3)}
+                </svg>
+            `;
+        }
+
+        function getAppraisalStampTier(ivTotal) {
+            const t = Number(ivTotal) || 0;
+            if (t >= 45) return '4';
+            if (t >= 37) return '3';
+            if (t >= 30) return '2';
+            if (t >= 23) return '1';
+            return '0';
+        }
+
+        function updateAppraisalStampEl(el, ivTotal, sizeClass = 'w-14 h-14') {
+            if (!el) return;
+            const nextTier = getAppraisalStampTier(ivTotal);
+            const prevTier = el.dataset.stampTier || '';
+            if (prevTier === nextTier && el.children.length > 0) return;
+            el.dataset.stampTier = nextTier;
+            const isHundo = nextTier === '4';
+            const animCls = isHundo ? 'appraisal-stamp-hundo-anim' : 'appraisal-stamp-swap-anim';
+            el.innerHTML = `${isHundo ? '<span class="appraisal-hundo-halo" aria-hidden="true"></span>' : ''}<div class="${animCls}">${renderAppraisalStampHtml(ivTotal, sizeClass)}</div>`;
+        }
 
         const WEATHER_META = {
             clear: {
@@ -7765,7 +7883,7 @@
             setTxt(`slot${slotLetter}-ivHpVal`, `${s.ivHp}/15`);
 
             const sealEl = document.getElementById(`slot${slotLetter}-seal`);
-            if (sealEl) sealEl.style.background = sealBg;
+            if (sealEl) updateAppraisalStampEl(sealEl, ivTotal, 'w-14 h-14');
 
             const arcEl = document.getElementById(`slot${slotLetter}-arc`);
             if (arcEl) {
@@ -7781,6 +7899,11 @@
             }
 
             [['ivAtk', s.ivAtk], ['ivDef', s.ivDef], ['ivHp', s.ivHp]].forEach(([key, val]) => {
+                const statCol = getIvStatColor(val);
+                const lblEl = document.getElementById(`slot${slotLetter}-${key}Label`);
+                if (lblEl) lblEl.style.color = statCol;
+                const valEl = document.getElementById(`slot${slotLetter}-${key}Val`);
+                if (valEl) valEl.style.color = statCol;
                 const barEl = document.getElementById(`slot${slotLetter}-${key}-bar`);
                 if (barEl) barEl.setAttribute('aria-valuenow', String(val));
                 const w1 = Math.min(100, (val / 5) * 100);
@@ -7790,7 +7913,7 @@
                     const seg = document.getElementById(`slot${slotLetter}-${key}-seg${idx + 1}`);
                     if (seg) {
                         seg.style.width = `${w}%`;
-                        seg.style.background = barColor;
+                        seg.style.background = statCol;
                     }
                 });
             });
@@ -8524,11 +8647,13 @@
                 </div>
             `;
 
-            const renderIvRow = (label, statKey, val) => `
+            const renderIvRow = (label, statKey, val) => {
+                const statCol = getIvStatColor(val);
+                return `
                 <div>
-                    <div class="flex items-center justify-between text-[11px] mb-1">
-                        <span>${label}</span>
-                        <span id="slot${slotLetter}-${statKey}Val" class="font-mono font-black">${val}/15</span>
+                    <div class="flex items-center justify-between text-xs font-black mb-1">
+                        <span id="slot${slotLetter}-${statKey}Label" style="color:${statCol}">${label}</span>
+                        <span id="slot${slotLetter}-${statKey}Val" class="font-mono font-black text-[11px]" style="color:${statCol}">${val}/15</span>
                     </div>
                     <div
                         id="slot${slotLetter}-${statKey}-bar"
@@ -8544,25 +8669,37 @@
                         class="iv-bar-hit"
                     >
                         <div class="iv-seg-track">
-                            <div class="iv-seg"><div id="slot${slotLetter}-${statKey}-seg1" class="iv-seg-fill" style="width:${Math.min(100, (val/5)*100)}%;background:${barColor}"></div></div>
-                            <div class="iv-seg"><div id="slot${slotLetter}-${statKey}-seg2" class="iv-seg-fill" style="width:${Math.max(0, Math.min(100, ((val-5)/5)*100))}%;background:${barColor}"></div></div>
-                            <div class="iv-seg"><div id="slot${slotLetter}-${statKey}-seg3" class="iv-seg-fill" style="width:${Math.max(0, ((val-10)/5)*100)}%;background:${barColor}"></div></div>
+                            <div class="iv-seg"><div id="slot${slotLetter}-${statKey}-seg1" class="iv-seg-fill" style="width:${Math.min(100, (val/5)*100)}%;background:${statCol}"></div></div>
+                            <div class="iv-seg"><div id="slot${slotLetter}-${statKey}-seg2" class="iv-seg-fill" style="width:${Math.max(0, Math.min(100, ((val-5)/5)*100))}%;background:${statCol}"></div></div>
+                            <div class="iv-seg"><div id="slot${slotLetter}-${statKey}-seg3" class="iv-seg-fill" style="width:${Math.max(0, ((val-10)/5)*100)}%;background:${statCol}"></div></div>
                         </div>
                     </div>
                 </div>
             `;
+            };
 
             const displayTitle = s.isShadow ? `Crypto-${p.name}` : (s.isDmax ? `Dynamax-${p.name}` : p.name);
             const barAccentClass = s.isShadow ? 'bg-purple-500' : ((p.isGmax || s.isDmax) ? 'bg-rose-500' : (s.isLucky ? 'bg-amber-400' : 'bg-emerald-400'));
+            const cmpT1 = TYPE_META[p.types?.[0]] || TYPE_META.Normal;
+            const cmpT2 = (p.types?.[1] && TYPE_META[p.types[1]]) ? TYPE_META[p.types[1]] : cmpT1;
+            const cmpStageBgStyle = s.isShadow
+                ? `radial-gradient(circle at 50% 30%, #7e22ce 0%, #3b0764 55%, #0f172a 100%)`
+                : (p.isMega
+                    ? `radial-gradient(circle at 50% 30%, ${cmpT1.color} 0%, #4c1d95 58%, #0f172a 100%)`
+                    : ((p.isGmax || s.isDmax)
+                        ? `radial-gradient(circle at 50% 30%, #e11d48 0%, #881337 55%, #0f172a 100%)`
+                        : (s.isLucky
+                            ? `radial-gradient(circle at 50% 28%, #f59e0b 0%, ${cmpT1.color}dd 58%, #78350f 100%)`
+                            : `radial-gradient(circle at 50% 28%, ${cmpT1.color}ee 0%, ${cmpT2.color}cc 55%, #0f172ad9 100%)`)));
 
             container.innerHTML = `
-                <div class="pogo-card-shell">
-                    <div class="${stageClass} relative overflow-hidden flex flex-col items-center justify-end pb-4">
-                        ${renderDexTypeWatermarkBg(p.types, true)}
+                <div class="pogo-card-shell overflow-hidden">
+                    <div class="relative z-0 overflow-hidden flex flex-col items-center justify-end pt-4 pb-12 text-white" style="background: ${cmpStageBgStyle};">
+                        ${renderHeroStageTypeOverlaySvg(p.types?.[0], `cmp_${slotLetter}_${p.dex}`)}
 
                         <div class="text-white font-black tracking-tight z-10 mb-1">
                             <span class="text-xs uppercase opacity-80 mr-1">WP</span>
-                            <span id="slot${slotLetter}-cp" class="text-3xl font-mono">${formatNum(m.cp, 0)}</span>
+                            <span id="slot${slotLetter}-cp" class="text-3xl font-mono drop-shadow">${formatNum(m.cp, 0)}</span>
                         </div>
 
                         <svg class="w-56 h-28 overflow-visible z-10" viewBox="0 0 200 100">
@@ -8575,12 +8712,12 @@
                             class="-mt-20 z-10 cursor-pointer group"
                             title="Klicken, um Pokémon für Slot ${slotLetter} zu tauschen"
                         >
-                            ${renderSpriteImg(p.spriteId, displayTitle, 'w-32 h-32 sprite-float group-hover:scale-105 transition', p.dex)}
+                            ${renderSpriteImg(p.spriteId, displayTitle, 'w-32 h-32 sprite-float group-hover:scale-105 transition drop-shadow-[0_10px_18px_rgba(0,0,0,0.42)]', p.dex)}
                         </div>
                     </div>
 
-                    <div class="p-5 space-y-4 relative">
-                        <div id="slot${slotLetter}-lvlTag" class="absolute top-4 right-0 pogo-lvl-tag font-mono">
+                    <div class="relative z-10 -mt-7 rounded-t-[2rem] themed-card p-5 pt-7 space-y-4" style="box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.14);">
+                        <div id="slot${slotLetter}-lvlTag" class="absolute top-5 right-0 pogo-lvl-tag font-mono">
                             LVL ${s.level.toFixed(1)}
                         </div>
 
@@ -8648,21 +8785,20 @@
                             </div>
                         </div>
 
-                        <div class="themed-sub rounded-2xl p-3.5 flex items-center gap-3.5">
+                        <div class="relative themed-card rounded-2xl p-4 pt-5 pl-12 border shadow-sm mt-3" style="border-color: var(--border-color);">
                             <div
                                 id="slot${slotLetter}-seal"
+                                data-stamp-tier="${getAppraisalStampTier(ivTotal)}"
                                 onclick="toggleSlotHundo('${slotLetter}')"
-                                class="appraisal-seal cursor-pointer hover:scale-105 transition"
-                                style="background: ${sealBg};"
+                                class="absolute -top-4 -left-3 z-10 cursor-pointer hover:scale-105 transition"
                                 title="Klicken, um zwischen 100% IV (15/15/15) und Raid-Floor (10/10/10) zu wechseln"
                             >
-                                <div id="slot${slotLetter}-sealStars" class="text-[11px] leading-none">${starsLabel}</div>
-                                <div id="slot${slotLetter}-sealPct" class="text-[10px] mt-0.5">${ivPct}%</div>
+                                ${renderAppraisalStampHtml(ivTotal, 'w-14 h-14')}
                             </div>
-                            <div class="flex-1 space-y-2.5 text-xs font-extrabold">
-                                ${renderIvRow('Angriff', 'ivAtk', s.ivAtk)}
-                                ${renderIvRow('Verteidigung', 'ivDef', s.ivDef)}
-                                ${renderIvRow('KP', 'ivHp', s.ivHp)}
+                            <div class="space-y-2.5">
+                                ${renderIvRow('Angriffs-Wert', 'ivAtk', s.ivAtk)}
+                                ${renderIvRow('Verteidigungs-Wert', 'ivDef', s.ivDef)}
+                                ${renderIvRow('KP-Wert', 'ivHp', s.ivHp)}
                             </div>
                         </div>
 
@@ -10594,25 +10730,26 @@
                 });
             }
 
-            const seenUrl = new Set();
+            const seenKey = new Set();
             const list = [];
             rawForms.forEach((af, idx) => {
                 if (!af || !af.costume) return;
                 const img = af.image || af.shinyImage || '';
                 if (!img) return;
-                const dedupKey = `${af.costume}|${img}`;
-                if (seenUrl.has(dedupKey)) return;
-                seenUrl.add(dedupKey);
+                const normCode = normalizeCostumeDedupeKey(af.costume);
+                const dedupKey = normCode || img;
+                if (seenKey.has(dedupKey)) return;
+                seenKey.add(dedupKey);
 
-                const id = `${sp.dexNr}__${af.costume}${af.form ? '__' + af.form : ''}${af.isFemale ? '__f' : ''}__${idx}`;
+                const id = `${sp.dexNr}__${af.costume}${af.form ? '__' + af.form : ''}__${idx}`;
                 list.push({
                     id,
                     costumeCode: String(af.costume),
-                    label: formatCostumeLabel(af.costume, Boolean(af.isFemale)),
+                    label: formatCostumeLabel(af.costume, false),
                     image: af.image || af.shinyImage,
                     shinyImage: af.shinyImage || af.image,
                     hasDistinctShiny: Boolean(af.shinyImage && af.shinyImage !== af.image),
-                    isFemale: Boolean(af.isFemale),
+                    isFemale: false,
                     form: af.form || null
                 });
             });
@@ -10637,7 +10774,8 @@
             return String(codeOrLabel || '')
                 .toLowerCase()
                 .replace(/^costume[_\s-]*/i, '')
-                .replace(/_?noevolve/gi, '')
+                .replace(/_?no_?evolve/gi, '')
+                .replace(/\(\s*♀\s*\)/g, '')
                 .replace(/[^a-z0-9]+/g, '');
         }
 
@@ -10645,20 +10783,28 @@
             if (!dexNr || !Array.isArray(newEntries) || newEntries.length === 0) return;
             const existing = LIVE_COSTUMES_BY_DEX[dexNr] || [];
             const seenUrl = new Set(existing.map(c => c.image));
-            const seenKey = new Set(existing.map(c => `${normalizeCostumeDedupeKey(c.costumeCode)}|${c.isFemale ? 'f' : 'm'}`));
-            const seenLabel = new Set(existing.map(c => `${normalizeCostumeDedupeKey(c.label)}|${c.isFemale ? 'f' : 'm'}`));
+            const seenKey = new Set(existing.map(c => normalizeCostumeDedupeKey(c.costumeCode)).filter(k => k.length > 1));
+            const seenLabel = new Set(existing.map(c => normalizeCostumeDedupeKey(c.label)).filter(k => k.length > 1));
+            const seenNum = new Set(existing.map(c => c.costumeNum).filter(n => Number.isFinite(n) && n > 0));
 
             const merged = [...existing];
             newEntries.forEach(c => {
                 if (!c || !c.image) return;
-                const kCode = `${normalizeCostumeDedupeKey(c.costumeCode)}|${c.isFemale ? 'f' : 'm'}`;
-                const kLabel = `${normalizeCostumeDedupeKey(c.label)}|${c.isFemale ? 'f' : 'm'}`;
-                if (seenUrl.has(c.image) || (kCode.length > 2 && seenKey.has(kCode)) || (kLabel.length > 2 && seenLabel.has(kLabel))) {
+                const kCode = normalizeCostumeDedupeKey(c.costumeCode);
+                const kLabel = normalizeCostumeDedupeKey(c.label);
+                const cNum = Number.isFinite(c.costumeNum) && c.costumeNum > 0 ? c.costumeNum : null;
+                if (
+                    seenUrl.has(c.image) ||
+                    (cNum && seenNum.has(cNum)) ||
+                    (kCode.length > 1 && seenKey.has(kCode)) ||
+                    (kLabel.length > 1 && seenLabel.has(kLabel))
+                ) {
                     return;
                 }
                 seenUrl.add(c.image);
-                seenKey.add(kCode);
-                seenLabel.add(kLabel);
+                if (cNum) seenNum.add(cNum);
+                if (kCode.length > 1) seenKey.add(kCode);
+                if (kLabel.length > 1) seenLabel.add(kLabel);
                 merged.push(c);
             });
             LIVE_COSTUMES_BY_DEX[dexNr] = merged;
@@ -10668,14 +10814,43 @@
         async function syncExtendedCostumesCatalog() {
             if (EXTENDED_COSTUMES_LOADED) return true;
             try {
-                const uiconsBase = 'https://raw.githubusercontent.com/nileplumb/PkmnHomeIcons/master/UICONS/pokemon/';
-                const [uiconsIdx, masterData] = await Promise.all([
-                    fetchJsonWithTimeout('https://raw.githubusercontent.com/nileplumb/PkmnHomeIcons/master/UICONS/index.json', 10000, false)
-                        .then(r => r || fetchJsonWithTimeout('https://cdn.jsdelivr.net/gh/nileplumb/PkmnHomeIcons@master/UICONS/index.json', 10000, false)),
-                    fetchJsonWithTimeout('https://raw.githubusercontent.com/WatWowMap/Masterfile-Generator/master/master-latest-react-map.json', 10000, false)
-                        .then(r => r || fetchJsonWithTimeout('https://raw.githubusercontent.com/WatWowMap/Masterfile-Generator/master/master-latest-basics.json', 10000, false))
-                ]);
+                // Primär: aktuelles WatWowMap/wwm-uicons-webp Repo (enthält auch die neuesten 2025/2026-Kostüme)
+                // Fallback: nileplumb/PkmnHomeIcons
+                const uiconsSources = [
+                    {
+                        idxUrls: [
+                            'https://raw.githubusercontent.com/WatWowMap/wwm-uicons-webp/main/index.json',
+                            'https://cdn.jsdelivr.net/gh/WatWowMap/wwm-uicons-webp@main/index.json'
+                        ],
+                        base: 'https://raw.githubusercontent.com/WatWowMap/wwm-uicons-webp/main/pokemon/'
+                    },
+                    {
+                        idxUrls: [
+                            'https://raw.githubusercontent.com/nileplumb/PkmnHomeIcons/master/UICONS/index.json',
+                            'https://cdn.jsdelivr.net/gh/nileplumb/PkmnHomeIcons@master/UICONS/index.json'
+                        ],
+                        base: 'https://raw.githubusercontent.com/nileplumb/PkmnHomeIcons/master/UICONS/pokemon/'
+                    }
+                ];
 
+                const masterPromise = fetchJsonWithTimeout('https://raw.githubusercontent.com/WatWowMap/Masterfile-Generator/master/master-latest-react-map.json', 10000, false)
+                    .then(r => r || fetchJsonWithTimeout('https://raw.githubusercontent.com/WatWowMap/Masterfile-Generator/master/master-latest-basics.json', 10000, false));
+
+                let uiconsIdx = null;
+                let uiconsBase = '';
+                for (const src of uiconsSources) {
+                    for (const url of src.idxUrls) {
+                        const res = await fetchJsonWithTimeout(url, 9000, false);
+                        if (res && Array.isArray(res.pokemon) && res.pokemon.length > 0) {
+                            uiconsIdx = res;
+                            uiconsBase = src.base;
+                            break;
+                        }
+                    }
+                    if (uiconsIdx) break;
+                }
+
+                const masterData = await masterPromise;
                 const files = Array.isArray(uiconsIdx?.pokemon) ? uiconsIdx.pokemon : [];
                 if (files.length === 0) return false;
 
@@ -10687,11 +10862,11 @@
                     });
                 }
 
-                // Gruppiere alle UICONS-Kostümdateien (Normal + Shiny) je (dex, costumeId, form, gender)
+                // Gruppiere strikt je (dex, costumeNum, nonZeroFormTok) – verhindert doppelte g1/g2/f00-Einträge!
                 const grouped = new Map();
                 files.forEach(file => {
-                    if (typeof file !== 'string' || !file.endsWith('.png')) return;
-                    const stem = file.slice(0, -4);
+                    if (typeof file !== 'string' || !/\.(png|webp)$/i.test(file)) return;
+                    const stem = file.replace(/\.(png|webp)$/i, '');
                     const parts = stem.split('_');
                     const dex = parseInt(parts[0], 10);
                     if (!Number.isFinite(dex) || dex <= 0) return;
@@ -10706,41 +10881,58 @@
 
                     const isShiny = parts.includes('s');
                     const isFemale = parts.includes('g2');
-                    const formTok = parts.find(t => /^f\d+$/i.test(t)) || '';
-                    const key = `${dex}|${costumeNum}|${formTok}|${isFemale ? 'f' : 'm'}`;
+                    const rawFormTok = parts.find(t => /^f\d+$/i.test(t)) || '';
+                    const formTok = /^f0+$/i.test(rawFormTok) ? '' : rawFormTok;
+                    const key = `${dex}|${costumeNum}|${formTok}`;
 
                     if (!grouped.has(key)) {
-                        grouped.set(key, { dex, costumeNum, formTok, isFemale, normalFile: null, shinyFile: null });
+                        grouped.set(key, {
+                            dex,
+                            costumeNum,
+                            formTok,
+                            normalFile: null,
+                            shinyFile: null,
+                            femaleNormalFile: null,
+                            femaleShinyFile: null
+                        });
                     }
                     const entry = grouped.get(key);
-                    if (isShiny) entry.shinyFile = file;
-                    else entry.normalFile = file;
+                    if (isFemale) {
+                        if (isShiny && !entry.femaleShinyFile) entry.femaleShinyFile = file;
+                        else if (!isShiny && !entry.femaleNormalFile) entry.femaleNormalFile = file;
+                    } else {
+                        if (isShiny && !entry.shinyFile) entry.shinyFile = file;
+                        else if (!isShiny && !entry.normalFile) entry.normalFile = file;
+                    }
                 });
 
                 const byDex = {};
                 grouped.forEach(item => {
-                    const normalFile = item.normalFile || item.shinyFile;
+                    const normalFile = item.normalFile || item.femaleNormalFile || item.shinyFile || item.femaleShinyFile;
+                    const shinyFile = item.shinyFile || item.femaleShinyFile || normalFile;
                     if (!normalFile) return;
                     const rawCode = costumeNamesMap[String(item.costumeNum)] || `COSTUME_${item.costumeNum}`;
                     const label = costumeNamesMap[String(item.costumeNum)]
-                        ? formatCostumeLabel(rawCode, item.isFemale)
-                        : (item.isFemale ? `Kostüm #${item.costumeNum} (♀)` : `Kostüm #${item.costumeNum}`);
+                        ? formatCostumeLabel(rawCode, false)
+                        : `Kostüm #${item.costumeNum}`;
                     const entry = {
-                        id: `uicons__${item.dex}__c${item.costumeNum}${item.formTok ? '__' + item.formTok : ''}${item.isFemale ? '__f' : ''}`,
+                        id: `uicons__${item.dex}__c${item.costumeNum}${item.formTok ? '__' + item.formTok : ''}`,
+                        costumeNum: item.costumeNum,
                         costumeCode: rawCode,
                         label,
                         image: `${uiconsBase}${normalFile}`,
-                        shinyImage: `${uiconsBase}${item.shinyFile || normalFile}`,
-                        hasDistinctShiny: Boolean(item.shinyFile && item.normalFile),
-                        isFemale: item.isFemale,
+                        shinyImage: `${uiconsBase}${shinyFile}`,
+                        hasDistinctShiny: Boolean(shinyFile && shinyFile !== normalFile),
+                        isFemale: false,
                         form: item.formTok || null
                     };
                     if (!byDex[item.dex]) byDex[item.dex] = [];
                     byDex[item.dex].push(entry);
                 });
 
+                // Neueste Kostüme (höhere costumeNum) zuerst, dann alphabetisch
                 Object.entries(byDex).forEach(([dexStr, list]) => {
-                    list.sort((a, b) => a.label.localeCompare(b.label, 'de'));
+                    list.sort((a, b) => (b.costumeNum - a.costumeNum) || a.label.localeCompare(b.label, 'de'));
                     mergeCostumesIntoDex(Number(dexStr), list);
                 });
 
@@ -11182,6 +11374,109 @@
             `;
         }
 
+        function getFsIvs() {
+            const ivAtk = typeof appState.fsIvAtk === 'number' ? Math.max(0, Math.min(15, Math.round(appState.fsIvAtk))) : 15;
+            const ivDef = typeof appState.fsIvDef === 'number' ? Math.max(0, Math.min(15, Math.round(appState.fsIvDef))) : 15;
+            const ivHp = typeof appState.fsIvHp === 'number' ? Math.max(0, Math.min(15, Math.round(appState.fsIvHp))) : 15;
+            const ivTotal = ivAtk + ivDef + ivHp;
+            const ivPct = Math.round((ivTotal / 45) * 100);
+            return { ivAtk, ivDef, ivHp, ivTotal, ivPct, isHundo: ivTotal === 45 };
+        }
+
+        function updateFsIvBarsUi() {
+            const { ivAtk, ivDef, ivHp, ivTotal, ivPct, isHundo } = getFsIvs();
+            const map = { ivAtk, ivDef, ivHp };
+            Object.entries(map).forEach(([statKey, val]) => {
+                const statCol = getIvStatColor(val);
+                const lblEl = document.getElementById(`fs-${statKey}Label`);
+                if (lblEl) lblEl.style.color = statCol;
+                const valEl = document.getElementById(`fs-${statKey}Val`);
+                if (valEl) {
+                    valEl.textContent = `${val}/15`;
+                    valEl.style.color = statCol;
+                }
+                const barEl = document.getElementById(`fs-${statKey}-bar`);
+                if (barEl) barEl.setAttribute('aria-valuenow', String(val));
+                const s1 = document.getElementById(`fs-${statKey}-seg1`);
+                const s2 = document.getElementById(`fs-${statKey}-seg2`);
+                const s3 = document.getElementById(`fs-${statKey}-seg3`);
+                if (s1) { s1.style.width = `${Math.min(100, (val / 5) * 100)}%`; s1.style.background = statCol; }
+                if (s2) { s2.style.width = `${Math.max(0, Math.min(100, ((val - 5) / 5) * 100))}%`; s2.style.background = statCol; }
+                if (s3) { s3.style.width = `${Math.max(0, Math.min(100, ((val - 10) / 5) * 100))}%`; s3.style.background = statCol; }
+            });
+            const stampEl = document.getElementById('fsIvStamp');
+            if (stampEl) updateAppraisalStampEl(stampEl, ivTotal, 'w-14 h-14');
+            const pctBadge = document.getElementById('fsIvPctBadge');
+            if (pctBadge) {
+                pctBadge.textContent = `${ivPct}% IV (${ivAtk}/${ivDef}/${ivHp})`;
+                pctBadge.style.color = isHundo ? '#e07a84' : '#eea243';
+            }
+            const lvl = (typeof appState.fsHeroLevel === 'number' && !isNaN(appState.fsHeroLevel)) ? appState.fsHeroLevel : 50;
+            updateFsHeroArcUi(lvl);
+        }
+
+        function setFsIvValue(statKey, val) {
+            const clamped = Math.max(0, Math.min(15, Math.round(Number(val))));
+            const prop = statKey === 'ivAtk' ? 'fsIvAtk' : (statKey === 'ivDef' ? 'fsIvDef' : 'fsIvHp');
+            if (appState[prop] === clamped) return;
+            appState[prop] = clamped;
+            updateFsIvBarsUi();
+        }
+
+        function stepFsIv(statKey, delta) {
+            const ivs = getFsIvs();
+            setFsIvValue(statKey, (ivs[statKey] ?? 15) + delta);
+        }
+
+        function setFsIvPreset(atk, def, hp) {
+            appState.fsIvAtk = Math.max(0, Math.min(15, atk));
+            appState.fsIvDef = Math.max(0, Math.min(15, def));
+            appState.fsIvHp = Math.max(0, Math.min(15, hp));
+            updateFsIvBarsUi();
+        }
+
+        function startFsIvBarDrag(event, statKey, barEl) {
+            if (!barEl) return;
+            if (event.button !== undefined && event.button !== 0) return;
+            if (event.cancelable) event.preventDefault();
+            event.stopPropagation();
+
+            const pointerId = event.pointerId;
+            try {
+                if (typeof barEl.setPointerCapture === 'function' && pointerId != null) {
+                    barEl.setPointerCapture(pointerId);
+                }
+            } catch (e) {}
+
+            const applyFromX = (clientX) => {
+                const rect = barEl.getBoundingClientRect();
+                if (!rect.width) return;
+                const pct = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+                setFsIvValue(statKey, Math.round(pct * 15));
+            };
+
+            applyFromX(event.clientX);
+
+            const onMove = (e) => {
+                if (e.cancelable) e.preventDefault();
+                applyFromX(e.clientX);
+            };
+            const onUp = () => {
+                window.removeEventListener('pointermove', onMove);
+                window.removeEventListener('pointerup', onUp);
+                window.removeEventListener('pointercancel', onUp);
+                try {
+                    if (typeof barEl.releasePointerCapture === 'function' && pointerId != null && barEl.hasPointerCapture?.(pointerId)) {
+                        barEl.releasePointerCapture(pointerId);
+                    }
+                } catch (err) {}
+            };
+
+            window.addEventListener('pointermove', onMove, { passive: false });
+            window.addEventListener('pointerup', onUp);
+            window.addEventListener('pointercancel', onUp);
+        }
+
         function updateFsHeroArcUi(rawLevel, visualPct = null, cached = null) {
             const clamped = Math.max(1, Math.min(50, Math.round(Number(rawLevel || 50) * 2) / 2));
             appState.fsHeroLevel = clamped;
@@ -11212,13 +11507,14 @@
 
             if (!cached || cached.lastSnapped !== clamped) {
                 if (cached) cached.lastSnapped = clamped;
+                const { ivAtk, ivDef, ivHp, ivPct } = getFsIvs();
                 const cpm = getCpmForLevel(clamped);
-                const cp = Math.max(10, Math.floor(((p.atk + 15) * cpm * Math.sqrt((p.def + 15) * cpm) * Math.sqrt(Math.floor((p.hp + 15) * cpm))) / 10));
+                const cp = Math.max(10, Math.floor(((p.atk + ivAtk) * cpm * Math.sqrt((p.def + ivDef) * cpm) * Math.sqrt(Math.floor((p.hp + ivHp) * cpm))) / 10));
 
                 const cpEl = (cached && cached.cpEl) || document.getElementById('fsHeroCpValue');
                 if (cpEl) cpEl.textContent = formatNum(cp, 0);
                 const lvlEl = (cached && cached.lvlEl) || document.getElementById('fsHeroLevelLabel');
-                if (lvlEl) lvlEl.textContent = `100% WP (Lvl ${Number.isInteger(clamped) ? clamped : clamped.toFixed(1)})`;
+                if (lvlEl) lvlEl.textContent = `${ivPct}% IV • Lvl ${Number.isInteger(clamped) ? clamped : clamped.toFixed(1)}`;
 
                 const svgEl = (cached && cached.svgEl) || document.getElementById('fsHeroArcSvg');
                 if (svgEl) svgEl.setAttribute('aria-valuenow', String(clamped));
@@ -11453,11 +11749,71 @@
                         : `radial-gradient(circle at 50% 28%, ${tMeta1.color}ee 0%, ${tMeta2.color}cc 55%, #0f172ad9 100%)`));
             const stageArcColor = '#ffffff';
 
+            const fsIvs = getFsIvs();
+            const renderFsIvRow = (label, statKey, val) => {
+                const statCol = getIvStatColor(val);
+                return `
+                <div>
+                    <div class="flex items-center justify-between text-xs font-black mb-1">
+                        <span id="fs-${statKey}Label" style="color:${statCol}">${label}</span>
+                        <span id="fs-${statKey}Val" class="font-mono font-black text-[11px]" style="color:${statCol}">${val}/15</span>
+                    </div>
+                    <div
+                        id="fs-${statKey}-bar"
+                        role="slider"
+                        tabindex="0"
+                        aria-label="${label} IV (0 bis 15)"
+                        aria-valuemin="0"
+                        aria-valuemax="15"
+                        aria-valuenow="${val}"
+                        title="${label}-IV per Klick oder Ziehen einstellen (0–15)"
+                        onpointerdown="startFsIvBarDrag(event, '${statKey}', this)"
+                        onkeydown="if(event.key==='ArrowLeft'||event.key==='ArrowDown'){event.preventDefault();stepFsIv('${statKey}',-1);}else if(event.key==='ArrowRight'||event.key==='ArrowUp'){event.preventDefault();stepFsIv('${statKey}',1);}"
+                        class="iv-bar-hit"
+                    >
+                        <div class="iv-seg-track">
+                            <div class="iv-seg"><div id="fs-${statKey}-seg1" class="iv-seg-fill" style="width:${Math.min(100, (val/5)*100)}%;background:${statCol}"></div></div>
+                            <div class="iv-seg"><div id="fs-${statKey}-seg2" class="iv-seg-fill" style="width:${Math.max(0, Math.min(100, ((val-5)/5)*100))}%;background:${statCol}"></div></div>
+                            <div class="iv-seg"><div id="fs-${statKey}-seg3" class="iv-seg-fill" style="width:${Math.max(0, Math.min(100, ((val-10)/5)*100))}%;background:${statCol}"></div></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            };
+
+            const inspectorIvSelectorHtml = `
+                <div class="relative z-10 themed-card rounded-2xl p-4 pt-3.5 pl-12 space-y-2.5 border shadow-sm mt-3" style="border-color: var(--border-color);">
+                    <div
+                        id="fsIvStamp"
+                        data-stamp-tier="${getAppraisalStampTier(fsIvs.ivTotal)}"
+                        onclick="setFsIvPreset(15,15,15)"
+                        class="absolute -top-4 -left-3 z-20 cursor-pointer hover:scale-105 transition"
+                        title="Klicken für 100% IV (15/15/15)"
+                    >
+                        ${renderAppraisalStampHtml(fsIvs.ivTotal, 'w-14 h-14')}
+                    </div>
+                    <div class="flex items-center justify-between gap-2 flex-wrap">
+                        <span id="fsIvPctBadge" class="font-mono text-[11px] font-black" style="color:${fsIvs.isHundo ? '#e07a84' : '#eea243'}">${fsIvs.ivPct}% IV (${fsIvs.ivAtk}/${fsIvs.ivDef}/${fsIvs.ivHp})</span>
+                        <div class="flex items-center gap-1 flex-wrap">
+                            <button type="button" onclick="setFsIvPreset(15,15,15)" class="px-2 py-0.5 rounded-md themed-sub text-[10px] font-black hover:brightness-95 cursor-pointer transition">100%</button>
+                            <button type="button" onclick="setFsIvPreset(15,15,14)" class="px-2 py-0.5 rounded-md themed-sub text-[10px] font-black hover:brightness-95 cursor-pointer transition">98%</button>
+                            <button type="button" onclick="setFsIvPreset(10,10,10)" class="px-2 py-0.5 rounded-md themed-sub text-[10px] font-black hover:brightness-95 cursor-pointer transition">10/10/10</button>
+                            <button type="button" onclick="setFsIvPreset(0,15,15)" class="px-2 py-0.5 rounded-md themed-sub text-[10px] font-black hover:brightness-95 cursor-pointer transition">PvP 0/15/15</button>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        ${renderFsIvRow('Angriffs-Wert', 'ivAtk', fsIvs.ivAtk)}
+                        ${renderFsIvRow('Verteidigungs-Wert', 'ivDef', fsIvs.ivDef)}
+                        ${renderFsIvRow('KP-Wert', 'ivHp', fsIvs.ivHp)}
+                    </div>
+                </div>
+            `;
+
             const heroLvl = (typeof appState.fsHeroLevel === 'number' && !isNaN(appState.fsHeroLevel))
                 ? Math.max(1, Math.min(50, Math.round(appState.fsHeroLevel * 2) / 2))
                 : 50;
             const heroCpm = getCpmForLevel(heroLvl);
-            const heroCp = Math.max(10, calcCp(heroCpm));
+            const heroCp = Math.max(10, Math.floor(((p.atk + fsIvs.ivAtk) * heroCpm * Math.sqrt((p.def + fsIvs.ivDef) * heroCpm) * Math.sqrt(Math.floor((p.hp + fsIvs.ivHp) * heroCpm))) / 10));
             const heroPct = (heroLvl - 1) / 49;
             const heroArcLen = 402.12;
             const heroDashOffset = (heroArcLen * (1 - heroPct)).toFixed(1);
@@ -11487,7 +11843,7 @@
                             </div>
 
                             <div class="text-center justify-self-center px-1">
-                                <div id="fsHeroLevelLabel" class="text-[10px] font-extrabold uppercase tracking-widest text-white/80 leading-none whitespace-nowrap">100% WP (Lvl ${heroLvlLabel})</div>
+                                <div id="fsHeroLevelLabel" class="text-[10px] font-extrabold uppercase tracking-widest text-white/80 leading-none whitespace-nowrap">${fsIvs.ivPct}% IV • Lvl ${heroLvlLabel}</div>
                                 <div id="fsHeroCpValue" class="text-xl sm:text-2xl font-black font-mono leading-tight drop-shadow">${formatNum(heroCp, 0)}</div>
                             </div>
 
@@ -11557,6 +11913,7 @@
                         </div>
 
                     ${inspectorFormSelectorHtml}
+                    ${subTab === 'all' ? inspectorIvSelectorHtml : ''}
                     ${unreleasedNoticeHtml}
 
                     ${subTab === 'all' ? (() => `
