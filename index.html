@@ -1297,7 +1297,7 @@
                         </div>
                         <div class="flex items-center justify-between gap-2 mt-1">
                             <h3 class="text-base sm:text-lg font-black">
-                                Pokemon
+                                Pokémon
                             </h3>
                             <label data-pill-tone="amber" class="pogo-pill-toggle cursor-pointer shrink-0" title="Schillernde (Shiny) Varianten im Pokédex anzeigen">
                                 <input type="checkbox" id="dexListToggleShiny" onchange="onDexShinyToggle(this.checked)"/>
@@ -1981,8 +1981,44 @@
                 <span>GO-Dex - Impressum</span>
                 <span>&#8599;</span>
             </a>
+            <span>•</span>
+            <button
+                type="button"
+                onclick="showCookieNoticeBanner()"
+                class="hover:underline font-bold cursor-pointer opacity-85 hover:opacity-100"
+            >
+                Cookie-Hinweis
+            </button>
         </footer>
 
+    </div>
+
+    <!-- ==================== KOMPAKTES COOKIE- & SPEICHER-BANNER ==================== -->
+    <div
+        id="cookieNoticeBanner"
+        role="region"
+        aria-label="Cookie- und Datenschutzhinweis"
+        class="hidden fixed bottom-3 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-1.5rem)] max-w-2xl themed-card rounded-2xl px-4 py-3 shadow-2xl border"
+        style="border-color: var(--border-color);"
+    >
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <p class="text-[11px] sm:text-xs font-semibold leading-snug" style="color: var(--text-muted);">
+                Diese Seite verwendet ausschließlich technisch notwendige Cookies &amp; lokalen Browser-Speicher (z.&nbsp;B. für Dark-Mode und schnelles Laden von Pokémon-Daten) – kein Tracking, keine Werbung.
+                <a
+                    href="https://pogo.herrtoasty.de/impressum.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-emerald-600 dark:text-emerald-400 hover:underline font-extrabold whitespace-nowrap ml-1"
+                >Impressum &amp; Hinweise &#8599;</a>
+            </p>
+            <button
+                type="button"
+                onclick="acceptCookieNoticeBanner()"
+                class="px-4 py-1.5 rounded-xl bg-emerald-500 hover:brightness-105 text-white text-xs font-black shrink-0 cursor-pointer shadow-sm transition self-end sm:self-center"
+            >
+                Verstanden
+            </button>
+        </div>
     </div>
 
     <!-- ==================== MODAL: POKÉMON PICKER (SLOT A / B, A-Z SORTED) ==================== -->
@@ -16184,6 +16220,7 @@
             renderTypeChartView();
             initTabSwipeGestures();
             prefetchPrioritySprites();
+            initCookieNoticeBanner();
 
             // 1. Automatischer Live-API-Sync für Pokédex (GameMaster + Release + Crypto), Events & Raidbosse (+ Max-Kämpfe) beim Seitenstart
             syncAllLiveApis(false);
@@ -16207,6 +16244,27 @@
                 syncAllLiveApis(true);
             });
         });
+
+        function initCookieNoticeBanner() {
+            const el = document.getElementById('cookieNoticeBanner');
+            if (!el) return;
+            let accepted = false;
+            try { accepted = localStorage.getItem('pogoCookieNoticeAccepted') === '1'; } catch (e) {}
+            if (!accepted) {
+                el.classList.remove('hidden');
+            }
+        }
+
+        function acceptCookieNoticeBanner() {
+            const el = document.getElementById('cookieNoticeBanner');
+            if (el) el.classList.add('hidden');
+            try { localStorage.setItem('pogoCookieNoticeAccepted', '1'); } catch (e) {}
+        }
+
+        function showCookieNoticeBanner() {
+            const el = document.getElementById('cookieNoticeBanner');
+            if (el) el.classList.remove('hidden');
+        }
     </script>
 </body>
 </html>
