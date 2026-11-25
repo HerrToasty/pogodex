@@ -1,6 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="GO Dex">
-  <!-- Transparent circular badge with bold teal ring -->
-  <circle cx="64" cy="64" r="56" fill="none" stroke="#367579" stroke-width="6.5" />
+  <defs>
+    <linearGradient id="powerUpGrad" gradientUnits="userSpaceOnUse" x1="8" y1="64" x2="120" y2="64">
+      <stop offset="0%" stop-color="#76de64" />
+      <stop offset="52%" stop-color="#22d493" />
+      <stop offset="100%" stop-color="#0ab8a4" />
+    </linearGradient>
+  </defs>
+
+  <!-- Transparent circular badge with bold Power-Up gradient ring -->
+  <circle cx="64" cy="64" r="56" fill="none" stroke="url(#powerUpGrad)" stroke-width="6.5" />
 
   <!-- Pokédex handheld silhouette (thicker strokes) -->
   <path
@@ -18,20 +26,20 @@
        L 48.9 92.7
        C 47.4 91.6 46.5 89.9 46.5 88 Z"
     fill="none"
-    stroke="#367579"
+    stroke="url(#powerUpGrad)"
     stroke-width="5.6"
     stroke-linecap="round"
     stroke-linejoin="round"
   />
 
   <!-- Pokéball emblem inside upper section -->
-  <circle cx="63.5" cy="48.0" r="10.8" fill="none" stroke="#367579" stroke-width="4.8" />
-  <line x1="52.7" y1="48.0" x2="59.2" y2="48.0" stroke="#367579" stroke-width="4.6" />
-  <line x1="67.8" y1="48.0" x2="74.3" y2="48.0" stroke="#367579" stroke-width="4.6" />
-  <circle cx="63.5" cy="48.0" r="4.4" fill="#367579" />
+  <circle cx="63.5" cy="48.0" r="10.8" fill="none" stroke="url(#powerUpGrad)" stroke-width="4.8" />
+  <line x1="52.7" y1="48.0" x2="59.2" y2="48.0" stroke="url(#powerUpGrad)" stroke-width="4.6" />
+  <line x1="67.8" y1="48.0" x2="74.3" y2="48.0" stroke="url(#powerUpGrad)" stroke-width="4.6" />
+  <circle cx="63.5" cy="48.0" r="4.4" fill="url(#powerUpGrad)" />
 
   <!-- Lower-left indicator dot & bars -->
-  <circle cx="56.4" cy="70.2" r="3.8" fill="#367579" />
-  <rect x="52.6" y="77.2" width="8.6" height="4.0" rx="2.0" fill="#367579" />
-  <rect x="52.6" y="83.8" width="8.6" height="4.0" rx="2.0" fill="#367579" />
+  <circle cx="56.4" cy="70.2" r="3.8" fill="url(#powerUpGrad)" />
+  <rect x="52.6" y="77.2" width="8.6" height="4.0" rx="2.0" fill="url(#powerUpGrad)" />
+  <rect x="52.6" y="83.8" width="8.6" height="4.0" rx="2.0" fill="url(#powerUpGrad)" />
 </svg>
