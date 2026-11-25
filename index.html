@@ -1361,6 +1361,13 @@
                                 <span>Mega / Proto</span>
                             </span>
                         </label>
+                        <div id="top6MegaLevelGroup" class="themed-sub rounded-full px-1.5 py-1 inline-flex items-center gap-1 border" style="border-color: var(--border-color);" title="Mega-Level für Rangliste &amp; DPS-Berechnung (Stufe 4 nur für Super-Max-Megas)">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider opacity-70 pl-1 pr-0.5">Mega-Lv.</span>
+                            <button type="button" data-mlvl="1" onclick="setRankingMegaLevel(1)" class="ranking-mega-lvl-btn px-2 py-1 rounded-lg text-[10px] font-extrabold themed-card opacity-80 hover:opacity-100 cursor-pointer transition">1</button>
+                            <button type="button" data-mlvl="2" onclick="setRankingMegaLevel(2)" class="ranking-mega-lvl-btn px-2 py-1 rounded-lg text-[10px] font-extrabold themed-card opacity-80 hover:opacity-100 cursor-pointer transition">2</button>
+                            <button type="button" data-mlvl="3" onclick="setRankingMegaLevel(3)" class="ranking-mega-lvl-btn px-2 py-1 rounded-lg text-[10px] font-extrabold themed-card opacity-80 hover:opacity-100 cursor-pointer transition">3</button>
+                            <button type="button" data-mlvl="4" onclick="setRankingMegaLevel(4)" class="ranking-mega-lvl-btn px-2 py-1 rounded-lg text-[10px] font-black text-white shadow-sm cursor-pointer transition" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 55%, #f59e0b 100%);">4 ★</button>
+                        </div>
                         <label id="top6ShadowLabel" data-pill-tone="purple" class="pogo-pill-toggle cursor-pointer">
                             <input
                                 type="checkbox"
@@ -7301,6 +7308,9 @@
             if (tabId === 'pokedex') {
                 renderFsDexDetail();
                 renderEmbeddedDex();
+            } else if (tabId === 'compare') {
+                renderCompareAll();
+                renderTop6ByTypeSection();
             } else if (tabId === 'tierlist') {
                 renderTierlistView();
             } else if (tabId === 'pvp') {
@@ -7308,6 +7318,10 @@
                 if (!appState.pvpSyncedFromLive && !appState.pvpSyncInFlight) {
                     syncLivePvPokeRankings(false);
                 }
+            } else if (tabId === 'raids') {
+                renderRaidBosses();
+            } else if (tabId === 'events') {
+                renderEventsSection();
             } else if (tabId === 'regionals') {
                 renderRegionalsView();
                 setTimeout(() => {
@@ -7315,6 +7329,8 @@
                         invalidateRegionalMapSize();
                     }
                 }, 260);
+            } else if (tabId === 'typechart') {
+                renderTypeChartView();
             }
 
             if (!prevTab || prevTab === tabId) {
@@ -8434,10 +8450,9 @@
                 if (el) el.textContent = val;
             };
             setTxt(`slot${slotLetter}-cp`, formatNum(m.cp, 0));
-            setTxt(`slot${slotLetter}-lvlTag`, `LVL ${s.level.toFixed(1)}`);
-            setTxt(`slot${slotLetter}-ivSup`, ivPct);
-            setTxt(`slot${slotLetter}-statusLabel`, s.isLucky ? 'GLÜCKS-POKÉMON' : (s.isShadow ? (isHundo ? 'CRYPTO • 4* HUNDO (+20% ANG)' : 'CRYPTO-POKÉMON (+20% ANG)') : (isHundo ? '4* HUNDO • 100% IV' : 'KAMPFBEREIT')));
-            setTxt(`slot${slotLetter}-hpMoves`, `${m.effHp} / ${m.effHp} KP • Moveset: ${m.fastRaw} + ${m.chargedRaw}`);
+            setTxt(`slot${slotLetter}-lvlTag`, `LVL ${s.level.toFixed(1)}${m.isSuperMaxMega ? ' (+2)' : ''}`);
+            const hpMovesEl = document.getElementById(`slot${slotLetter}-hpMoves`);
+            if (hpMovesEl) hpMovesEl.innerHTML = renderSlotHpMovesHtml(m);
             setTxt(`slot${slotLetter}-edps`, formatNum(m.eDps, 2));
             setTxt(`slot${slotLetter}-sealStars`, starsLabel);
             setTxt(`slot${slotLetter}-sealPct`, `${ivPct}%`);
@@ -8449,7 +8464,7 @@
             if (sealEl) updateAppraisalStampEl(sealEl, ivTotal, 'w-14 h-14');
 
             updateSlotArcUi(slotLetter);
-            setTxt(`slot${slotLetter}-heroLvl`, `${ivPct}% IV • Lvl ${Number.isInteger(s.level) ? s.level : s.level.toFixed(1)}`);
+            setTxt(`slot${slotLetter}-heroLvl`, `${ivPct}% IV • Lvl ${Number.isInteger(s.level) ? s.level : s.level.toFixed(1)}${m.isSuperMaxMega ? ' (+2)' : ''}`);
 
             [['ivAtk', s.ivAtk], ['ivDef', s.ivDef], ['ivHp', s.ivHp]].forEach(([key, val]) => {
                 const statCol = getIvStatColor(val);
@@ -8703,9 +8718,17 @@
                 eDps: best.eDps,
                 fastRaw: best.fastRaw,
                 chargedRaw: best.chargedRaw,
+                fastType: best.fMove?.type || p.types?.[0] || 'Normal',
+                chargedType: best.cMove?.type || p.types?.[0] || 'Normal',
                 maxPower,
                 maxHitDmg
             };
+        }
+
+        function renderSlotHpMovesHtml(m) {
+            const fIcon = m.fastType ? renderTypeIconImg(m.fastType, 'w-3.5 h-3.5', 'shrink-0') : '';
+            const cIcon = m.chargedType ? renderTypeIconImg(m.chargedType, 'w-3.5 h-3.5', 'shrink-0') : '';
+            return `<span>${m.effHp} / ${m.effHp} KP • Moveset:</span><span class="inline-flex items-center gap-1">${fIcon}<span>${m.fastRaw}</span></span><span>+</span><span class="inline-flex items-center gap-1">${cIcon}<span>${m.chargedRaw}</span></span>`;
         }
 
         const POKEMON_CANDY_PALETTE = {
@@ -9299,14 +9322,11 @@
                         </div>
 
                         <div class="text-center pt-1">
-                            <h3 class="text-xl font-black">
-                                ${displayTitle}<sup id="slot${slotLetter}-ivSup" class="text-xs font-mono text-emerald-500 ml-0.5">${ivPct}</sup>
+                            <h3 class="text-xl font-black text-center">
+                                ${displayTitle}
                             </h3>
-                            <div id="slot${slotLetter}-statusLabel" class="text-[11px] font-extrabold tracking-wider uppercase ${s.isShadow ? 'text-purple-500 dark:text-purple-400' : 'text-emerald-600 dark:text-emerald-400'}">
-                                ${s.isLucky ? 'GLÜCKS-POKÉMON' : (s.isShadow ? (isHundo ? 'CRYPTO • 4* HUNDO (+20% ANG)' : 'CRYPTO-POKÉMON (+20% ANG)') : (isHundo ? '4* HUNDO • 100% IV' : 'KAMPFBEREIT'))}
-                            </div>
                             <div class="w-44 h-2 ${barAccentClass} rounded-full mx-auto mt-2"></div>
-                            <div id="slot${slotLetter}-hpMoves" class="text-xs font-extrabold font-mono mt-1 opacity-80">${m.effHp} / ${m.effHp} KP • Moveset: ${m.fastRaw} + ${m.chargedRaw}</div>
+                            <div id="slot${slotLetter}-hpMoves" class="text-xs font-extrabold font-mono mt-1.5 opacity-85 flex flex-wrap items-center justify-center gap-x-1 gap-y-0.5">${renderSlotHpMovesHtml(m)}</div>
                         </div>
 
                         ${formSelectorHtml}
@@ -9498,11 +9518,13 @@
                 }
             });
 
-            const megaLvlGrp = document.getElementById('tierlistMegaLevelGroup');
-            if (megaLvlGrp) {
-                megaLvlGrp.classList.toggle('hidden', isMax);
-                megaLvlGrp.classList.toggle('inline-flex', !isMax);
-            }
+            ['tierlistMegaLevelGroup', 'top6MegaLevelGroup'].forEach(grpId => {
+                const megaLvlGrp = document.getElementById(grpId);
+                if (megaLvlGrp) {
+                    megaLvlGrp.classList.toggle('hidden', isMax);
+                    megaLvlGrp.classList.toggle('inline-flex', !isMax);
+                }
+            });
 
             const roleSwitch = document.getElementById('tierlistMaxRoleSwitch');
             const btnAtk = document.getElementById('tierlistBtnRoleAttacker');
@@ -9644,6 +9666,9 @@
 
         function getFullRankedMaxTanksList(incomingTypeOrAll = 'ALL', forcedHideUnreleased = null) {
             const hideUnreleased = forcedHideUnreleased !== null ? Boolean(forcedHideUnreleased) : appState.top6HideUnreleased;
+            const tankCacheKey = `tank|${incomingTypeOrAll || 'ALL'}|${hideUnreleased ? 1 : 0}`;
+            const cachedTanks = _readRankingMemo(tankCacheKey);
+            if (cachedTanks) return cachedTanks;
             const bySig = new Map();
 
             FULL_DEX_LIST.forEach(p => {
@@ -9703,9 +9728,30 @@
                 }
             });
 
-            return Array.from(bySig.values()).sort((a, b) =>
+            const sortedTanks = Array.from(bySig.values()).sort((a, b) =>
                 (b.tankScore - a.tankScore) || (b.rawBulk - a.rawBulk) || (b.effHp - a.effHp) || (b.cp40 - a.cp40)
             );
+            _storeRankingMemo(tankCacheKey, sortedTanks);
+            return sortedTanks;
+        }
+
+        const _rankingMemoMap = new Map();
+        let _rankingMemoDexStamp = '';
+        function _getRankingMemoStamp() {
+            return `${FULL_DEX_LIST.length}|${appState.dexApiSynced ? 1 : 0}|${appState.maxApiSynced ? 1 : 0}|${LIVE_RELEASED_DEX_SET.size}|${LIVE_RELEASED_SHADOW_SET.size}|${LIVE_DMAX_ELIGIBLE_DEX_SET.size}`;
+        }
+        function _readRankingMemo(key) {
+            const stamp = _getRankingMemoStamp();
+            if (stamp !== _rankingMemoDexStamp) {
+                _rankingMemoMap.clear();
+                _rankingMemoDexStamp = stamp;
+                return null;
+            }
+            return _rankingMemoMap.get(key) || null;
+        }
+        function _storeRankingMemo(key, val) {
+            if (_rankingMemoMap.size > 160) _rankingMemoMap.clear();
+            _rankingMemoMap.set(key, val);
         }
 
         function getTop6MaxTanksForType(incomingTypeOrAll = 'ALL') {
@@ -9719,6 +9765,10 @@
             const includeMega = forcedIncludeMods ? Boolean(forcedIncludeMods.mega) : appState.top6IncludeMega;
             const includeShadow = forcedIncludeMods ? Boolean(forcedIncludeMods.shadow) : appState.top6IncludeShadow;
             const isAllTypes = !typeOrAll || typeOrAll === 'ALL';
+            const rankMegaLvlKey = appState.rankingMegaLevel || 4;
+            const atkCacheKey = `atk|${isAllTypes ? 'ALL' : typeOrAll}|${isMaxMode ? 'max' : 'raid'}|${hideUnreleased ? 1 : 0}|${includeMega ? 1 : 0}|${includeShadow ? 1 : 0}|${rankMegaLvlKey}`;
+            const cachedAtk = _readRankingMemo(atkCacheKey);
+            if (cachedAtk) return cachedAtk;
 
             if (isMaxMode) {
                 FULL_DEX_LIST.forEach(p => {
@@ -9829,9 +9879,11 @@
                     }
                 });
 
-                return candidates.sort((a, b) =>
+                const sortedMax = candidates.sort((a, b) =>
                     (b.maxDmg - a.maxDmg) || (b.eDps - a.eDps) || (b.cp40 - a.cp40)
                 );
+                _storeRankingMemo(atkCacheKey, sortedMax);
+                return sortedMax;
             }
 
             FULL_DEX_LIST.forEach(p => {
@@ -9895,7 +9947,9 @@
                 });
             });
 
-            return candidates.sort((a, b) => (b.eDps - a.eDps) || (b.cp40 - a.cp40));
+            const sortedRaid = candidates.sort((a, b) => (b.eDps - a.eDps) || (b.cp40 - a.cp40));
+            _storeRankingMemo(atkCacheKey, sortedRaid);
+            return sortedRaid;
         }
 
         function getTop6AttackersForType(targetType) {
@@ -11096,8 +11150,6 @@
             appState.fsIsShiny = Boolean(checked);
             const listChk = document.getElementById('dexListToggleShiny');
             if (listChk) listChk.checked = appState.fsIsShiny;
-            const inspChk = document.getElementById('dexInspectorToggleShiny');
-            if (inspChk) inspChk.checked = appState.fsIsShiny;
             renderEmbeddedDex();
             renderFsDexDetail();
         }
@@ -16309,7 +16361,7 @@
                 appState.fsIsDmax = false;
             }
             switchTab('pokedex');
-            const detail = document.getElementById('fsDexDetailContainer');
+            const detail = document.getElementById('fsDexDetailBox');
             if (detail && typeof detail.scrollIntoView === 'function') {
                 detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
@@ -18026,36 +18078,46 @@
             if (cmpT2) cmpT2.value = 'Flug';
             renderCmpBossTypeButtons();
 
-            // Init Ansichten
-            renderCompareAll();
-            renderTop6ByTypeSection();
-            renderPvpView();
+            // Init Ansichten: Aktiven Pokédex-Tab sofort rendern, inaktive Tabs verzögert im Hintergrund vorbereiten
             renderFsDexDetail();
             renderEmbeddedDex();
-            renderRaidBosses();
-            renderEventsSection();
-            renderRegionalsView();
-            renderTypeChartView();
             initTabSwipeGestures();
-            prefetchPrioritySprites();
             initCookieNoticeBanner();
 
-            // 1. Automatischer Live-API-Sync für Pokédex (GameMaster + Release + Crypto), Events & Raidbosse (+ Max-Kämpfe) beim Seitenstart
-            syncAllLiveApis(false);
-
-            // 2. Echtzeit-Countdown für Events jede Minute aktualisieren & Live-APIs alle 15 Min frisch abgleichen
-            setInterval(() => {
+            const deferIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 16));
+            deferIdle(() => {
+                renderCompareAll();
+                renderTop6ByTypeSection();
+                renderPvpView();
+                renderRaidBosses();
                 renderEventsSection();
+                renderRegionalsView();
+                renderTypeChartView();
+                prefetchPrioritySprites();
+                // 1. Automatischer Live-API-Sync für Pokédex (GameMaster + Release + Crypto), Events & Raidbosse (+ Max-Kämpfe) beim Seitenstart
+                syncAllLiveApis(false);
+            });
+
+            // 2. Echtzeit-Countdown für Events jede Minute aktualisieren (nur wenn sichtbar & Events-Tab aktiv) & Live-APIs alle 15 Min frisch abgleichen
+            setInterval(() => {
+                if (document.visibilityState === 'visible' && appState.activeTab === 'events') {
+                    renderEventsSection();
+                }
             }, 60 * 1000);
 
             setInterval(() => {
-                syncAllLiveApis(true);
+                if (document.visibilityState === 'visible') {
+                    syncAllLiveApis(true);
+                }
             }, 15 * 60 * 1000);
 
             // 3. Bei Tab-Rückkehr nach > 5 Min oder Netzwerk-Wiederverbindung automatisch frisch synchronisieren
             document.addEventListener('visibilitychange', () => {
-                if (document.visibilityState === 'visible' && (Date.now() - (appState.lastGlobalSyncTs || 0)) > 5 * 60 * 1000) {
-                    syncAllLiveApis(true);
+                if (document.visibilityState === 'visible') {
+                    if (appState.activeTab === 'events') renderEventsSection();
+                    if ((Date.now() - (appState.lastGlobalSyncTs || 0)) > 5 * 60 * 1000) {
+                        syncAllLiveApis(true);
+                    }
                 }
             });
             window.addEventListener('online', () => {
