@@ -1199,6 +1199,25 @@
         .filter-btn-pop {
             animation: filterBtnPop 220ms cubic-bezier(0.22, 1, 0.36, 1);
         }
+
+        /* Offscreen Layout-/Paint-Optimierung für große Listen & Karten-Grids */
+        .dex-tile-card {
+            content-visibility: auto;
+            contain-intrinsic-size: auto 136px;
+        }
+        #tierlistRowsContainer > div {
+            content-visibility: auto;
+            contain-intrinsic-size: auto 340px;
+        }
+        #regionalListContainer > div {
+            content-visibility: auto;
+            contain-intrinsic-size: auto 260px;
+        }
+        #eventsListContainer > div,
+        #raidBossesGrid > div {
+            content-visibility: auto;
+            contain-intrinsic-size: auto 240px;
+        }
         @media (prefers-reduced-motion: reduce) {
             .filter-card-enter, .filter-btn-pop {
                 animation: none !important;
@@ -1588,7 +1607,7 @@
                             type="text"
                             id="embeddedDexSearch"
                             placeholder="#Nummer, Name, Attacke oder 1–2 Typen (z. B. Feuer Flug)..."
-                            oninput="resetAndRenderEmbeddedDex()"
+                            oninput="debounceUiSearch('dex', resetAndRenderEmbeddedDex, 90)"
                             class="themed-sub rounded-xl px-3.5 py-2 text-xs sm:text-sm font-bold focus:outline-none w-full"
                         />
                         <div class="flex flex-wrap sm:flex-nowrap items-center gap-2">
@@ -1873,7 +1892,7 @@
                             type="text"
                             id="tierlistSearchInput"
                             placeholder="Typ oder Pokémon in der Tierlist filtern..."
-                            oninput="renderTierlistView()"
+                            oninput="debounceUiSearch('tierlist', renderTierlistView, 100)"
                             class="themed-sub rounded-xl px-3 py-1.5 text-xs font-bold focus:outline-none w-full sm:w-72"
                         />
                         <button
@@ -2195,7 +2214,7 @@
                         type="text"
                         id="raidBossSearchInput"
                         placeholder="Raidboss oder Typ filtern..."
-                        oninput="renderRaidBosses()"
+                        oninput="debounceUiSearch('raids', renderRaidBosses, 90)"
                         class="themed-sub rounded-xl px-3 py-1.5 text-xs font-bold focus:outline-none sm:w-56"
                     />
                 </div>
@@ -2308,7 +2327,7 @@
                             type="text"
                             id="eventSearchInput"
                             placeholder="Event, Kategorie oder Bonus suchen..."
-                            oninput="renderEventsSection()"
+                            oninput="debounceUiSearch('events', renderEventsSection, 90)"
                             class="themed-sub rounded-xl px-3 py-1.5 text-xs font-bold focus:outline-none flex-1 sm:flex-none sm:w-64"
                         />
                     </div>
@@ -2360,7 +2379,7 @@
                         type="text"
                         id="regionalSearchInput"
                         placeholder="Suche nach Pokémon, Land oder Region..."
-                        oninput="renderRegionalsView()"
+                        oninput="debounceUiSearch('regionals', renderRegionalsView, 90)"
                         class="themed-sub rounded-xl px-3.5 py-2 text-xs sm:text-sm font-bold focus:outline-none w-full"
                     />
                     <select id="regionalZoneFilter" onchange="renderRegionalsView()" class="themed-sub rounded-xl px-2.5 py-2 text-xs font-extrabold cursor-pointer w-full">
@@ -2493,7 +2512,7 @@
                     type="text"
                     id="pickerModalSearch"
                     placeholder="Pokémon, #Nummer oder Typ suchen (z. B. Zacian, Kyurem, Rayquaza, Bisasam)..."
-                    oninput="resetAndRenderPickerModal()"
+                    oninput="debounceUiSearch('picker', resetAndRenderPickerModal, 90)"
                     class="themed-sub rounded-xl px-3.5 py-2 text-xs sm:text-sm font-bold focus:outline-none flex-1 min-w-[220px]"
                 />
                 <label class="inline-flex items-center gap-2 themed-sub px-3.5 py-2 rounded-xl text-xs font-black cursor-pointer select-none border border-purple-500/40 hover:border-purple-500 transition shrink-0">
@@ -10924,7 +10943,9 @@
         }
 
         function renderTop6ByTypeSection() {
-            renderTierlistView();
+            if (appState.activeTab === 'tierlist') {
+                renderTierlistView();
+            }
             const btnRow = document.getElementById('top6TypeButtonsRow');
             const grid = document.getElementById('top6RankingGrid');
             const badge = document.getElementById('top6ModeBadge');
@@ -11359,15 +11380,16 @@
             appState.embeddedDexLimit = 48;
             const box = document.getElementById('embeddedDexScrollBox');
             if (box) box.scrollTop = 0;
-            renderEmbeddedDex();
+            renderEmbeddedDex(false);
         }
 
         function handleEmbeddedDexScroll(el) {
             if (!el) return;
             if (el.scrollTop + el.clientHeight >= el.scrollHeight - 180) {
                 if (appState.embeddedDexLimit < FULL_DEX_LIST.length) {
+                    const prevLimit = appState.embeddedDexLimit;
                     appState.embeddedDexLimit += 48;
-                    renderEmbeddedDex();
+                    renderEmbeddedDex(true, prevLimit);
                 }
             }
         }
@@ -11401,7 +11423,7 @@
             appState.fsIsShiny = Boolean(checked);
             const listChk = document.getElementById('dexListToggleShiny');
             if (listChk) listChk.checked = appState.fsIsShiny;
-            renderEmbeddedDex();
+            renderEmbeddedDex(false);
             renderFsDexDetail();
         }
 
@@ -11410,7 +11432,33 @@
             renderFsDexDetail();
         }
 
-        function renderEmbeddedDex() {
+        function renderEmbeddedDexCardHtml(p, currentP, isShinyMode) {
+            const isSelected = currentP && (currentP.id === p.id || (currentP.dex === p.dex && (currentP.isMega || currentP.isGmax || isEntryFusionForm(currentP)) && !p.isRegionForm));
+            const isReleased = isEntryReleasedInPogo(p);
+            return `
+                <div
+                    role="button"
+                    tabindex="0"
+                    onclick="openPokemonInInspector('${p.id}')"
+                    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openPokemonInInspector('${p.id}');}"
+                    class="dex-tile-card themed-sub rounded-2xl p-1.5 sm:p-2 flex flex-col items-center justify-between gap-0.5 border transition relative overflow-hidden cursor-pointer group text-center ${isSelected ? 'border-emerald-500 ring-2 ring-emerald-500/40' : 'hover:border-emerald-500/50'}"
+                    title="#${String(p.dex).padStart(4, '0')} • ${p.name}${isShinyMode ? ' (Shiny)' : ''} im Inspektor öffnen"
+                >
+                    ${renderDexTypeWatermarkBg(p.types, false)}
+                    ${!isReleased ? '<span class="absolute top-1.5 right-1.5 z-10 px-1 py-0.5 rounded bg-slate-700/90 text-white text-[8px] font-black leading-none" title="Noch nicht in Pokémon GO erschienen">Unreleast</span>' : ''}
+                    <div class="relative z-10 flex-1 min-h-0 w-full flex items-center justify-center">
+                        ${renderSpriteImg(p.spriteId, p.name, 'w-20 h-20 sm:w-24 sm:h-24 xl:w-[104px] xl:h-[104px] max-w-full max-h-full group-hover:scale-105 transition duration-200 drop-shadow-md', p.dex, isShinyMode)}
+                    </div>
+                    <div class="relative z-10 shrink-0 w-full px-0.5">
+                        <div class="text-[11px] sm:text-xs font-black leading-tight text-center break-words group-hover:text-emerald-500 transition">
+                            ${p.name}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderEmbeddedDex(appendOnly = false, prevLimit = 0) {
             const box = document.getElementById('embeddedDexScrollBox');
             if (!box) return;
             const q = document.getElementById('embeddedDexSearch')?.value || '';
@@ -11436,48 +11484,33 @@
                     : `Alle ${allMatching.length} passenden Pokémon geladen.`;
             }
 
-            box.innerHTML = slice.map(p => {
-                const isSelected = currentP && (currentP.id === p.id || (currentP.dex === p.dex && (currentP.isMega || currentP.isGmax || isEntryFusionForm(currentP)) && !p.isRegionForm));
-                const isReleased = isEntryReleasedInPogo(p);
-                return `
-                    <div
-                        role="button"
-                        tabindex="0"
-                        onclick="openPokemonInInspector('${p.id}')"
-                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openPokemonInInspector('${p.id}');}"
-                        class="dex-tile-card themed-sub rounded-2xl p-1.5 sm:p-2 flex flex-col items-center justify-between gap-0.5 border transition relative overflow-hidden cursor-pointer group text-center ${isSelected ? 'border-emerald-500 ring-2 ring-emerald-500/40' : 'hover:border-emerald-500/50'}"
-                        title="#${String(p.dex).padStart(4, '0')} • ${p.name}${isShinyMode ? ' (Shiny)' : ''} im Inspektor öffnen"
-                    >
-                        ${renderDexTypeWatermarkBg(p.types, false)}
-                        ${!isReleased ? '<span class="absolute top-1.5 right-1.5 z-10 px-1 py-0.5 rounded bg-slate-700/90 text-white text-[8px] font-black leading-none" title="Noch nicht in Pokémon GO erschienen">Unreleast</span>' : ''}
-                        <div class="relative z-10 flex-1 min-h-0 w-full flex items-center justify-center">
-                            ${renderSpriteImg(p.spriteId, p.name, 'w-20 h-20 sm:w-24 sm:h-24 xl:w-[104px] xl:h-[104px] max-w-full max-h-full group-hover:scale-105 transition duration-200 drop-shadow-md', p.dex, isShinyMode)}
-                        </div>
-                        <div class="relative z-10 shrink-0 w-full px-0.5">
-                            <div class="text-[11px] sm:text-xs font-black leading-tight text-center break-words group-hover:text-emerald-500 transition">
-                                ${p.name}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+            if (appendOnly && prevLimit > 0 && box.children.length === prevLimit) {
+                const newItems = allMatching.slice(prevLimit, appState.embeddedDexLimit);
+                if (newItems.length > 0) {
+                    box.insertAdjacentHTML('beforeend', newItems.map(p => renderEmbeddedDexCardHtml(p, currentP, isShinyMode)).join(''));
+                }
+                return;
+            }
+
+            box.innerHTML = slice.map(p => renderEmbeddedDexCardHtml(p, currentP, isShinyMode)).join('');
         }
 
-        // Window Scroll Listener für nahtloses Infinite Scrolling auf Mobilgeräten
+        // Window Scroll Listener für nahtloses Infinite Scrolling auf Mobilgeräten (passive)
         window.addEventListener('scroll', () => {
             if (appState.activeTab !== 'pokedex') return;
             if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 420)) {
                 if (appState.embeddedDexLimit < FULL_DEX_LIST.length) {
+                    const prevLimit = appState.embeddedDexLimit;
                     appState.embeddedDexLimit += 48;
-                    renderEmbeddedDex();
+                    renderEmbeddedDex(true, prevLimit);
                 }
             }
-        });
+        }, { passive: true });
 
         // Picker Modal (Slot A / Slot B)
         function onPickerShadowToggle(checked) {
             appState.pickerAsShadow = Boolean(checked);
-            renderPickerModalList();
+            renderPickerModalList(false);
         }
 
         function openPokemonPickerModal(slotLetter) {
@@ -11497,49 +11530,61 @@
 
         function resetAndRenderPickerModal() {
             appState.pickerLimit = 48;
-            renderPickerModalList();
+            renderPickerModalList(false);
         }
 
         function handlePickerModalScroll(el) {
             if (el.scrollTop + el.clientHeight >= el.scrollHeight - 140) {
+                const prevLimit = appState.pickerLimit;
                 appState.pickerLimit += 48;
-                renderPickerModalList();
+                renderPickerModalList(true, prevLimit);
             }
         }
 
-        function renderPickerModalList() {
+        function renderPickerModalCardHtml(p, useShadow) {
+            const displayName = useShadow ? `Crypto-${p.name}` : p.name;
+            const isReleased = isEntryReleasedInPogo(p);
+            const spriteShadowClass = useShadow ? 'drop-shadow-[0_0_8px_rgba(147,51,234,0.65)]' : 'drop-shadow-md';
+            return `
+                <div
+                    role="button"
+                    tabindex="0"
+                    onclick="loadEntryIntoSlot('${appState.pickerTargetSlot}', '${p.id}', ${useShadow}); closePokemonPickerModal();"
+                    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadEntryIntoSlot('${appState.pickerTargetSlot}', '${p.id}', ${useShadow}); closePokemonPickerModal();}"
+                    class="dex-tile-card themed-sub rounded-2xl p-1.5 sm:p-2 flex flex-col items-center justify-between gap-0.5 border transition relative overflow-hidden cursor-pointer group text-center ${useShadow ? 'border-purple-500/75 hover:border-purple-500' : 'hover:border-emerald-500/50'}"
+                    title="#${String(p.dex).padStart(4, '0')} • ${displayName} in Slot ${appState.pickerTargetSlot} laden"
+                >
+                    ${renderDexTypeWatermarkBg(p.types, false)}
+                    ${!isReleased ? '<span class="absolute top-1.5 right-1.5 z-10 px-1 py-0.5 rounded bg-slate-700/90 text-white text-[8px] font-black leading-none" title="Noch nicht in Pokémon GO erschienen">Unreleast</span>' : ''}
+                    <div class="relative z-10 flex-1 min-h-0 w-full flex items-center justify-center">
+                        ${renderSpriteImg(p.spriteId, displayName, `w-20 h-20 sm:w-24 sm:h-24 xl:w-[104px] xl:h-[104px] max-w-full max-h-full group-hover:scale-105 transition duration-200 ${spriteShadowClass}`, p.dex)}
+                    </div>
+                    <div class="relative z-10 shrink-0 w-full px-0.5">
+                        <div class="text-[11px] sm:text-xs font-black leading-tight text-center break-words transition ${useShadow ? 'group-hover:text-purple-500' : 'group-hover:text-emerald-500'}">
+                            ${displayName}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderPickerModalList(appendOnly = false, prevLimit = 0) {
             const grid = document.getElementById('pickerModalGrid');
             if (!grid) return;
             const q = document.getElementById('pickerModalSearch')?.value || '';
             const useShadow = Boolean(appState.pickerAsShadow);
-            const list = getFilteredSortedDex(q, 'ALL', 'ALL', 'DEX', true).slice(0, appState.pickerLimit);
+            const allMatching = getFilteredSortedDex(q, 'ALL', 'ALL', 'DEX', true);
 
-            grid.innerHTML = list.map(p => {
-                const displayName = useShadow ? `Crypto-${p.name}` : p.name;
-                const isReleased = isEntryReleasedInPogo(p);
-                const spriteShadowClass = useShadow ? 'drop-shadow-[0_0_8px_rgba(147,51,234,0.65)]' : 'drop-shadow-md';
-                return `
-                    <div
-                        role="button"
-                        tabindex="0"
-                        onclick="loadEntryIntoSlot('${appState.pickerTargetSlot}', '${p.id}', ${useShadow}); closePokemonPickerModal();"
-                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadEntryIntoSlot('${appState.pickerTargetSlot}', '${p.id}', ${useShadow}); closePokemonPickerModal();}"
-                        class="dex-tile-card themed-sub rounded-2xl p-1.5 sm:p-2 flex flex-col items-center justify-between gap-0.5 border transition relative overflow-hidden cursor-pointer group text-center ${useShadow ? 'border-purple-500/75 hover:border-purple-500' : 'hover:border-emerald-500/50'}"
-                        title="#${String(p.dex).padStart(4, '0')} • ${displayName} in Slot ${appState.pickerTargetSlot} laden"
-                    >
-                        ${renderDexTypeWatermarkBg(p.types, false)}
-                        ${!isReleased ? '<span class="absolute top-1.5 right-1.5 z-10 px-1 py-0.5 rounded bg-slate-700/90 text-white text-[8px] font-black leading-none" title="Noch nicht in Pokémon GO erschienen">Unreleast</span>' : ''}
-                        <div class="relative z-10 flex-1 min-h-0 w-full flex items-center justify-center">
-                            ${renderSpriteImg(p.spriteId, displayName, `w-20 h-20 sm:w-24 sm:h-24 xl:w-[104px] xl:h-[104px] max-w-full max-h-full group-hover:scale-105 transition duration-200 ${spriteShadowClass}`, p.dex)}
-                        </div>
-                        <div class="relative z-10 shrink-0 w-full px-0.5">
-                            <div class="text-[11px] sm:text-xs font-black leading-tight text-center break-words transition ${useShadow ? 'group-hover:text-purple-500' : 'group-hover:text-emerald-500'}">
-                                ${displayName}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+            if (appendOnly && prevLimit > 0 && grid.children.length === prevLimit) {
+                const newItems = allMatching.slice(prevLimit, appState.pickerLimit);
+                if (newItems.length > 0) {
+                    grid.insertAdjacentHTML('beforeend', newItems.map(p => renderPickerModalCardHtml(p, useShadow)).join(''));
+                }
+                return;
+            }
+
+            const list = allMatching.slice(0, appState.pickerLimit);
+            grid.innerHTML = list.map(p => renderPickerModalCardHtml(p, useShadow)).join('');
         }
 
         // Sub-Tab Steuerung im Pokédex-Inspektor
@@ -13932,15 +13977,21 @@
                 const updatedB = FULL_DEX_LIST.find(x => x.id === appState.slotB.entry.id);
                 if (updatedB) appState.slotB.entry = updatedB;
             }
-            renderEmbeddedDex();
-            renderTop6ByTypeSection();
-            renderFsDexDetail();
-            if (appState.slotA || appState.slotB) {
+            const tab = appState.activeTab || 'pokedex';
+            if (tab === 'pokedex') {
+                renderEmbeddedDex(false);
+                renderFsDexDetail();
+            } else if (tab === 'compare') {
                 renderCompareAll();
+                renderTop6ByTypeSection();
+            } else if (tab === 'tierlist') {
+                renderTierlistView();
+            } else if (tab === 'regionals') {
+                renderRegionalsView();
             }
             const pickerModal = document.getElementById('pokemonPickerModal');
             if (pickerModal && !pickerModal.classList.contains('hidden')) {
-                renderPickerModalList();
+                renderPickerModalList(false);
             }
             if (alsoRefreshRaidNames) {
                 refreshRaidBossGermanNames();
@@ -17096,7 +17147,9 @@
                 applyLiveRaidsToDexReleaseSets(RAID_BOSSES_DATA, false);
             }
             refreshOpenUiAfterDexSync(true);
-            renderPvpView();
+            if (appState.activeTab === 'pvp') {
+                renderPvpView();
+            }
             appState.lastGlobalSyncTs = Date.now();
         }
 
@@ -18301,17 +18354,7 @@
             mapBox.addEventListener('pointercancel', endPointer);
         }
 
-        function renderStaticWorldMapSvg(selectedItem) {
-            const activeKeys = selectedItem ? new Set(REGIONAL_COUNTRY_OVERRIDES[selectedItem.id] || []) : null;
-            const countryPathsHtml = Object.entries(WORLD_MAP_COUNTRIES).map(([code, d]) => {
-                const isHit = activeKeys && activeKeys.has(code);
-                if (isHit) {
-                    return `<path data-country="${code}" d="${d}" fill="${selectedItem.color}" fill-opacity="0.76" stroke="#ffffff" stroke-opacity="0.88" stroke-width="1.35" stroke-linejoin="round" vector-effect="non-scaling-stroke" />`;
-                }
-                return `<path data-country="${code}" d="${d}" class="regional-land" />`;
-            }).join('');
-
-            // Optionale Breitengrad-/Hemisphären-Zone für Tropen, Nord/Süd oder Ost/West Splits
+        function buildRegionalBandOverlayHtml(selectedItem) {
             let bandOverlayHtml = '';
             const band = selectedItem ? REGIONAL_BAND_OVERLAYS[selectedItem.id] : null;
             if (band && selectedItem) {
@@ -18332,7 +18375,20 @@
                     `;
                 }
             }
+            return bandOverlayHtml;
+        }
 
+        function renderStaticWorldMapSvg(selectedItem) {
+            const activeKeys = selectedItem ? new Set(REGIONAL_COUNTRY_OVERRIDES[selectedItem.id] || []) : null;
+            const countryPathsHtml = Object.entries(WORLD_MAP_COUNTRIES).map(([code, d]) => {
+                const isHit = activeKeys && activeKeys.has(code);
+                if (isHit) {
+                    return `<path data-country="${code}" d="${d}" fill="${selectedItem.color}" fill-opacity="0.76" stroke="#ffffff" stroke-opacity="0.88" stroke-width="1.35" stroke-linejoin="round" vector-effect="non-scaling-stroke" />`;
+                }
+                return `<path data-country="${code}" d="${d}" class="regional-land" />`;
+            }).join('');
+
+            const bandOverlayHtml = buildRegionalBandOverlayHtml(selectedItem);
             const vw = 1000 / regionalMapView.scale;
             const vh = 500 / regionalMapView.scale;
             return `
@@ -18343,10 +18399,10 @@
                     <line x1="0" y1="184.7" x2="1000" y2="184.7" stroke="currentColor" stroke-opacity="0.12" stroke-width="0.8" stroke-dasharray="2 5" vector-effect="non-scaling-stroke" />
                     <line x1="0" y1="315.3" x2="1000" y2="315.3" stroke="currentColor" stroke-opacity="0.12" stroke-width="0.8" stroke-dasharray="2 5" vector-effect="non-scaling-stroke" />
 
-                    ${bandOverlayHtml}
+                    <g id="regionalBandOverlayGroup">${bandOverlayHtml}</g>
 
                     <!-- Detaillierte statische Weltkarte mit Ländergrenzen & Teilregionen (74 Polygone) -->
-                    <g>
+                    <g id="regionalCountriesGroup">
                         ${countryPathsHtml}
                     </g>
                 </svg>
@@ -18579,9 +18635,49 @@
                 `;
             }).join('');
 
-            mapBox.innerHTML = renderStaticWorldMapSvg(selectedItem) + pinsHtml;
+            const existingSvg = document.getElementById('regionalWorldSvg');
+            if (existingSvg && mapBox.contains(existingSvg)) {
+                existingSvg.setAttribute('viewBox', `${vx.toFixed(2)} ${vy.toFixed(2)} ${vw.toFixed(2)} ${vh.toFixed(2)}`);
+                const bandGroup = document.getElementById('regionalBandOverlayGroup');
+                if (bandGroup) bandGroup.innerHTML = buildRegionalBandOverlayHtml(selectedItem);
+                const activeKeys = selectedItem ? new Set(REGIONAL_COUNTRY_OVERRIDES[selectedItem.id] || []) : null;
+                existingSvg.querySelectorAll('#regionalCountriesGroup path[data-country]').forEach(pEl => {
+                    const code = pEl.getAttribute('data-country');
+                    const isHit = activeKeys && activeKeys.has(code);
+                    if (isHit) {
+                        pEl.removeAttribute('class');
+                        pEl.setAttribute('fill', selectedItem.color);
+                        pEl.setAttribute('fill-opacity', '0.76');
+                        pEl.setAttribute('stroke', '#ffffff');
+                        pEl.setAttribute('stroke-opacity', '0.88');
+                        pEl.setAttribute('stroke-width', '1.35');
+                        pEl.setAttribute('stroke-linejoin', 'round');
+                        pEl.setAttribute('vector-effect', 'non-scaling-stroke');
+                    } else {
+                        pEl.setAttribute('class', 'regional-land');
+                        pEl.removeAttribute('fill');
+                        pEl.removeAttribute('fill-opacity');
+                        pEl.removeAttribute('stroke');
+                        pEl.removeAttribute('stroke-opacity');
+                        pEl.removeAttribute('stroke-width');
+                        pEl.removeAttribute('stroke-linejoin');
+                        pEl.removeAttribute('vector-effect');
+                    }
+                });
+                mapBox.querySelectorAll('.regional-map-pin').forEach(el => el.remove());
+                mapBox.insertAdjacentHTML('beforeend', pinsHtml);
+            } else {
+                mapBox.innerHTML = renderStaticWorldMapSvg(selectedItem) + pinsHtml;
+            }
             const pctBtn = document.getElementById('regionalZoomPctBtn');
             if (pctBtn) pctBtn.textContent = `${Math.round(regionalMapView.scale * 100)}%`;
+        }
+
+        // Debounce-Helfer für flüssige Sucheingaben ohne Main-Thread-Blockade bei jedem Tastendruck
+        const _searchDebounceTimers = {};
+        function debounceUiSearch(key, fn, delayMs = 90) {
+            if (_searchDebounceTimers[key]) clearTimeout(_searchDebounceTimers[key]);
+            _searchDebounceTimers[key] = setTimeout(fn, delayMs);
         }
 
         // =========================================================================
@@ -18607,21 +18703,14 @@
             if (cmpT2) cmpT2.value = 'Flug';
             renderCmpBossTypeButtons();
 
-            // Init Ansichten: Aktiven Pokédex-Tab sofort rendern, inaktive Tabs verzögert im Hintergrund vorbereiten
+            // Init Ansichten: Nur den aktiven Pokédex-Tab sofort rendern (inaktive Tabs werden bei Bedarf in switchTab gerendert)
             renderFsDexDetail();
-            renderEmbeddedDex();
+            renderEmbeddedDex(false);
             initTabSwipeGestures();
             initCookieNoticeBanner();
 
-            const deferIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 16));
+            const deferIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 32));
             deferIdle(() => {
-                renderCompareAll();
-                renderTop6ByTypeSection();
-                renderPvpView();
-                renderRaidBosses();
-                renderEventsSection();
-                renderRegionalsView();
-                renderTypeChartView();
                 prefetchPrioritySprites();
                 // 1. Automatischer Live-API-Sync für Pokédex (GameMaster + Release + Crypto), Events & Raidbosse (+ Max-Kämpfe) beim Seitenstart
                 syncAllLiveApis(false);
