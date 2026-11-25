@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon GO Hub – Vergleich, Pokédex, Konter, Rechner, Raids & Events</title>
+    <title>GO Dex</title>
     <link rel="icon" type="image/png" href="./favicon.png">
     <link rel="apple-touch-icon" href="./logo.png">
     <link rel="manifest" href="./manifest.json">
@@ -11,7 +11,8 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Pokémon GO Dex">
+    <meta name="application-name" content="GO Dex">
+    <meta name="apple-mobile-web-app-title" content="GO Dex">
     <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
     <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -1281,20 +1282,6 @@
                 <div class="flex flex-wrap items-center gap-2">
                     <button
                         type="button"
-                        onclick="openPokemonPickerModal('A')"
-                        class="px-3.5 py-2 rounded-2xl text-xs font-extrabold themed-sub hover:brightness-95 cursor-pointer"
-                    >
-                        Slot A wählen
-                    </button>
-                    <button
-                        type="button"
-                        onclick="openPokemonPickerModal('B')"
-                        class="px-3.5 py-2 rounded-2xl text-xs font-extrabold themed-sub hover:brightness-95 cursor-pointer"
-                    >
-                        Slot B wählen
-                    </button>
-                    <button
-                        type="button"
                         onclick="switchTab('pokedex')"
                         class="px-3.5 py-2 rounded-2xl text-xs font-black bg-gradient-to-r from-teal-500 to-emerald-600 text-white shadow-sm cursor-pointer"
                     >
@@ -1480,7 +1467,7 @@
                         <input
                             type="text"
                             id="embeddedDexSearch"
-                            placeholder="Suche nach #Nummer, Name, Attacke oder 1–2 Typen (z. B. Feuer Flug)..."
+                            placeholder="#Nummer, Name, Attacke oder 1–2 Typen (z. B. Feuer Flug)..."
                             oninput="resetAndRenderEmbeddedDex()"
                             class="themed-sub rounded-xl px-3.5 py-2 text-xs sm:text-sm font-bold focus:outline-none w-full"
                         />
@@ -1581,8 +1568,8 @@
         <!-- ======================================================================= -->
         <section id="view-tierlist" class="view-section hidden space-y-5">
             <div class="themed-card rounded-3xl p-4 sm:p-5 shadow-sm space-y-4">
-                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
-                    <div>
+                <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-3">
+                    <div class="min-w-0 flex-1">
                         <div class="flex items-center gap-2 flex-wrap">
                             <span id="tierlistHeaderBadge" class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 text-[10px] font-extrabold uppercase tracking-wider">
                                 DialgaDex Meta-Tierlist • Top 6 pro Elementar-Typ
@@ -1605,7 +1592,7 @@
                         </p>
                     </div>
 
-                    <div class="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3">
+                    <div class="shrink-0 w-full sm:w-auto">
                         <div
                             id="tierlistModeSwitch"
                             data-mode="raid"
@@ -1649,107 +1636,115 @@
                                 <span>Max-Battles</span>
                             </button>
                         </div>
-
-                        <div
-                            id="tierlistMaxRoleSwitch"
-                            data-mode="attacker"
-                            class="pogo-mode-switch themed-sub p-1 rounded-full hidden grid-cols-2 gap-1 shadow-inner border w-full sm:w-auto"
-                            style="border-color: var(--border-color);"
-                            role="group"
-                            aria-label="Max-Battle Rolle zwischen Angreifern und Tanks umschalten"
-                        >
-                            <span class="pogo-mode-thumb" aria-hidden="true"></span>
-                            <button
-                                type="button"
-                                id="tierlistBtnRoleAttacker"
-                                onclick="setTierlistMaxRole('attacker')"
-                                aria-pressed="true"
-                                class="px-4 py-2 rounded-full text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 text-white cursor-pointer whitespace-nowrap"
-                            >
-                                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-                                </svg>
-                                <span>Angreifer</span>
-                            </button>
-                            <button
-                                type="button"
-                                id="tierlistBtnRoleTank"
-                                onclick="setTierlistMaxRole('tank')"
-                                aria-pressed="false"
-                                class="px-4 py-2 rounded-full text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 opacity-75 hover:opacity-100 cursor-pointer whitespace-nowrap"
-                            >
-                                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                                </svg>
-                                <span>Max-Tanks</span>
-                            </button>
-                        </div>
-
-                        <div class="flex flex-wrap items-center gap-2">
-                        <label id="tierlistMegaLabel" data-pill-tone="amber" class="pogo-pill-toggle cursor-pointer">
-                            <input
-                                type="checkbox"
-                                id="tierlistToggleMega"
-                                checked
-                                onchange="onTop6FilterToggle('mega', this.checked)"
-                            />
-                            <span class="pogo-pill-face hover:brightness-95">
-                                <span class="pogo-pill-switch" aria-hidden="true"></span>
-                                <svg class="w-4 h-4 shrink-0 drop-shadow-sm" viewBox="0 0 64 64" aria-hidden="true">
-                                    <defs>
-                                        <clipPath id="tlMegaClip"><path d="M 35 6 C 49 6, 58 14, 57 27 C 56 40, 44 56, 33 59 C 22 57, 8 42, 7 28 C 6 15, 19 6, 35 6 Z" /></clipPath>
-                                        <linearGradient id="tlMegaGrad" x1="15%" y1="10%" x2="88%" y2="92%">
-                                            <stop offset="0%" stop-color="#fef3c7" />
-                                            <stop offset="35%" stop-color="#f59e0b" />
-                                            <stop offset="100%" stop-color="#ec4899" />
-                                        </linearGradient>
-                                    </defs>
-                                    <g clip-path="url(#tlMegaClip)">
-                                        <rect x="0" y="0" width="64" height="64" fill="url(#tlMegaGrad)" />
-                                        <ellipse cx="24" cy="16" rx="14" ry="7" transform="rotate(-24 24 16)" fill="#ffffff" fill-opacity="0.45" />
-                                        <g transform="translate(32.5 32.5) rotate(-18) scale(0.9)" stroke="#ffffff" stroke-opacity="0.85" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M 0 -14 C 9 -10, 10 2, 0 14 C -10 2, -9 -10, 0 -14 Z" stroke-width="3.2" />
-                                            <path d="M -5.5 -4.5 C -1 -2.5, 1.5 -5.5, 5.5 -4" stroke-width="2.4" />
-                                            <path d="M -6.2 1.2 C -1.5 3.2, 1.5 -0.2, 6.2 1.5" stroke-width="2.4" />
-                                            <path d="M -4.2 6.8 C -1 8.2, 1.5 5.8, 4.2 7" stroke-width="2.3" />
-                                        </g>
-                                    </g>
-                                    <path d="M 35 6 C 49 6, 58 14, 57 27 C 56 40, 44 56, 33 59 C 22 57, 8 42, 7 28 C 6 15, 19 6, 35 6 Z" fill="none" stroke="#ffffff" stroke-opacity="0.45" stroke-width="1.6" />
-                                </svg>
-                                <span>Mega / Proto</span>
-                            </span>
-                        </label>
-                        <label id="tierlistShadowLabel" data-pill-tone="purple" class="pogo-pill-toggle cursor-pointer">
-                            <input
-                                type="checkbox"
-                                id="tierlistToggleShadow"
-                                checked
-                                onchange="onTop6FilterToggle('shadow', this.checked)"
-                            />
-                            <span class="pogo-pill-face hover:brightness-95">
-                                <span class="pogo-pill-switch" aria-hidden="true"></span>
-                                <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                    <g fill="#c084fc"><path d="M11.8 1.2C9.1 2.7 8.2 5.1 8.9 7.8 9.4 9.5 8.5 11.3 7.4 12.2 6.8 11.4 6.4 10.5 6.0 9.8 5.0 11.2 4.9 13.1 5.5 14.9 5.8 15.8 5.7 16.5 5.4 17.2 5.8 18.1 6.8 18.8 8.1 19.6 6.2 19.6 4.6 19.1 3.6 18.2 3.5 20.5 5.8 22.1 9.2 22.5 12.4 22.9 15.3 22.7 16.2 21.1 16.8 20.0 17.3 18.6 18.6 17.3 20.3 15.5 20.9 13.3 19.7 11.4 19.0 10.3 18.1 9.6 17.0 9.1 17.6 10.4 17.4 11.6 16.6 12.4 16.1 12.9 15.4 12.7 15.2 11.8 14.9 10.5 15.3 8.9 15.6 7.5 16.0 5.9 15.0 4.9 13.4 4.1 11.8 3.3 11.0 2.3 11.8 1.2Z"/><path d="M6.8 4.2C4.2 4.6 2.3 6.2 2.4 8.2 2.5 9.6 3.4 10.9 4.4 11.6 5.0 10.3 5.7 9.1 6.1 8.3 5.2 7.4 5.0 5.6 6.8 4.2Z"/><path d="M21.9 16.8C21.6 18.1 20.6 18.6 19.5 19.0 18.2 19.5 17.4 20.9 17.3 22.6 19.2 22.6 21.1 21.8 22.1 20.3 22.9 19.1 22.8 17.7 21.9 16.8Z"/></g>
-                                </svg>
-                                <span>Crypto</span>
-                            </span>
-                        </label>
-                        <label data-pill-tone="emerald" class="pogo-pill-toggle cursor-pointer" title="Noch nicht in Pokémon GO erschienene Pokémon ausblenden">
-                            <input
-                                type="checkbox"
-                                id="tierlistToggleHideUnreleased"
-                                onchange="onTop6FilterToggle('hideUnreleased', this.checked)"
-                            />
-                            <span class="pogo-pill-face hover:brightness-95">
-                                <span class="pogo-pill-switch" aria-hidden="true"></span>
-                                <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                    <path d="M17 9h-1V7a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2zm-7-2a2 2 0 1 1 4 0v2h-4V7zm3 8.73V17a1 1 0 1 1-2 0v-1.27a1.75 1.75 0 1 1 2 0z"/>
-                                </svg>
-                                <span>Unreleaste ausblenden</span>
-                            </span>
-                        </label>
-                        </div>
                     </div>
+                </div>
+
+                <!-- Modus-Optionen (feste Zeile, damit der obere Pillswitch nie springt) -->
+                <div class="flex flex-wrap items-center gap-2 min-h-[42px]">
+                    <div
+                        id="tierlistMaxRoleSwitch"
+                        data-mode="attacker"
+                        class="pogo-mode-switch themed-sub p-1 rounded-full hidden grid-cols-2 gap-1 shadow-inner border w-full sm:w-auto"
+                        style="border-color: var(--border-color);"
+                        role="group"
+                        aria-label="Max-Battle Rolle zwischen Angreifern und Tanks umschalten"
+                    >
+                        <span class="pogo-mode-thumb" aria-hidden="true"></span>
+                        <button
+                            type="button"
+                            id="tierlistBtnRoleAttacker"
+                            onclick="setTierlistMaxRole('attacker')"
+                            aria-pressed="true"
+                            class="px-4 py-1.5 rounded-full text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 text-white cursor-pointer whitespace-nowrap"
+                        >
+                            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                            </svg>
+                            <span>Angreifer</span>
+                        </button>
+                        <button
+                            type="button"
+                            id="tierlistBtnRoleTank"
+                            onclick="setTierlistMaxRole('tank')"
+                            aria-pressed="false"
+                            class="px-4 py-1.5 rounded-full text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 opacity-75 hover:opacity-100 cursor-pointer whitespace-nowrap"
+                        >
+                            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                            <span>Max-Tanks</span>
+                        </button>
+                    </div>
+
+                    <label id="tierlistMegaLabel" data-pill-tone="amber" class="pogo-pill-toggle cursor-pointer">
+                        <input
+                            type="checkbox"
+                            id="tierlistToggleMega"
+                            checked
+                            onchange="onTop6FilterToggle('mega', this.checked)"
+                        />
+                        <span class="pogo-pill-face hover:brightness-95">
+                            <span class="pogo-pill-switch" aria-hidden="true"></span>
+                            <svg class="w-4 h-4 shrink-0 drop-shadow-sm" viewBox="0 0 64 64" aria-hidden="true">
+                                <defs>
+                                    <clipPath id="tlMegaClip"><path d="M 35 6 C 49 6, 58 14, 57 27 C 56 40, 44 56, 33 59 C 22 57, 8 42, 7 28 C 6 15, 19 6, 35 6 Z" /></clipPath>
+                                    <linearGradient id="tlMegaGrad" x1="15%" y1="10%" x2="88%" y2="92%">
+                                        <stop offset="0%" stop-color="#fef3c7" />
+                                        <stop offset="35%" stop-color="#f59e0b" />
+                                        <stop offset="100%" stop-color="#ec4899" />
+                                    </linearGradient>
+                                </defs>
+                                <g clip-path="url(#tlMegaClip)">
+                                    <rect x="0" y="0" width="64" height="64" fill="url(#tlMegaGrad)" />
+                                    <ellipse cx="24" cy="16" rx="14" ry="7" transform="rotate(-24 24 16)" fill="#ffffff" fill-opacity="0.45" />
+                                    <g transform="translate(32.5 32.5) rotate(-18) scale(0.9)" stroke="#ffffff" stroke-opacity="0.85" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M 0 -14 C 9 -10, 10 2, 0 14 C -10 2, -9 -10, 0 -14 Z" stroke-width="3.2" />
+                                        <path d="M -5.5 -4.5 C -1 -2.5, 1.5 -5.5, 5.5 -4" stroke-width="2.4" />
+                                        <path d="M -6.2 1.2 C -1.5 3.2, 1.5 -0.2, 6.2 1.5" stroke-width="2.4" />
+                                        <path d="M -4.2 6.8 C -1 8.2, 1.5 5.8, 4.2 7" stroke-width="2.3" />
+                                    </g>
+                                </g>
+                                <path d="M 35 6 C 49 6, 58 14, 57 27 C 56 40, 44 56, 33 59 C 22 57, 8 42, 7 28 C 6 15, 19 6, 35 6 Z" fill="none" stroke="#ffffff" stroke-opacity="0.45" stroke-width="1.6" />
+                            </svg>
+                            <span>Mega / Proto</span>
+                        </span>
+                    </label>
+                    <div id="tierlistMegaLevelGroup" class="themed-sub rounded-full px-1.5 py-1 inline-flex items-center gap-1 border" style="border-color: var(--border-color);" title="Mega-Level für Rangliste &amp; DPS-Berechnung (Stufe 4 nur für Super-Max-Megas)">
+                        <span class="text-[10px] font-extrabold uppercase tracking-wider opacity-70 pl-1 pr-0.5">Mega-Lv.</span>
+                        <button type="button" data-mlvl="1" onclick="setRankingMegaLevel(1)" class="ranking-mega-lvl-btn px-2 py-1 rounded-lg text-[10px] font-extrabold themed-card opacity-80 hover:opacity-100 cursor-pointer transition">1</button>
+                        <button type="button" data-mlvl="2" onclick="setRankingMegaLevel(2)" class="ranking-mega-lvl-btn px-2 py-1 rounded-lg text-[10px] font-extrabold themed-card opacity-80 hover:opacity-100 cursor-pointer transition">2</button>
+                        <button type="button" data-mlvl="3" onclick="setRankingMegaLevel(3)" class="ranking-mega-lvl-btn px-2 py-1 rounded-lg text-[10px] font-extrabold themed-card opacity-80 hover:opacity-100 cursor-pointer transition">3</button>
+                        <button type="button" data-mlvl="4" onclick="setRankingMegaLevel(4)" class="ranking-mega-lvl-btn px-2 py-1 rounded-lg text-[10px] font-black text-white shadow-sm cursor-pointer transition" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 55%, #f59e0b 100%);">4 ★</button>
+                    </div>
+                    <label id="tierlistShadowLabel" data-pill-tone="purple" class="pogo-pill-toggle cursor-pointer">
+                        <input
+                            type="checkbox"
+                            id="tierlistToggleShadow"
+                            checked
+                            onchange="onTop6FilterToggle('shadow', this.checked)"
+                        />
+                        <span class="pogo-pill-face hover:brightness-95">
+                            <span class="pogo-pill-switch" aria-hidden="true"></span>
+                            <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <g fill="#c084fc"><path d="M11.8 1.2C9.1 2.7 8.2 5.1 8.9 7.8 9.4 9.5 8.5 11.3 7.4 12.2 6.8 11.4 6.4 10.5 6.0 9.8 5.0 11.2 4.9 13.1 5.5 14.9 5.8 15.8 5.7 16.5 5.4 17.2 5.8 18.1 6.8 18.8 8.1 19.6 6.2 19.6 4.6 19.1 3.6 18.2 3.5 20.5 5.8 22.1 9.2 22.5 12.4 22.9 15.3 22.7 16.2 21.1 16.8 20.0 17.3 18.6 18.6 17.3 20.3 15.5 20.9 13.3 19.7 11.4 19.0 10.3 18.1 9.6 17.0 9.1 17.6 10.4 17.4 11.6 16.6 12.4 16.1 12.9 15.4 12.7 15.2 11.8 14.9 10.5 15.3 8.9 15.6 7.5 16.0 5.9 15.0 4.9 13.4 4.1 11.8 3.3 11.0 2.3 11.8 1.2Z"/><path d="M6.8 4.2C4.2 4.6 2.3 6.2 2.4 8.2 2.5 9.6 3.4 10.9 4.4 11.6 5.0 10.3 5.7 9.1 6.1 8.3 5.2 7.4 5.0 5.6 6.8 4.2Z"/><path d="M21.9 16.8C21.6 18.1 20.6 18.6 19.5 19.0 18.2 19.5 17.4 20.9 17.3 22.6 19.2 22.6 21.1 21.8 22.1 20.3 22.9 19.1 22.8 17.7 21.9 16.8Z"/></g>
+                            </svg>
+                            <span>Crypto</span>
+                        </span>
+                    </label>
+                    <label data-pill-tone="emerald" class="pogo-pill-toggle cursor-pointer" title="Noch nicht in Pokémon GO erschienene Pokémon ausblenden">
+                        <input
+                            type="checkbox"
+                            id="tierlistToggleHideUnreleased"
+                            onchange="onTop6FilterToggle('hideUnreleased', this.checked)"
+                        />
+                        <span class="pogo-pill-face hover:brightness-95">
+                            <span class="pogo-pill-switch" aria-hidden="true"></span>
+                            <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path d="M17 9h-1V7a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2zm-7-2a2 2 0 1 1 4 0v2h-4V7zm3 8.73V17a1 1 0 1 1-2 0v-1.27a1.75 1.75 0 1 1 2 0z"/>
+                            </svg>
+                            <span>Unreleaste ausblenden</span>
+                        </span>
+                    </label>
                 </div>
 
                 <!-- Schnellfilter: Alle 18 Typen oder einzelner Typ + Suche -->
@@ -1870,14 +1865,10 @@
                             type="button"
                             id="pvpRefreshBtn"
                             onclick="syncLivePvPokeRankings(true)"
-                            class="themed-sub hover:brightness-95 px-3 py-2 rounded-xl text-xs font-black flex items-center gap-1.5 transition cursor-pointer shadow-sm"
+                            class="px-3 py-1.5 rounded-xl bg-emerald-500 hover:brightness-105 text-white text-xs font-extrabold inline-flex items-center gap-1 transition cursor-pointer shadow-sm"
                             title="Aktuelle Top-50-Daten von PvPoke neu laden"
                         >
-                            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="M21 12a9 9 0 1 1-2.64-6.36"/>
-                                <path d="M21 3v6h-6"/>
-                            </svg>
-                            <span>PvPoke aktualisieren</span>
+                            &#8635; Live-Sync
                         </button>
                     </div>
                 </div>
@@ -1966,7 +1957,7 @@
                             class="px-3.5 py-1.5 rounded-xl text-xs font-extrabold bg-emerald-500 hover:brightness-105 text-white cursor-pointer shadow-sm transition"
                             title="Jetzt live von API abrufen"
                         >
-                            &#8635; Jetzt Live-Sync
+                            &#8635; Live-Sync
                         </button>
                     </div>
                 </div>
@@ -1989,7 +1980,12 @@
                             </svg>
                             <span>Mega / Proto</span>
                         </button>
-                        <button type="button" onclick="setRaidTierFilter('Crypto')" data-rtier="Crypto" class="raid-tier-btn px-3 py-1.5 rounded-xl text-xs font-bold themed-sub cursor-pointer">Crypto</button>
+                        <button type="button" onclick="setRaidTierFilter('Crypto')" data-rtier="Crypto" class="raid-tier-btn px-3 py-1.5 rounded-xl text-xs font-bold themed-sub cursor-pointer inline-flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <g fill="#c084fc"><path d="M11.8 1.2C9.1 2.7 8.2 5.1 8.9 7.8 9.4 9.5 8.5 11.3 7.4 12.2 6.8 11.4 6.4 10.5 6.0 9.8 5.0 11.2 4.9 13.1 5.5 14.9 5.8 15.8 5.7 16.5 5.4 17.2 5.8 18.1 6.8 18.8 8.1 19.6 6.2 19.6 4.6 19.1 3.6 18.2 3.5 20.5 5.8 22.1 9.2 22.5 12.4 22.9 15.3 22.7 16.2 21.1 16.8 20.0 17.3 18.6 18.6 17.3 20.3 15.5 20.9 13.3 19.7 11.4 19.0 10.3 18.1 9.6 17.0 9.1 17.6 10.4 17.4 11.6 16.6 12.4 16.1 12.9 15.4 12.7 15.2 11.8 14.9 10.5 15.3 8.9 15.6 7.5 16.0 5.9 15.0 4.9 13.4 4.1 11.8 3.3 11.0 2.3 11.8 1.2Z"/><path d="M6.8 4.2C4.2 4.6 2.3 6.2 2.4 8.2 2.5 9.6 3.4 10.9 4.4 11.6 5.0 10.3 5.7 9.1 6.1 8.3 5.2 7.4 5.0 5.6 6.8 4.2Z"/><path d="M21.9 16.8C21.6 18.1 20.6 18.6 19.5 19.0 18.2 19.5 17.4 20.9 17.3 22.6 19.2 22.6 21.1 21.8 22.1 20.3 22.9 19.1 22.8 17.7 21.9 16.8Z"/></g>
+                            </svg>
+                            <span>Crypto</span>
+                        </button>
                         <button type="button" onclick="setRaidTierFilter('Max')" data-rtier="Max" class="raid-tier-btn px-3 py-1.5 rounded-xl text-xs font-bold themed-sub cursor-pointer inline-flex items-center gap-1.5">
                             <svg class="w-3.5 h-3.5 shrink-0 text-pink-500" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
                                 <defs><mask id="raidBtnMaxMask"><rect x="0" y="0" width="64" height="64" fill="#ffffff" /><line x1="34.2" y1="39.4" x2="42.4" y2="30.2" stroke="#000000" stroke-width="2.6" /><line x1="37.4" y1="43.9" x2="46.2" y2="34.0" stroke="#000000" stroke-width="2.6" /></mask></defs>
@@ -2060,7 +2056,7 @@
                             onclick="syncScrapedDuckEvents(true)"
                             class="px-3.5 py-2 rounded-2xl bg-emerald-500 hover:brightness-105 text-white text-xs font-extrabold cursor-pointer shadow-sm transition"
                         >
-                            &#8635; Jetzt Live-Sync
+                            &#8635; Live-Sync
                         </button>
                         <a
                             href="https://leekduck.com/events/"
@@ -2167,7 +2163,7 @@
                 </div>
 
                 <!-- Filter- & Suchleiste -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <input
                         type="text"
                         id="regionalSearchInput"
@@ -2185,9 +2181,6 @@
                         <option value="Ozeanien">Australien &amp; Ozeanien</option>
                         <option value="Hemisphäre">Hemisphären / Global-Split</option>
                     </select>
-                    <select id="regionalTypeFilter" onchange="renderRegionalsView()" class="themed-sub rounded-xl px-2.5 py-2 text-xs font-extrabold cursor-pointer w-full">
-                        <option value="ALL">Alle 18 Typen</option>
-                    </select>
                     <select id="regionalSourceFilter" onchange="renderRegionalsView()" class="themed-sub rounded-xl px-2.5 py-2 text-xs font-extrabold cursor-pointer w-full">
                         <option value="ALL">Alle Verfügbarkeiten</option>
                         <option value="Wildnis">Wildnis</option>
@@ -2200,11 +2193,12 @@
                 <div class="space-y-4">
                     <div class="space-y-2.5">
                         <div class="relative rounded-2xl overflow-hidden border shadow-sm" style="border-color: var(--border-color);">
-                            <div id="regionalWorldMap" class="relative w-full aspect-[2/1] min-h-[320px] sm:min-h-[420px] select-none overflow-hidden" style="touch-action: none;"></div>
+                            <div id="regionalWorldMap" class="relative w-full aspect-[2/1] min-h-[340px] sm:min-h-[440px] select-none overflow-hidden overscroll-contain" style="touch-action: none;"></div>
                             <div class="absolute top-3 right-3 z-40 flex items-center gap-1 rounded-xl themed-card p-1 shadow-md border" style="border-color: var(--border-color);">
-                                <button type="button" onclick="zoomRegionalMap(1.35)" class="w-8 h-8 rounded-lg themed-sub hover:brightness-95 font-black text-base flex items-center justify-center cursor-pointer" title="Hineinzoomen" aria-label="Hineinzoomen">+</button>
-                                <button type="button" onclick="zoomRegionalMap(1 / 1.35)" class="w-8 h-8 rounded-lg themed-sub hover:brightness-95 font-black text-base flex items-center justify-center cursor-pointer" title="Herauszoomen" aria-label="Herauszoomen">&minus;</button>
-                                <button type="button" id="regionalZoomPctBtn" onclick="resetRegionalZoomOnly()" class="px-2.5 h-8 rounded-lg themed-sub hover:brightness-95 font-mono font-black text-xs flex items-center justify-center cursor-pointer" title="Zoom zurücksetzen">100%</button>
+                                <button type="button" onclick="zoomRegionalMap(1.4)" class="w-8 h-8 rounded-lg themed-sub hover:brightness-95 font-black text-base flex items-center justify-center cursor-pointer" title="Hineinzoomen" aria-label="Hineinzoomen">+</button>
+                                <button type="button" onclick="zoomRegionalMap(1 / 1.4)" class="w-8 h-8 rounded-lg themed-sub hover:brightness-95 font-black text-base flex items-center justify-center cursor-pointer" title="Herauszoomen" aria-label="Herauszoomen">&minus;</button>
+                                <button type="button" id="regionalZoomPctBtn" onclick="resetRegionalZoomOnly()" class="px-2 h-8 rounded-lg themed-sub hover:brightness-95 font-mono font-black text-[11px] flex items-center justify-center cursor-pointer" title="Auf Standard-Zoom zurücksetzen">150%</button>
+                                <button type="button" onclick="resetRegionalMapView()" class="w-8 h-8 rounded-lg themed-sub hover:brightness-95 font-black text-base flex items-center justify-center cursor-pointer" title="Karte zurücksetzen &amp; zentrieren" aria-label="Karte zurücksetzen und zentrieren">&#8982;</button>
                             </div>
                         </div>
                         <div id="regionalSelectedInfoBar" class="themed-sub rounded-2xl p-3 text-xs font-bold flex flex-wrap items-center justify-between gap-2">
@@ -6652,6 +6646,7 @@
             top6IncludeMega: true,
             top6IncludeShadow: true,
             top6HideUnreleased: false,
+            rankingMegaLevel: 4,
             tierlistTypeFilter: 'ALL',
             tierlistMaxRole: 'attacker', // 'attacker' | 'tank' (nur im Max-Battles-Modus)
             fullRankingLimit: 80,
@@ -6674,6 +6669,7 @@
             fsIsDmax: false,
             fsIsShadow: false,
             fsIsShiny: false,
+            fsMegaLevel: 4,
             fsSubTab: 'all', // 'all' | 'moves' | 'counters' | 'levelup'
             slotA: null, // Standard-Auswahl leer
             slotB: null, // Standard-Auswahl leer
@@ -7583,6 +7579,121 @@
             return p;
         }
 
+        function getMaxMegaLevelForEntry(p) {
+            if (!p || !p.isMega) return 0;
+            return isEntrySuperMaxMega(p) ? 4 : 3;
+        }
+
+        function getEffectiveMegaLevel(p, requestedLevel = 4) {
+            const maxLvl = getMaxMegaLevelForEntry(p);
+            if (maxLvl === 0) return 0;
+            const n = Math.round(Number(requestedLevel || maxLvl));
+            return Math.max(1, Math.min(maxLvl, isNaN(n) ? maxLvl : n));
+        }
+
+        function getMegaLevelBonusInfo(level, hasLv4 = false) {
+            const lvl = Math.max(1, Math.min(hasLv4 ? 4 : 3, Number(level || 1)));
+            if (lvl === 4) {
+                return {
+                    level: 4,
+                    title: 'Super-Max (Stufe 4)',
+                    shortBonus: '+2 Lvl-Boost & +30% +-Attacke',
+                    cpLevelBoost: 2
+                };
+            }
+            if (lvl === 3) {
+                return {
+                    level: 3,
+                    title: 'Maximalstufe (Stufe 3)',
+                    shortBonus: '3 Tage Cooldown • +2 Bonbons • Max XL-Chance',
+                    cpLevelBoost: 0
+                };
+            }
+            if (lvl === 2) {
+                return {
+                    level: 2,
+                    title: 'Hohe Stufe (Stufe 2)',
+                    shortBonus: '5 Tage Cooldown • +1 Bonbon • +50 EP • Erhöhte XL-Chance',
+                    cpLevelBoost: 0
+                };
+            }
+            return {
+                level: 1,
+                title: 'Basisstufe (Stufe 1)',
+                shortBonus: '7 Tage Cooldown • +1 Fang-Bonbon',
+                cpLevelBoost: 0
+            };
+        }
+
+        function renderMegaLevelSelectorHtml(p, currentLevel, onSelectFnExpr, compact = false) {
+            const maxLvl = getMaxMegaLevelForEntry(p);
+            if (maxLvl === 0) return '';
+            const activeLvl = getEffectiveMegaLevel(p, currentLevel);
+            const hasLv4 = maxLvl === 4;
+            const info = getMegaLevelBonusInfo(activeLvl, hasLv4);
+            const levels = hasLv4 ? [1, 2, 3, 4] : [1, 2, 3];
+            return `
+                <div class="themed-sub rounded-2xl ${compact ? 'p-2' : 'p-2.5 px-3'} space-y-1.5 border" style="border-color: var(--border-color);">
+                    <div class="flex items-center justify-between gap-2 flex-wrap">
+                        <span class="text-[10px] font-extrabold uppercase tracking-wider opacity-75">Mega-Level (Stufe 1–${maxLvl})</span>
+                        <span class="text-[10px] font-bold ${activeLvl === 4 ? 'text-fuchsia-500 font-black' : 'opacity-75'} truncate">${info.shortBonus}</span>
+                    </div>
+                    <div class="grid ${hasLv4 ? 'grid-cols-4' : 'grid-cols-3'} gap-1.5">
+                        ${levels.map(lv => {
+                            const isAct = lv === activeLvl;
+                            const isLv4 = lv === 4;
+                            const activeStyle = isAct
+                                ? (isLv4
+                                    ? 'background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 55%, #f59e0b 100%); color: #ffffff;'
+                                    : 'background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%); color: #ffffff;')
+                                : '';
+                            return `
+                                <button
+                                    type="button"
+                                    onclick="${onSelectFnExpr}(${lv})"
+                                    class="py-1 px-2 rounded-xl text-[11px] font-black cursor-pointer transition border ${isAct ? 'border-transparent shadow-sm' : 'themed-card opacity-85 hover:opacity-100'}"
+                                    style="${isAct ? activeStyle : 'border-color: var(--border-color);'}"
+                                    title="${getMegaLevelBonusInfo(lv, hasLv4).title}: ${getMegaLevelBonusInfo(lv, hasLv4).shortBonus}"
+                                >
+                                    ${isLv4 ? 'Stufe 4 ★' : `Stufe ${lv}`}
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function setFsMegaLevel(level) {
+            const p = getCurrentFsPokemon();
+            appState.fsMegaLevel = getEffectiveMegaLevel(p, level) || Math.max(1, Math.min(4, Number(level || 4)));
+            renderFsDexDetail();
+        }
+
+        function setSlotMegaLevel(slotLetter, level) {
+            const s = appState[`slot${slotLetter}`];
+            if (!s || !s.entry) return;
+            s.megaLevel = getEffectiveMegaLevel(s.entry, level) || 3;
+            renderCompareAll();
+        }
+
+        function setRankingMegaLevel(level) {
+            const clamped = Math.max(1, Math.min(4, Math.round(Number(level || 4))));
+            appState.rankingMegaLevel = clamped;
+            document.querySelectorAll('.ranking-mega-lvl-btn').forEach(btn => {
+                const lv = Number(btn.getAttribute('data-mlvl'));
+                const active = lv === clamped;
+                btn.className = active
+                    ? 'ranking-mega-lvl-btn px-2 py-1 rounded-lg text-[10px] font-black text-white shadow-sm cursor-pointer transition'
+                    : 'ranking-mega-lvl-btn px-2 py-1 rounded-lg text-[10px] font-extrabold themed-card opacity-80 hover:opacity-100 cursor-pointer transition';
+                btn.style.background = active
+                    ? (lv === 4 ? 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 55%, #f59e0b 100%)' : 'linear-gradient(135deg, #f59e0b 0%, #ea580c 100%)')
+                    : '';
+            });
+            renderTop6ByTypeSection();
+            if (appState.activeTab === 'pokedex') renderFsDexDetail();
+        }
+
         function getCpmForLevel(level) {
             const clamped = Math.max(1, Math.min(53, Number(level || 40)));
             const rounded = Math.round(clamped * 2) / 2;
@@ -7720,7 +7831,10 @@
             if (!p) return null;
             ensureSuperMaxMegaMove(p);
             const baseLevel = opts.level ?? 40;
-            const isSuperMaxMega = isEntrySuperMaxMega(p) && opts.applySuperMaxBoost !== false;
+            const effMegaLevel = p.isMega
+                ? getEffectiveMegaLevel(p, opts.megaLevel ?? (opts.applySuperMaxBoost === false ? 3 : 4))
+                : 0;
+            const isSuperMaxMega = isEntrySuperMaxMega(p) && effMegaLevel >= 4 && opts.applySuperMaxBoost !== false;
             const level = isSuperMaxMega ? Math.min(53, baseLevel + 2) : baseLevel;
             const ivAtk = opts.ivAtk ?? 15;
             const ivDef = opts.ivDef ?? 15;
@@ -7811,6 +7925,7 @@
                 fEff,
                 cEff,
                 maxEff: Math.max(fEff, cEff),
+                megaLevel: effMegaLevel,
                 isSuperMaxMega,
                 hasMegaPlusBoost: isSuperMaxMega && isPlusMove,
                 effectiveLevel: level
@@ -7822,10 +7937,20 @@
             ensureSuperMaxMegaMove(p);
             const fastList = Array.isArray(p.fastMoves) && p.fastMoves.length > 0 ? p.fastMoves : [p.bestFast || 'Tackle'];
             const chargedList = Array.isArray(p.chargedMoves) && p.chargedMoves.length > 0 ? p.chargedMoves : [p.bestCharged || 'Bodyslam'];
+            const effMegaLevel = p.isMega
+                ? getEffectiveMegaLevel(p, opts.megaLevel ?? (opts.applySuperMaxBoost === false ? 3 : 4))
+                : 0;
+            const allowMegaPlus = isEntrySuperMaxMega(p) && effMegaLevel >= 4 && opts.applySuperMaxBoost !== false;
+            const nonPlusCharged = chargedList.filter(cRaw => {
+                const cClean = String(cRaw).replace('*', '').trim();
+                const cMove = CHARGED_MOVES_DATA[cClean];
+                return !(cMove?.isMegaPlus || cClean.endsWith('+'));
+            });
+            const usableCharged = (allowMegaPlus || nonPlusCharged.length === 0) ? chargedList : nonPlusCharged;
 
             let best = null;
             for (const fRaw of fastList) {
-                for (const cRaw of chargedList) {
+                for (const cRaw of usableCharged) {
                     const cClean = String(cRaw).replace('*', '').trim();
                     const cMove = CHARGED_MOVES_DATA[cClean];
                     if (opts.requireChargedType && cMove && cMove.type !== opts.requireChargedType) {
@@ -7838,7 +7963,7 @@
                 }
             }
             if (!best && !opts.requireChargedType) {
-                best = computeDialgaDexMetrics(p, p.bestFast, p.bestCharged, opts);
+                best = computeDialgaDexMetrics(p, p.bestFast, usableCharged[0] || p.bestCharged, opts);
             }
             return best;
         }
@@ -8538,6 +8663,7 @@
             const p = slotState.entry;
             const defT1 = document.getElementById('cmpBossType1')?.value || 'Drache';
             const defT2 = document.getElementById('cmpBossType2')?.value || 'NONE';
+            const effMegaLevel = p.isMega ? getEffectiveMegaLevel(p, slotState.megaLevel ?? 4) : 0;
 
             const best = findBestDialgaDexMoveset(p, {
                 level: slotState.level,
@@ -8545,6 +8671,7 @@
                 ivDef: slotState.ivDef,
                 ivHp: slotState.ivHp,
                 isShadow: slotState.isShadow,
+                megaLevel: effMegaLevel,
                 defType1: defT1,
                 defType2: defT2
             }) || computeDialgaDexMetrics(p, p.bestFast, p.bestCharged, {
@@ -8553,6 +8680,7 @@
                 ivDef: slotState.ivDef,
                 ivHp: slotState.ivHp,
                 isShadow: slotState.isShadow,
+                megaLevel: effMegaLevel,
                 defType1: defT1,
                 defType2: defT2
             });
@@ -8563,7 +8691,11 @@
             const maxHitDmg = Math.floor(0.5 * maxPower * (best.effAtk / 180) * fStab * best.maxEff) + 1;
 
             return {
-                cp: best.cp,
+                cp: best.effectiveCp,
+                baseCp: best.cp,
+                effectiveLevel: best.effectiveLevel,
+                megaLevel: best.megaLevel,
+                isSuperMaxMega: best.isSuperMaxMega,
                 effHp: best.effHp,
                 cycleDps: best.cycleDps,
                 tdo: best.tdo,
@@ -9163,7 +9295,7 @@
 
                     <div class="relative z-10 -mt-7 rounded-t-[2rem] themed-card p-5 pt-7 space-y-4" style="box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.14);">
                         <div id="slot${slotLetter}-lvlTag" class="absolute top-5 right-0 pogo-lvl-tag font-mono">
-                            LVL ${s.level.toFixed(1)}
+                            LVL ${s.level.toFixed(1)}${m.isSuperMaxMega ? ' (+2)' : ''}
                         </div>
 
                         <div class="text-center pt-1">
@@ -9178,6 +9310,7 @@
                         </div>
 
                         ${formSelectorHtml}
+                        ${p.isMega ? renderMegaLevelSelectorHtml(p, s.megaLevel ?? 4, `((lv)=>setSlotMegaLevel('${slotLetter}',lv))`, true) : ''}
 
                         <div class="grid ${(s.isDmax || p.isGmax) ? 'grid-cols-4' : 'grid-cols-3'} gap-1.5 text-center">
                             <button type="button" onclick="openPokemonPickerModal('${slotLetter}')" class="py-1.5 px-2 rounded-full bg-rose-400 text-white text-[11px] font-black shadow-sm cursor-pointer">
@@ -9256,16 +9389,11 @@
             const mB = computeSlotCombatMetrics(appState.slotB);
 
             if (!mA && !mB) {
-                sec.innerHTML = `
-                    <div class="text-center py-4">
-                        <div class="text-sm font-black">Wähle oben ein Pokémon für Slot A oder Slot B aus</div>
-                        <p class="text-xs font-semibold mt-0.5" style="color: var(--text-muted);">
-                            Oder klicke unten in der DialgaDex Top-6-Rangliste bzw. im Pokédex-Tab direkt auf „In Slot A“ / „In Slot B“.
-                        </p>
-                    </div>
-                `;
+                sec.innerHTML = '';
+                sec.classList.add('hidden');
                 return;
             }
+            sec.classList.remove('hidden');
 
             const nameA = appState.slotA ? `${appState.slotA.isShadow ? 'Crypto-' : (appState.slotA.isDmax ? 'Dynamax-' : '')}${appState.slotA.entry.name}` : 'Nicht gewählt';
             const nameB = appState.slotB ? `${appState.slotB.isShadow ? 'Crypto-' : (appState.slotB.isDmax ? 'Dynamax-' : '')}${appState.slotB.entry.name}` : 'Nicht gewählt';
@@ -9370,6 +9498,12 @@
                 }
             });
 
+            const megaLvlGrp = document.getElementById('tierlistMegaLevelGroup');
+            if (megaLvlGrp) {
+                megaLvlGrp.classList.toggle('hidden', isMax);
+                megaLvlGrp.classList.toggle('inline-flex', !isMax);
+            }
+
             const roleSwitch = document.getElementById('tierlistMaxRoleSwitch');
             const btnAtk = document.getElementById('tierlistBtnRoleAttacker');
             const btnTank = document.getElementById('tierlistBtnRoleTank');
@@ -9383,11 +9517,11 @@
                 btnAtk.setAttribute('aria-pressed', role === 'attacker' ? 'true' : 'false');
                 btnTank.setAttribute('aria-pressed', role === 'tank' ? 'true' : 'false');
                 btnAtk.className = role === 'attacker'
-                    ? 'px-4 py-2 rounded-full text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 text-white cursor-pointer whitespace-nowrap'
-                    : 'px-4 py-2 rounded-full text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 opacity-75 hover:opacity-100 cursor-pointer whitespace-nowrap';
+                    ? 'px-4 py-1.5 rounded-full text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 text-white cursor-pointer whitespace-nowrap'
+                    : 'px-4 py-1.5 rounded-full text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 opacity-75 hover:opacity-100 cursor-pointer whitespace-nowrap';
                 btnTank.className = role === 'tank'
-                    ? 'px-4 py-2 rounded-full text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 text-white cursor-pointer whitespace-nowrap'
-                    : 'px-4 py-2 rounded-full text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 opacity-75 hover:opacity-100 cursor-pointer whitespace-nowrap';
+                    ? 'px-4 py-1.5 rounded-full text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 text-white cursor-pointer whitespace-nowrap'
+                    : 'px-4 py-1.5 rounded-full text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 opacity-75 hover:opacity-100 cursor-pointer whitespace-nowrap';
             }
         }
 
@@ -9713,19 +9847,23 @@
                 }
 
                 variants.forEach(v => {
+                    const rankMegaLvl = p.isMega ? getEffectiveMegaLevel(p, appState.rankingMegaLevel) : 0;
                     const best = isAllTypes
                         ? findBestDialgaDexMoveset(p, {
                             level: 40,
-                            isShadow: v.isShadow
+                            isShadow: v.isShadow,
+                            megaLevel: rankMegaLvl
                         })
                         : (findBestDialgaDexMoveset(p, {
                             level: 40,
                             isShadow: v.isShadow,
+                            megaLevel: rankMegaLvl,
                             targetType: typeOrAll,
                             requireChargedType: typeOrAll
                         }) || findBestDialgaDexMoveset(p, {
                             level: 40,
                             isShadow: v.isShadow,
+                            megaLevel: rankMegaLvl,
                             targetType: typeOrAll
                         }));
 
@@ -9738,7 +9876,9 @@
                             isSpecialMax: false,
                             isReleased,
                             displayName: v.displayName,
-                            cp40: best.cp,
+                            cp40: best.effectiveCp,
+                            megaLevel: best.megaLevel,
+                            isSuperMaxMega: best.isSuperMaxMega,
                             eDps: best.eDps,
                             baseTypeEdps,
                             dps: best.cycleDps,
@@ -9764,24 +9904,26 @@
 
         function renderRankingFormBadge(item) {
             if (item.isShadow) {
-                return `<span class="px-1.5 py-0.5 rounded-md bg-purple-600 text-white text-[9px] font-black uppercase shadow-sm inline-flex items-center gap-1">${renderShadowSvg({ monochrome: true, sizeClass: 'w-3 h-3' })}<span>Crypto</span></span>`;
+                return `<span class="px-1.5 py-0.5 rounded-md bg-purple-600 text-white text-[9px] font-black uppercase leading-none whitespace-nowrap shadow-sm inline-flex items-center gap-0.5 shrink-0">${renderShadowSvg({ monochrome: true, sizeClass: 'w-2.5 h-2.5' })}<span>Crypto</span></span>`;
             }
             if (item.p.isMega) {
-                const megaIcon = renderMegaEnergySvg(item.p, { sizeClass: 'w-3 h-3', title: `${item.p.name}-Energie` });
-                if (isEntrySuperMaxMega(item.p)) {
+                const megaIcon = renderMegaEnergySvg(item.p, { sizeClass: 'w-2.5 h-2.5', title: `${item.p.name}-Energie` });
+                const effLv = item.megaLevel || getEffectiveMegaLevel(item.p, appState.rankingMegaLevel);
+                if (isEntrySuperMaxMega(item.p) && effLv >= 4) {
                     const usesPlus = String(item.chargedRaw || '').includes('+');
-                    return `<span class="px-1.5 py-0.5 rounded-md text-white text-[9px] font-black uppercase shadow-sm inline-flex items-center gap-1" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 55%, #f59e0b 100%);" title="Super-Max (Mega-Level 4): +2 Level-Boost &amp; +30% Schaden auf +-Attacken">${megaIcon}<span>Mega Lv.4${usesPlus ? ' +' : ''}</span></span>`;
+                    return `<span class="px-1.5 py-0.5 rounded-md text-white text-[9px] font-black uppercase leading-none whitespace-nowrap shadow-sm inline-flex items-center gap-0.5 shrink-0" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 55%, #f59e0b 100%);" title="Super-Max (Mega-Level 4): +2 Level-Boost &amp; +30% Schaden auf +-Attacken">${megaIcon}<span>Mega Lv.4${usesPlus ? '+' : ''}</span></span>`;
                 }
-                return `<span class="px-1.5 py-0.5 rounded-md bg-amber-500 text-white text-[9px] font-black uppercase shadow-sm inline-flex items-center gap-1">${megaIcon}<span>${item.p.name.startsWith('Proto-') ? 'Proto' : 'Mega'}</span></span>`;
+                const baseLabel = item.p.name.startsWith('Proto-') ? 'Proto' : 'Mega';
+                return `<span class="px-1.5 py-0.5 rounded-md bg-amber-500 text-white text-[9px] font-black uppercase leading-none whitespace-nowrap shadow-sm inline-flex items-center gap-0.5 shrink-0" title="${baseLabel}-Level ${effLv}">${megaIcon}<span>${baseLabel} Lv.${effLv}</span></span>`;
             }
             if (item.p.isGmax) {
-                return `<span class="px-1.5 py-0.5 rounded-md bg-rose-500 text-white text-[9px] font-black uppercase shadow-sm inline-flex items-center gap-1">${renderDynamaxSvg({ isGmax: true, monochrome: true, sizeClass: 'w-3 h-3' })}<span>G-Max</span></span>`;
+                return `<span class="px-1.5 py-0.5 rounded-md bg-rose-500 text-white text-[9px] font-black uppercase leading-none whitespace-nowrap shadow-sm inline-flex items-center gap-0.5 shrink-0">${renderDynamaxSvg({ isGmax: true, monochrome: true, sizeClass: 'w-2.5 h-2.5' })}<span>G-Max</span></span>`;
             }
             if (item.isSpecialMax) {
-                return `<span class="px-1.5 py-0.5 rounded-md bg-indigo-600 text-white text-[9px] font-black uppercase shadow-sm inline-flex items-center gap-1">${renderDynamaxSvg({ isGmax: false, monochrome: true, sizeClass: 'w-3 h-3' })}<span>Max Spezial</span></span>`;
+                return `<span class="px-1.5 py-0.5 rounded-md bg-indigo-600 text-white text-[9px] font-black uppercase leading-none whitespace-nowrap shadow-sm inline-flex items-center gap-0.5 shrink-0">${renderDynamaxSvg({ isGmax: false, monochrome: true, sizeClass: 'w-2.5 h-2.5' })}<span>Max Spezial</span></span>`;
             }
             if (item.isDmax) {
-                return `<span class="px-1.5 py-0.5 rounded-md bg-pink-600 text-white text-[9px] font-black uppercase shadow-sm inline-flex items-center gap-1">${renderDynamaxSvg({ isGmax: false, monochrome: true, sizeClass: 'w-3 h-3' })}<span>D-Max</span></span>`;
+                return `<span class="px-1.5 py-0.5 rounded-md bg-pink-600 text-white text-[9px] font-black uppercase leading-none whitespace-nowrap shadow-sm inline-flex items-center gap-0.5 shrink-0">${renderDynamaxSvg({ isGmax: false, monochrome: true, sizeClass: 'w-2.5 h-2.5' })}<span>D-Max</span></span>`;
             }
             return '';
         }
@@ -10383,13 +10525,13 @@
                             style="border-color: ${idx === 0 ? '' : 'var(--border-color)'}; animation-delay: ${idx * 26}ms;"
                             title="${item.displayName} im Pokédex-Inspektor öffnen"
                         >
-                            <!-- IN-GAME HERO STAGE (wie Dex-Infokarte) -->
-                            <div class="relative z-0 pt-2 pb-6 px-2.5 text-white overflow-hidden" style="background: ${cardStageBg};">
+                            <!-- IN-GAME HERO STAGE (wie Dex-Infokarte, feste Höhe für exakte Ausrichtung) -->
+                            <div class="relative z-0 h-[120px] sm:h-[132px] shrink-0 text-white overflow-hidden" style="background: ${cardStageBg};">
                                 ${renderHeroStageTypeOverlaySvg(item.p.types?.[0], item.p.dex)}
 
-                                <div class="relative z-10 w-full flex items-center justify-between gap-1">
+                                <div class="absolute top-2 left-2 right-2 z-30 flex items-start justify-between gap-1">
                                     <div class="flex items-center gap-1 flex-wrap min-w-0">
-                                        <span class="px-1.5 py-0.5 rounded-lg text-white text-[10px] font-black leading-none shadow-sm" style="${tierBadgeStyles[idx]}">
+                                        <span class="px-1.5 py-0.5 rounded-lg text-white text-[10px] font-black leading-none shadow-sm shrink-0" style="${tierBadgeStyles[idx]}">
                                             #${idx + 1}
                                         </span>
                                         ${formBadge}
@@ -10399,7 +10541,7 @@
                                     <span class="px-1.5 py-0.5 rounded-md bg-black/35 backdrop-blur-sm text-white text-[10px] font-mono font-black leading-none shrink-0">${relPct}%</span>
                                 </div>
 
-                                <div class="relative z-20 flex items-center justify-center mt-0.5 translate-y-2">
+                                <div class="absolute inset-x-0 bottom-2.5 z-20 flex items-center justify-center pointer-events-none">
                                     ${renderSpriteImg(item.p.spriteId, item.displayName, `w-16 h-16 sm:w-20 sm:h-20 group-hover:scale-110 transition duration-200 ${item.isShadow ? 'sprite-glow-crypto' : ((item.p.isGmax || item.isDmax) ? 'sprite-glow-dmax' : 'drop-shadow-[0_8px_14px_rgba(0,0,0,0.45)]')}`, item.p.dex)}
                                 </div>
                             </div>
@@ -10408,7 +10550,7 @@
                             <div class="relative z-10 -mt-4 rounded-t-[1.5rem] themed-card px-2.5 pt-4 pb-2.5 space-y-1 text-center flex-1 flex flex-col justify-between" style="box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.16); border: none;">
                                 <div class="space-y-1">
                                     <h4
-                                        class="font-black text-xs sm:text-[13px] leading-tight truncate ${item.isShadow ? 'text-purple-500' : (isMaxTankMode ? 'group-hover:text-sky-500' : 'group-hover:text-emerald-500')} transition"
+                                        class="font-black text-xs sm:text-[13px] leading-[1.25] truncate ${item.isShadow ? 'text-purple-500' : (isMaxTankMode ? 'group-hover:text-sky-500' : 'group-hover:text-emerald-500')} transition"
                                         title="${item.displayName}"
                                     >
                                         ${item.displayName}
@@ -10421,7 +10563,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="flex items-center justify-center gap-1 pt-0.5">
+                                    <div class="flex items-center justify-center gap-1 pt-0.5 min-h-[24px]">
                                         ${renderTypeBadges(item.p.types, false)}
                                     </div>
                                 </div>
@@ -10982,7 +11124,7 @@
             const footerEl = document.getElementById('dexInfiniteScrollFooter');
             if (footerEl) {
                 footerEl.textContent = slice.length < allMatching.length
-                    ? `Zeige ${slice.length} von ${allMatching.length} Pokémon – scrolle weiter nach unten zum Nachladen...`
+                    ? `Zeige ${slice.length} von ${allMatching.length} Pokémon – Scrolle weiter nach unten zum Nachladen...`
                     : `Alle ${allMatching.length} passenden Pokémon geladen.`;
             }
 
@@ -11525,8 +11667,8 @@
                     content: '<path d="M6 20 Q28 8 48 18 T78 14" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/><path d="M14 38 Q36 28 56 36 T76 32" fill="none" stroke="white" stroke-width="1.1" stroke-linecap="round" opacity="0.32"/>'
                 },
                 Käfer: {
-                    w: 76, h: 68,
-                    content: '<path d="M10 46 C18 22, 40 12, 66 20 C52 38, 34 50, 10 46 Z" fill="none" stroke="white" stroke-width="1.15" opacity="0.28"/><path d="M14 44 Q38 30 62 22" fill="none" stroke="white" stroke-width="0.9" stroke-linecap="round" opacity="0.24"/><path d="M28 36 Q34 26 42 20 M38 32 Q46 36 52 34" fill="none" stroke="white" stroke-width="0.75" stroke-linecap="round" opacity="0.2"/><circle cx="18" cy="18" r="2.2" fill="white" opacity="0.24"/><circle cx="60" cy="52" r="1.6" fill="white" opacity="0.22"/><circle cx="44" cy="58" r="1.1" fill="white" opacity="0.18"/>'
+                    w: 56, h: 48,
+                    content: '<polygon points="14,2 28,10 28,26 14,34 0,26 0,10" fill="none" stroke="white" stroke-width="1.15" opacity="0.34"/><polygon points="42,2 56,10 56,26 42,34 28,26 28,10" fill="none" stroke="white" stroke-width="1.15" opacity="0.22"/><polygon points="28,26 42,34 42,50 28,58 14,50 14,34" fill="none" stroke="white" stroke-width="1.15" opacity="0.30"/><circle cx="14" cy="18" r="2" fill="white" opacity="0.32"/><circle cx="42" cy="18" r="1.4" fill="white" opacity="0.25"/>'
                 },
                 Gift: {
                     w: 64, h: 64,
@@ -11690,14 +11832,17 @@
                 const { ivAtk, ivDef, ivHp, ivPct } = getFsIvs();
                 const isDmaxActive = Boolean(appState.fsIsDmax && !p.isMega && !p.isGmax);
                 const isShadowActive = Boolean(appState.fsIsShadow && !p.isMega && !p.isGmax && !isDmaxActive);
-                const cp = calculatePokemonCp(p.atk, p.def, p.hp, clamped, ivAtk, ivDef, ivHp);
-                const effStats = calculatePokemonEffectiveStats(p, clamped, ivAtk, ivDef, ivHp, isShadowActive);
+                const fsMegaLvl = p.isMega ? getEffectiveMegaLevel(p, appState.fsMegaLevel) : 0;
+                const megaLvlBoost = (isEntrySuperMaxMega(p) && fsMegaLvl >= 4) ? 2 : 0;
+                const effCalcLvl = Math.min(53, clamped + megaLvlBoost);
+                const cp = calculatePokemonCp(p.atk, p.def, p.hp, effCalcLvl, ivAtk, ivDef, ivHp);
+                const effStats = calculatePokemonEffectiveStats(p, effCalcLvl, ivAtk, ivDef, ivHp, isShadowActive);
                 const lvlStr = Number.isInteger(clamped) ? clamped : clamped.toFixed(1);
 
                 const cpEl = (cached && cached.cpEl) || document.getElementById('fsHeroCpValue');
                 if (cpEl) cpEl.textContent = formatNum(cp, 0);
                 const lvlEl = (cached && cached.lvlEl) || document.getElementById('fsHeroLevelLabel');
-                if (lvlEl) lvlEl.textContent = `${ivPct}% IV • Lvl ${lvlStr}`;
+                if (lvlEl) lvlEl.textContent = `${ivPct}% IV • Lvl ${lvlStr}${megaLvlBoost ? ' (+2)' : ''}`;
 
                 const liveStatsEl = (cached && cached.liveStatsEl) || document.getElementById('fsHeroLiveStats');
                 if (liveStatsEl) {
@@ -11814,14 +11959,16 @@
             const subTab = appState.fsSubTab || 'all';
             const isDmaxActive = Boolean(appState.fsIsDmax && !p.isMega && !p.isGmax);
             const isShadowActive = Boolean(appState.fsIsShadow && !p.isMega && !p.isGmax && !isDmaxActive);
+            const fsMegaLvl = p.isMega ? getEffectiveMegaLevel(p, appState.fsMegaLevel) : 0;
+            const megaLvlBoost = (isEntrySuperMaxMega(p) && fsMegaLvl >= 4) ? 2 : 0;
 
-            const cp20 = calculatePokemonCp(p.atk, p.def, p.hp, 20, 15, 15, 15);
-            const cp25 = calculatePokemonCp(p.atk, p.def, p.hp, 25, 15, 15, 15);
-            const cp40 = calculatePokemonCp(p.atk, p.def, p.hp, 40, 15, 15, 15);
-            const cp50 = calculatePokemonCp(p.atk, p.def, p.hp, 50, 15, 15, 15);
+            const cp20 = calculatePokemonCp(p.atk, p.def, p.hp, 20 + megaLvlBoost, 15, 15, 15);
+            const cp25 = calculatePokemonCp(p.atk, p.def, p.hp, 25 + megaLvlBoost, 15, 15, 15);
+            const cp40 = calculatePokemonCp(p.atk, p.def, p.hp, 40 + megaLvlBoost, 15, 15, 15);
+            const cp50 = calculatePokemonCp(p.atk, p.def, p.hp, Math.min(53, 50 + megaLvlBoost), 15, 15, 15);
 
             const isFusionForm = isEntryFusionForm(p);
-            const dialgaBase = findBestDialgaDexMoveset(p, { level: 40, isShadow: false }) || computeDialgaDexMetrics(p, p.bestFast, p.bestCharged, { level: 40 });
+            const dialgaBase = findBestDialgaDexMoveset(p, { level: 40, isShadow: false, megaLevel: fsMegaLvl }) || computeDialgaDexMetrics(p, p.bestFast, p.bestCharged, { level: 40, megaLevel: fsMegaLvl });
             const dialgaShadow = (!p.isMega && !p.isGmax && !isFusionForm && !isDmaxActive) ? (findBestDialgaDexMoveset(p, { level: 40, isShadow: true }) || computeDialgaDexMetrics(p, p.bestFast, p.bestCharged, { level: 40, isShadow: true })) : null;
             const dialgaPrimary = (isShadowActive && dialgaShadow) ? dialgaShadow : dialgaBase;
 
@@ -11995,8 +12142,9 @@
             const heroLvl = (typeof appState.fsHeroLevel === 'number' && !isNaN(appState.fsHeroLevel))
                 ? Math.max(1, Math.min(50, Math.round(appState.fsHeroLevel * 2) / 2))
                 : 50;
-            const heroCp = calculatePokemonCp(p.atk, p.def, p.hp, heroLvl, fsIvs.ivAtk, fsIvs.ivDef, fsIvs.ivHp);
-            const heroStats = calculatePokemonEffectiveStats(p, heroLvl, fsIvs.ivAtk, fsIvs.ivDef, fsIvs.ivHp, isShadowActive);
+            const effHeroLvl = Math.min(53, heroLvl + megaLvlBoost);
+            const heroCp = calculatePokemonCp(p.atk, p.def, p.hp, effHeroLvl, fsIvs.ivAtk, fsIvs.ivDef, fsIvs.ivHp);
+            const heroStats = calculatePokemonEffectiveStats(p, effHeroLvl, fsIvs.ivAtk, fsIvs.ivDef, fsIvs.ivHp, isShadowActive);
             const heroPct = levelToCpArcPct(heroLvl, 50);
             const heroArcLen = 402.12;
             const heroDashOffset = (heroArcLen * (1 - heroPct)).toFixed(1);
@@ -12029,7 +12177,7 @@
                             </div>
 
                             <div class="text-center justify-self-center px-1">
-                                <div id="fsHeroLevelLabel" class="text-[10px] font-extrabold uppercase tracking-widest text-white/80 leading-none whitespace-nowrap">${fsIvs.ivPct}% IV • Lvl ${heroLvlLabel}</div>
+                                <div id="fsHeroLevelLabel" class="text-[10px] font-extrabold uppercase tracking-widest text-white/80 leading-none whitespace-nowrap">${fsIvs.ivPct}% IV • Lvl ${heroLvlLabel}${megaLvlBoost ? ' (+2)' : ''}</div>
                                 <div id="fsHeroCpValue" class="text-xl sm:text-2xl font-black font-mono leading-tight drop-shadow">${formatNum(heroCp, 0)}</div>
                             </div>
 
@@ -12086,7 +12234,7 @@
                         <div class="grid grid-cols-3 items-center text-center py-1 border-b" style="border-color: var(--border-color);">
                             <div class="px-1.5 pb-2 border-r" style="border-color: var(--border-color);">
                                 <div class="text-sm sm:text-base font-black font-mono ${isShadowActive ? 'text-purple-500' : 'text-emerald-600 dark:text-emerald-400'}">${formatNum(dialgaPrimary.eDps, 2)}</div>
-                                <div class="text-[10px] font-extrabold uppercase opacity-65">eDPS (Lvl 40)</div>
+                                <div class="text-[10px] font-extrabold uppercase opacity-65">eDPS (Lvl 40${megaLvlBoost ? '+2' : ''})</div>
                             </div>
                             <div class="px-1.5 pb-2 flex flex-col items-center justify-center">
                                 <div class="flex items-center justify-center gap-1.5">${renderTypeBadges(p.types, false)}</div>
@@ -12099,6 +12247,7 @@
                         </div>
 
                     ${inspectorFormSelectorHtml}
+                    ${p.isMega ? renderMegaLevelSelectorHtml(p, fsMegaLvl, 'setFsMegaLevel', false) : ''}
                     ${subTab === 'all' ? inspectorIvSelectorHtml : ''}
                     ${unreleasedNoticeHtml}
 
@@ -12226,7 +12375,7 @@
                                 <span class="w-7 h-7 rounded-lg bg-emerald-500/15 text-emerald-500 flex items-center justify-center shrink-0 text-sm font-black" aria-hidden="true">👣</span>
                                 <div class="min-w-0">
                                     <div class="text-[10px] font-extrabold uppercase opacity-70">Kumpel-Distanz</div>
-                                    <div class="text-xs font-black">1 Bonbon pro Laufzyklus</div>
+                                    <div class="text-xs font-black inline-flex items-center gap-1"><span>1</span>${renderPokemonCandySvg(p.dex, { sizeClass: 'w-3.5 h-3.5 shrink-0', title: `${p.name}-Bonbon` })}<span>pro Laufzyklus</span></div>
                                 </div>
                             </div>
                             <span class="px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-mono text-xs font-black shrink-0">${buddyKm} km</span>
@@ -12236,7 +12385,7 @@
                                 <span class="w-7 h-7 rounded-lg bg-amber-500/15 text-amber-500 flex items-center justify-center shrink-0" aria-hidden="true">${renderMegaEnergySvg(p, { sizeClass: 'w-4 h-4', title: 'Mega-Energie' })}</span>
                                 <div class="min-w-0">
                                     <div class="text-[10px] font-extrabold uppercase opacity-70">Mega-Energie / Zyklus</div>
-                                    <div class="text-xs font-black">${hasMegaForDex ? '5 Energie pro km (aktiv)' : '5 Energie / km (falls Mega)'}</div>
+                                    <div class="text-xs font-black inline-flex items-center gap-1"><span>5</span>${renderMegaEnergySvg(p, { sizeClass: 'w-3.5 h-3.5 shrink-0', title: 'Mega-Energie' })}<span>${hasMegaForDex ? 'pro km (aktiv)' : '/ km (falls Mega)'}</span></div>
                                 </div>
                             </div>
                             <span class="px-2.5 py-1 rounded-lg ${hasMegaForDex ? 'bg-amber-500/20 text-amber-600 dark:text-amber-400' : 'themed-sub opacity-70'} font-mono text-xs font-black shrink-0">+${megaEnergyPerCycle} / ${buddyKm} km</span>
@@ -12444,40 +12593,46 @@
                 }).join('');
 
                 const isSuperMaxMegaEntry = isEntrySuperMaxMega(p);
+                const isSuperMaxLv4Active = isSuperMaxMegaEntry && fsMegaLvl >= 4;
                 const chargedRows = chargedList.map(mRaw => {
                     const isElite = mRaw.endsWith('*');
                     const clean = mRaw.replace('*', '').trim();
                     const m = CHARGED_MOVES_DATA[clean] || { type: p.types[0] || 'Normal', power: 100, duration: 2.5, energyCost: 50, pvpPower: 90, pvpEnergy: 50 };
                     const isPlusMove = Boolean(m.isMegaPlus || clean.endsWith('+'));
-                    const megaPlusMult = (isSuperMaxMegaEntry && isPlusMove) ? 1.3 : 1.0;
+                    const megaPlusMult = (isSuperMaxLv4Active && isPlusMove) ? 1.3 : 1.0;
                     const effPower = Math.round(m.power * megaPlusMult);
                     const stab = p.types.includes(m.type) ? 1.2 : 1.0;
                     const dps = ((effPower * stab) / m.duration).toFixed(1);
                     const dpe = ((m.pvpPower * stab) / m.pvpEnergy).toFixed(2);
                     const isBest = mRaw === dialgaBase.chargedRaw;
+                    const lockedPlus = isPlusMove && !isSuperMaxLv4Active;
                     return `
-                        <tr class="border-b ${isBest ? 'bg-emerald-500/10' : ''}" style="border-color: var(--border-color);">
+                        <tr class="border-b ${isBest ? 'bg-emerald-500/10' : ''} ${lockedPlus ? 'opacity-55' : ''}" style="border-color: var(--border-color);">
                             <td class="py-2 pr-2">
                                 <div class="flex items-center gap-1.5 flex-wrap">
                                     ${renderTypeBadges([m.type], false)}
                                     <span class="font-black text-xs">${mRaw}</span>
                                     ${isElite ? '<span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-500 text-[10px] font-extrabold">Top-TM*</span>' : ''}
-                                    ${isPlusMove ? '<span class="px-1.5 py-0.5 rounded bg-fuchsia-500/20 text-fuchsia-500 text-[10px] font-extrabold">Mega Lv.4 (+30%)</span>' : ''}
+                                    ${isPlusMove ? (isSuperMaxLv4Active ? '<span class="px-1.5 py-0.5 rounded bg-fuchsia-500/20 text-fuchsia-500 text-[10px] font-extrabold">Mega Lv.4 (+30%)</span>' : '<span class="px-1.5 py-0.5 rounded bg-slate-500/20 text-slate-400 text-[10px] font-extrabold">Ab Mega Lv.4</span>') : ''}
                                     ${isBest ? '<span class="px-1.5 py-0.5 rounded bg-emerald-500 text-white text-[10px] font-extrabold">Optimal</span>' : ''}
                                 </div>
                             </td>
-                            <td class="py-2 px-2 font-mono text-xs">${isPlusMove && isSuperMaxMegaEntry ? `${effPower} <span class="opacity-65">(${m.power}×1.3)</span>` : m.power} (-${m.energyCost} EN / ${m.duration}s)</td>
+                            <td class="py-2 px-2 font-mono text-xs">${isPlusMove && isSuperMaxLv4Active ? `${effPower} <span class="opacity-65">(${m.power}×1.3)</span>` : m.power} (-${m.energyCost} EN / ${m.duration}s)</td>
                             <td class="py-2 px-2 font-mono text-xs text-emerald-600 dark:text-emerald-400 font-extrabold">${dps} DPS</td>
                             <td class="py-2 pl-2 font-mono text-xs">${m.pvpPower} SCH (${dpe} DPE)</td>
                         </tr>
                     `;
                 }).join('');
 
-                // Berechne alle Moveset-Kombinationen nach DialgaDex eDPS
+                // Berechne alle Moveset-Kombinationen nach DialgaDex eDPS (unter Berücksichtigung des gewählten Mega-Levels)
                 const allCombos = [];
                 fastList.forEach(fRaw => {
                     chargedList.forEach(cRaw => {
-                        const cm = computeDialgaDexMetrics(p, fRaw, cRaw, { level: 40, isShadow: false });
+                        const cClean = String(cRaw).replace('*', '').trim();
+                        const cData = CHARGED_MOVES_DATA[cClean];
+                        const isPlus = Boolean(cData?.isMegaPlus || cClean.endsWith('+'));
+                        if (isPlus && !isSuperMaxLv4Active) return;
+                        const cm = computeDialgaDexMetrics(p, fRaw, cRaw, { level: 40, isShadow: false, megaLevel: fsMegaLvl });
                         if (cm) allCombos.push(cm);
                     });
                 });
@@ -13978,7 +14133,7 @@
             if (list.length === 0) {
                 grid.innerHTML = `
                     <div class="col-span-full themed-sub rounded-2xl p-6 text-center text-xs font-bold opacity-75">
-                        Keine Raidbosse für diesen Filter gefunden. Klicke oben auf „Jetzt Live-Sync“ oder wähle „Alle“.
+                        Keine Raidbosse für diesen Filter gefunden. Klicke oben auf „Live-Sync“ oder wähle „Alle“.
                     </div>
                 `;
                 return;
@@ -14034,19 +14189,19 @@
 
                 return `
                     <div class="filter-card-enter themed-sub rounded-3xl flex flex-col justify-between border hover:border-emerald-500/60 transition group relative overflow-hidden shadow-sm" style="border-color: var(--border-color); animation-delay: ${Math.min(idx, 11) * 24}ms;">
-                        <!-- IN-GAME HERO STAGE (kompakt, wie Dex-Infokarte) -->
-                        <div class="relative z-0 pt-2 pb-5 px-2.5 text-white overflow-hidden" style="background: ${bStageBg};">
+                        <!-- IN-GAME HERO STAGE (kompakt, feste Höhe für exakte Ausrichtung) -->
+                        <div class="relative z-0 h-[112px] sm:h-[122px] shrink-0 text-white overflow-hidden" style="background: ${bStageBg};">
                             ${renderHeroStageTypeOverlaySvg(b.types?.[0], b.spriteId)}
-                            <div class="relative z-10 flex items-center justify-between gap-1.5">
-                                <span class="px-1.5 py-0.5 rounded-lg backdrop-blur-sm ${tierBadgeColor} text-[9px] font-black shadow-sm inline-flex items-center gap-1">
+                            <div class="absolute top-2 left-2.5 right-2.5 z-30 flex items-center justify-between gap-1.5">
+                                <span class="px-1.5 py-0.5 rounded-lg backdrop-blur-sm ${tierBadgeColor} text-[9px] font-black leading-none shadow-sm inline-flex items-center gap-1 whitespace-nowrap">
                                     ${tierBadgeIcon}<span>${b.tierSubLabel || b.tier}</span>
                                 </span>
                                 ${b.shiny
-                                    ? '<span class="px-1.5 py-0.5 rounded-full bg-amber-400/25 text-amber-200 border border-amber-300/40 backdrop-blur-sm text-[9px] font-black shadow-sm" title="Shiny verfügbar">\u2726 Shiny</span>'
-                                    : '<span class="px-1.5 py-0.5 rounded-full bg-black/35 text-white/80 backdrop-blur-sm text-[9px] font-bold">Kein \u2726</span>'
+                                    ? '<span class="px-1.5 py-0.5 rounded-full bg-amber-400/25 text-amber-200 border border-amber-300/40 backdrop-blur-sm text-[9px] font-black leading-none whitespace-nowrap shadow-sm" title="Shiny verfügbar">\u2726 Shiny</span>'
+                                    : '<span class="px-1.5 py-0.5 rounded-full bg-black/35 text-white/80 backdrop-blur-sm text-[9px] font-bold leading-none whitespace-nowrap">Kein \u2726</span>'
                                 }
                             </div>
-                            <div class="relative z-20 flex items-center justify-center mt-0.5 translate-y-2">
+                            <div class="absolute inset-x-0 bottom-2 z-20 flex items-center justify-center pointer-events-none">
                                 ${imgHtml}
                             </div>
                         </div>
@@ -14059,7 +14214,7 @@
                                     <div class="max-w-[110px] mx-auto">
                                         <div class="h-1 rounded-full overflow-hidden" style="background: linear-gradient(90deg, ${bMeta1.color}, ${bMeta2.color});"></div>
                                     </div>
-                                    <div class="flex items-center justify-center gap-1 pt-0.5">${renderTypeBadges(b.types, false)}</div>
+                                    <div class="flex items-center justify-center gap-1 pt-0.5 min-h-[24px]">${renderTypeBadges(b.types, false)}</div>
                                 </div>
 
                                 <div class="grid grid-cols-2 gap-1.5 text-center">
@@ -17107,7 +17262,7 @@
                                 onclick="setTypeChartMode('attack')"
                                 class="px-3 py-1.5 rounded-xl text-xs font-black cursor-pointer transition ${!isDefense ? 'bg-emerald-500 text-white shadow-sm' : 'opacity-75 hover:opacity-100'}"
                             >
-                                Angreifer-Sicht
+                                Angreifer
                             </button>
                             <button
                                 type="button"
@@ -17116,7 +17271,7 @@
                                 onclick="setTypeChartMode('defense')"
                                 class="px-3 py-1.5 rounded-xl text-xs font-black cursor-pointer transition ${isDefense ? 'bg-indigo-500 text-white shadow-sm' : 'opacity-75 hover:opacity-100'}"
                             >
-                                Verteidiger (1–2 Typen)
+                                Verteidiger
                             </button>
                         </div>
                     </div>
@@ -17239,7 +17394,9 @@
             { id: 'reg-tauros-combat', dex: 128, name: 'Paldea-Tauros (Gefechtsvariante)', types: ['Kampf'], zone: 'Europa', regionLabel: 'Iberische Halbinsel (Spanien & Portugal – 3★ Raids)', source: 'Raid', shiny: false, color: '#64748b', pin: [40.4, -3.7], bounds: [[36.0, -9.5], [43.8, 3.3]] },
             { id: 'reg-tatsugiri-curly', dex: 978, name: 'Nigiragi (Gebogene Form)', types: ['Drache', 'Wasser'], zone: 'Europa', regionLabel: 'Europa, Naher Osten & Afrika', source: 'Raid', shiny: false, color: '#f97316', pin: [48.2, 16.3], bounds: [[-35, -18], [70, 55]] },
             { id: 'reg-tatsugiri-droopy', dex: 978, name: 'Nigiragi (Hängende Form)', types: ['Drache', 'Wasser'], zone: 'Nordamerika', regionLabel: 'Nord- & Südamerika', source: 'Raid', shiny: false, color: '#f472b6', pin: [41.8, -87.6], bounds: [[-55, -165], [68, -32]] },
-            { id: 'reg-tatsugiri-stretchy', dex: 978, name: 'Nigiragi (Gestreckte Form)', types: ['Drache', 'Wasser'], zone: 'Asien', regionLabel: 'Asien-Pazifik', source: 'Raid', shiny: false, color: '#facc15', pin: [35.6, 139.6], bounds: [[-44, 72], [55, 176]] }
+            { id: 'reg-tatsugiri-stretchy', dex: 978, name: 'Nigiragi (Gestreckte Form)', types: ['Drache', 'Wasser'], zone: 'Asien', regionLabel: 'Asien-Pazifik', source: 'Raid', shiny: false, color: '#facc15', pin: [35.6, 139.6], bounds: [[-44, 72], [55, 176]] },
+            { id: 'reg-vivillon', dex: 666, name: 'Vivillon (18 regionale Muster)', types: ['Käfer', 'Flug'], zone: 'Hemisphäre', regionLabel: 'Weltweit 18 Postkarten-Regionen (u. a. Kontinental, Ziergarten, Blumenmeer, Frost, Monsun, Ozean, Sand, Savanne, Sonne)', source: 'Spezial', shiny: true, color: '#ec4899', pin: [50.8, 9.5], bounds: [[-45, -160], [68, 175]] },
+            { id: 'reg-bruxish', dex: 779, name: 'Knirfish', types: ['Wasser', 'Psycho'], zone: 'Hemisphäre', regionLabel: 'Tropische & subtropische Küsten / Inseln (Event- & Saison-Spawn)', source: 'Wildnis', shiny: true, color: '#f43f5e', pin: [18.5, -66.1], bounds: [[-26, -165], [30, 175]] }
         ];
 
         function geoToSvgX(lon) {
@@ -17250,16 +17407,50 @@
             return ((90 - lat) / 180) * 500;
         }
 
+        const DEFAULT_REGIONAL_SCALE = 1.5;
+        const DEFAULT_REGIONAL_VX = 175;
+        const DEFAULT_REGIONAL_VY = 55;
+        const MIN_REGIONAL_SCALE = 1.0;
+        const MAX_REGIONAL_SCALE = 12.0;
+
+        function fitRegionalBounds(item) {
+            if (!item || !Array.isArray(item.bounds) || item.bounds.length < 2) return;
+            const [[latMin, lonMin], [latMax, lonMax]] = item.bounds;
+            const x1 = geoToSvgX(Math.min(lonMin, lonMax));
+            const x2 = geoToSvgX(Math.max(lonMin, lonMax));
+            const y1 = geoToSvgY(Math.max(latMin, latMax));
+            const y2 = geoToSvgY(Math.min(latMin, latMax));
+            const bw = Math.max(24, x2 - x1);
+            const bh = Math.max(14, y2 - y1);
+            const padFactor = 1.24;
+            const targetScaleX = 1000 / (bw * padFactor);
+            const targetScaleY = 500 / (bh * padFactor);
+            const targetScale = Math.max(1.35, Math.min(8.5, Math.min(targetScaleX, targetScaleY)));
+            const vw = 1000 / targetScale;
+            const vh = 500 / targetScale;
+            const cx = (x1 + x2) / 2;
+            const cy = (y1 + y2) / 2;
+            regionalMapView.scale = targetScale;
+            regionalMapView.vx = cx - vw / 2;
+            regionalMapView.vy = cy - vh / 2;
+            clampRegionalMapTransform();
+        }
+
         function resetRegionalMapView() {
             appState.regionalSelectedId = null;
-            regionalMapView.scale = 1;
-            regionalMapView.vx = 0;
-            regionalMapView.vy = 0;
+            regionalMapView.scale = DEFAULT_REGIONAL_SCALE;
+            regionalMapView.vx = DEFAULT_REGIONAL_VX;
+            regionalMapView.vy = DEFAULT_REGIONAL_VY;
             renderRegionalsView();
         }
 
         function selectRegionalPokemon(regId, fromMap = false) {
-            appState.regionalSelectedId = (appState.regionalSelectedId === regId && fromMap) ? null : regId;
+            const togglingOff = (appState.regionalSelectedId === regId && fromMap);
+            appState.regionalSelectedId = togglingOff ? null : regId;
+            if (appState.regionalSelectedId) {
+                const chosen = REGIONAL_POKEMON_DATA.find(x => x.id === regId);
+                if (chosen) fitRegionalBounds(chosen);
+            }
             renderRegionalsView();
             if (fromMap && appState.regionalSelectedId) {
                 const cardEl = document.getElementById(`regional-card-${regId}`);
@@ -17272,12 +17463,10 @@
         function getFilteredRegionals() {
             const q = (document.getElementById('regionalSearchInput')?.value || '').trim().toLowerCase();
             const zone = document.getElementById('regionalZoneFilter')?.value || 'ALL';
-            const type = document.getElementById('regionalTypeFilter')?.value || 'ALL';
             const source = document.getElementById('regionalSourceFilter')?.value || 'ALL';
 
             return REGIONAL_POKEMON_DATA.filter(item => {
                 if (zone !== 'ALL' && item.zone !== zone) return false;
-                if (type !== 'ALL' && !item.types.includes(type)) return false;
                 if (source !== 'ALL' && item.source !== source) return false;
                 if (q) {
                     const hay = `${item.name} #${item.dex} ${item.zone} ${item.regionLabel} ${item.types.join(' ')} ${item.source}`.toLowerCase();
@@ -17287,41 +17476,64 @@
             });
         }
 
-        const WORLD_MAP_COUNTRIES = {"US_AK": "M65.3,51.9L94.4,55.0L108.3,56.7L108.3,82.5L113.9,84.7L125.0,91.7L137.2,97.8L129.2,93.1L116.7,86.1L93.1,81.9L79.2,84.7L61.1,94.4L45.8,97.8L50.0,87.5L38.9,83.3L40.3,75.0L33.3,68.1L38.3,59.7L55.6,54.2Z", "CA_N": "M108.3,56.7L138.9,55.6L152.8,50.0L194.4,55.6L236.1,59.7L272.2,72.2L284.7,76.4L283.3,86.1L280.6,97.2L281.9,105.6L143.1,105.6L138.9,97.2L113.9,83.3L108.3,82.5Z M284.7,76.4L300.0,77.8L320.8,81.9L333.3,97.2L345.0,105.6L281.9,105.6L280.6,97.2L283.3,86.1Z M236.1,44.4L277.8,43.1L305.6,55.6L327.8,66.7L316.7,73.6L272.2,61.1L250.0,51.4Z M227.8,33.3L272.2,30.6L277.8,38.9L233.3,41.7Z", "CA_S": "M143.1,105.6L345.0,105.6L344.4,111.1L333.9,120.6L323.6,126.4L316.7,129.2L313.9,125.0L293.1,125.0L279.2,129.2L269.4,132.8L265.3,120.8L251.4,114.4L236.1,113.9L157.8,113.9L148.6,109.7Z M345.8,106.9L353.9,118.1L350.0,120.3L335.3,117.8L340.3,109.7Z M144.4,109.2L156.9,115.6L151.4,114.4L145.0,110.6Z", "GL": "M405.6,19.4L450.0,25.0L448.6,38.9L438.9,54.2L397.2,68.1L377.8,83.3L363.9,79.2L351.4,66.7L347.2,52.8L311.1,38.9L319.4,26.4L361.1,20.8Z", "US_MAIN": "M154.2,113.9L236.1,113.9L251.4,116.7L265.3,120.8L269.4,132.8L280.6,130.0L293.1,125.0L301.4,125.0L308.3,118.9L313.9,125.0L304.2,130.6L305.6,134.7L294.4,137.5L291.7,142.2L289.4,148.6L250.0,148.6L250.0,166.7L237.5,168.1L230.0,177.8L212.5,168.1L204.2,161.7L191.7,163.1L174.7,159.4L165.3,154.2L158.3,144.4L154.2,133.3L155.6,122.2Z", "US_SE": "M250.0,148.6L289.4,148.6L290.3,152.2L283.3,156.1L275.6,161.1L273.9,165.3L277.5,175.0L276.7,180.6L274.4,180.0L270.0,172.8L267.8,167.2L256.9,165.6L250.0,166.7Z", "US_NYC": "M287.5,131.1L305.0,131.1L305.6,135.3L295.0,137.5L291.7,142.2L285.6,141.7L285.6,136.1Z", "US_HI": "M56.1,188.3L57.5,188.9L56.9,189.4Z M60.6,190.0L61.9,190.8L60.8,191.1Z M64.7,191.7L66.7,192.8L65.3,192.5Z M67.2,193.9L70.0,195.8L67.5,197.5L66.4,195.3Z", "MX": "M174.7,159.4L191.7,163.1L204.2,161.7L212.5,168.1L230.0,177.8L228.3,188.3L233.3,197.2L237.8,199.4L247.2,197.8L249.4,191.1L258.3,190.3L255.6,198.6L247.2,200.6L243.9,209.4L234.7,205.6L220.8,202.8L209.7,197.2L204.2,185.6L193.1,173.6L181.9,162.5L186.1,172.2L195.3,186.1L189.4,181.9L182.8,170.8L175.6,161.7Z", "CAM": "M255.6,198.6L254.2,205.6L261.1,206.1L268.9,208.3L267.5,219.4L279.2,224.4L283.9,228.3L276.4,230.0L269.4,226.4L261.9,220.8L255.6,213.3L243.9,209.4L247.2,200.6Z", "CARIB": "M264.4,185.6L276.4,186.1L286.1,190.3L293.9,194.4L284.7,195.0L270.8,189.4Z M297.2,194.7L307.8,196.7L310.0,199.4L301.4,200.0L293.6,198.6Z M313.3,198.6L317.8,198.9L317.2,200.0L313.3,200.0Z M282.2,198.9L288.3,200.0L284.7,200.6Z", "CO_VE": "M300.6,216.1L313.9,220.8L327.8,220.6L333.3,226.4L331.1,236.1L313.9,245.8L290.3,251.4L280.6,245.8L285.0,234.7L283.9,228.3L290.3,220.8Z", "PE_EC": "M280.6,245.8L290.3,251.4L305.6,261.7L304.2,277.8L306.9,298.6L304.2,300.6L290.3,291.7L282.8,277.8L274.2,263.3L275.6,254.2Z", "BO_PY": "M306.9,277.8L318.1,277.8L337.5,295.8L338.9,311.1L348.3,320.8L337.5,325.6L326.1,311.1L312.5,312.5L306.9,298.6Z", "BR": "M331.1,236.1L355.6,238.9L361.1,250.0L377.8,254.2L402.2,264.4L401.4,276.4L391.7,290.3L388.1,306.9L380.0,313.9L365.3,320.8L360.6,333.3L351.7,343.6L340.3,331.9L348.3,320.8L338.9,311.1L337.5,295.8L318.1,277.8L295.0,270.8L305.6,261.7L313.9,245.8Z", "CL": "M304.2,300.6L306.9,298.6L312.5,312.5L305.6,333.3L302.2,352.8L300.6,372.2L298.6,393.1L302.8,402.8L291.7,391.7L293.1,372.2L295.8,352.8L301.1,333.3L304.2,313.9Z", "AR_UY": "M312.5,312.5L326.1,311.1L337.5,325.6L340.3,331.9L351.7,343.6L343.1,347.2L340.3,356.9L325.0,363.9L318.1,375.0L308.3,393.1L313.9,403.3L302.8,402.8L298.6,393.1L300.6,372.2L302.2,352.8L305.6,333.3Z M331.1,392.2L339.4,392.8L336.1,395.0L330.6,394.4Z", "IS": "M434.7,66.1L455.6,65.6L462.2,69.4L447.2,73.9L436.9,71.9L432.2,68.9Z", "UK": "M486.1,87.2L491.7,87.2L495.0,90.0L492.8,94.4L498.6,98.6L504.7,103.9L503.9,107.8L497.2,109.2L484.4,110.8L485.6,106.7L487.5,101.9L490.3,97.8L484.2,95.8L483.9,91.1Z M481.1,96.7L484.7,98.3L483.3,99.7L478.3,98.9Z", "IE": "M478.9,96.4L478.3,98.9L483.3,99.7L482.5,105.0L472.8,106.9L471.7,101.7L476.1,99.2Z", "PT": "M475.3,133.1L481.9,133.6L480.0,140.3L479.4,146.7L475.3,147.2L473.9,142.5L475.8,136.1Z", "ES": "M478.3,128.6L495.0,129.4L508.9,132.2L502.2,136.7L499.7,143.1L493.9,148.1L484.4,150.0L479.4,146.7L480.0,140.3L481.9,133.6L475.3,133.1L474.2,130.6Z M509.4,139.2L508.3,140.8L506.7,140.3Z M453.3,170.8L457.2,171.9L456.1,172.8L450.6,171.7Z", "FR": "M506.9,108.3L516.7,112.5L522.8,113.9L521.1,118.1L518.9,122.2L520.8,128.3L515.0,130.3L508.9,132.2L495.0,129.4L496.4,122.2L486.9,115.6L494.7,112.2L504.2,110.8Z M526.1,130.6L525.6,135.0L523.9,134.7L524.2,131.7Z", "BNL": "M519.2,101.7L517.2,106.1L516.7,112.5L506.9,108.3L512.5,104.4Z", "DE": "M523.6,97.5L529.2,98.9L539.4,100.0L541.4,108.3L537.8,113.9L536.1,118.1L521.1,117.8L522.8,113.9L516.7,112.5L517.2,106.1L519.2,101.7Z", "CH_AT": "M537.8,113.9L546.9,114.4L545.6,119.4L538.1,120.8L525.0,122.2L518.9,122.2L521.1,117.8L536.1,118.1Z", "IT": "M538.1,120.8L538.3,123.3L534.2,126.4L543.1,133.3L551.1,138.3L547.8,141.7L543.6,144.7L543.9,140.3L537.5,135.6L524.7,126.9L520.8,128.3L518.9,122.2L525.0,122.2Z M543.3,143.9L542.2,147.2L534.7,145.6L536.9,144.2Z M526.1,135.6L526.7,141.4L523.3,141.7L522.8,136.4Z", "DK": "M529.4,89.7L534.7,94.4L531.9,97.8L523.9,97.2Z", "NO": "M572.2,52.5L586.1,55.6L579.2,58.3L555.6,59.7L538.9,72.2L534.7,80.6L531.9,86.1L519.4,88.9L513.3,80.6L529.2,70.8L543.1,59.7L555.6,55.0Z M533.3,28.3L561.1,29.2L547.2,36.1L530.6,33.3Z", "SE": "M556.9,58.3L567.2,67.2L548.6,77.8L551.4,85.3L543.9,94.4L536.1,96.1L532.8,89.7L531.9,86.1L534.7,80.6L538.9,72.2L555.6,59.7Z", "FI": "M577.8,55.6L581.9,65.3L577.8,81.9L559.7,83.9L558.3,75.0L567.2,67.2L556.9,58.3Z", "PL_CZ_SK": "M539.4,98.9L551.4,97.8L566.7,98.9L566.1,107.8L562.5,113.9L547.2,116.7L546.9,114.4L537.8,113.9L541.4,108.3Z", "BALKAN_RO": "M562.5,113.9L581.9,116.1L579.4,127.8L577.2,133.3L562.5,134.7L553.9,134.7L541.7,126.4L538.3,123.3L538.1,120.8L545.6,119.4L547.2,116.7Z", "GR": "M555.6,134.7L572.8,134.7L566.7,138.3L566.7,144.4L562.5,148.6L558.3,143.9L555.6,140.3Z M565.6,151.4L573.1,151.9L570.8,152.8L566.1,152.2Z", "UA_BY": "M577.8,94.4L588.9,105.6L605.6,111.1L605.6,119.4L601.4,124.4L586.1,120.8L581.9,116.1L562.5,113.9L566.1,107.8L566.7,98.9Z", "RU_W": "M588.9,56.9L622.2,59.7L666.7,56.9L666.7,105.6L633.3,120.8L611.1,129.2L605.6,119.4L605.6,111.1L588.9,105.6L577.8,94.4L577.8,81.9L581.9,65.3Z", "RU_N": "M666.7,56.9L700.0,47.2L788.9,36.1L850.0,45.8L922.2,52.8L994.4,63.9L972.2,80.6L938.9,102.8L902.8,86.1L891.7,105.6L666.7,105.6Z M895.8,100.0L898.6,122.2L893.9,120.8L893.1,101.4Z", "MA_DZ_TN": "M483.9,150.6L508.3,147.8L529.2,146.7L531.9,156.9L531.9,194.4L452.8,194.4L463.3,173.6L472.8,162.5Z", "LY": "M531.9,156.9L536.7,158.9L548.6,163.9L559.7,158.9L569.4,162.2L569.4,194.4L531.9,194.4Z", "EG": "M569.4,162.2L590.3,162.5L595.0,163.3L595.8,172.2L602.2,188.9L569.4,188.9Z", "IL_JO_SY": "M600.0,147.2L616.7,147.2L611.1,158.3L597.2,168.1L595.0,163.3L598.9,155.6Z", "SA_ARAB": "M611.1,158.3L627.8,158.3L634.7,166.7L641.7,177.8L656.9,181.9L666.1,187.5L650.0,202.8L620.8,214.7L618.1,202.8L608.3,188.9L596.7,172.2L597.2,168.1Z", "AF_W": "M452.8,194.4L541.7,194.4L541.7,237.5L525.6,238.3L508.3,232.8L494.4,236.7L478.9,237.5L463.3,226.4L453.3,215.3L451.7,208.3Z", "AF_C": "M541.7,194.4L569.4,188.9L580.6,238.9L569.4,283.3L533.9,266.7L525.6,237.5L541.7,237.5Z", "AF_E": "M569.4,188.9L602.2,188.9L609.7,206.9L620.0,218.1L642.5,217.2L633.3,237.5L615.3,254.2L609.7,269.4L612.5,279.2L569.4,283.3L580.6,238.9Z", "AF_S": "M537.5,283.3L569.4,283.3L612.5,279.2L612.5,294.4L598.3,309.7L591.4,322.2L586.1,333.3L570.8,345.0L555.6,346.7L550.0,341.7L541.7,323.6L532.8,298.6Z", "MG": "M636.9,283.3L639.7,293.1L634.7,306.9L630.6,320.0L622.2,319.4L623.1,305.6L628.3,293.1Z", "TR": "M575.0,133.9L600.0,134.7L618.1,134.7L622.2,147.2L600.0,147.2L581.9,149.4L573.1,143.1Z", "IR_CA": "M634.7,129.2L633.3,120.8L666.7,105.6L708.3,105.6L708.3,133.3L705.6,147.2L695.8,155.6L684.7,180.0L670.8,179.2L656.9,176.4L640.3,168.1L634.7,166.7L627.8,158.3L622.2,147.2L618.1,134.7Z", "IN": "M706.9,151.4L718.1,159.7L744.4,172.2L763.9,173.6L758.3,184.7L747.2,188.9L725.0,205.6L721.7,222.2L715.3,227.5L708.3,215.3L702.2,197.2L691.7,187.5L690.3,181.9L702.8,166.7Z M722.8,222.8L727.2,229.2L723.6,233.3L721.7,228.3Z", "MN": "M744.4,105.6L819.4,111.1L827.8,125.0L788.9,133.3L750.0,125.0Z", "CN": "M708.3,105.6L744.4,113.9L750.0,125.0L788.9,133.3L827.8,125.0L841.7,102.8L874.4,115.3L863.9,130.6L845.0,138.9L840.3,145.8L831.9,152.8L838.9,163.3L832.8,177.8L817.2,188.3L800.0,190.3L783.3,187.5L769.4,172.2L744.4,172.2L718.1,159.7L705.6,147.2L708.3,133.3Z", "KR": "M850.0,143.1L856.9,143.6L858.6,152.5L850.8,154.4L850.6,148.6Z", "JP": "M893.6,123.9L904.4,129.7L891.7,133.9L889.4,130.6Z M892.8,135.3L893.1,143.9L891.1,151.7L880.0,154.4L863.9,155.6L877.8,150.0L888.9,140.3Z M863.3,156.1L863.9,163.9L861.4,162.5L860.0,157.5Z", "TW": "M837.8,179.7L837.8,183.3L835.6,189.2L833.6,185.6L835.8,181.1Z", "SEA": "M769.4,172.2L783.3,187.5L800.0,190.3L801.4,205.6L803.3,218.1L791.7,225.6L787.5,220.8L779.2,212.5L784.7,233.3L788.3,246.4L778.3,234.7L773.3,222.2L770.8,205.6L761.9,204.2L756.1,191.7L758.3,184.7Z", "PH": "M836.1,198.6L845.0,211.1L843.1,215.3L833.3,209.7Z M848.6,222.8L849.4,233.3L838.9,230.6L841.7,224.4Z", "ID": "M764.7,234.7L784.7,247.2L793.9,266.1L784.7,262.5L772.2,245.8Z M794.4,266.7L817.8,271.7L817.2,273.9L795.8,270.0Z M825.0,231.1L830.0,247.2L822.2,259.7L808.3,258.9L802.8,245.8L819.4,236.7Z M846.7,245.8L840.3,262.5L831.9,263.9L832.8,252.8L837.5,247.2Z M863.9,252.8L891.7,262.5L891.7,275.0L872.2,268.1Z", "PG": "M891.7,254.2L901.4,261.1L910.6,268.1L918.3,278.9L908.3,275.6L897.2,272.2L891.7,275.0Z", "AU": "M863.9,283.3L880.0,284.7L879.2,293.1L891.7,298.6L895.8,280.6L905.0,295.8L916.7,311.1L926.7,327.8L920.3,344.4L916.1,355.0L901.4,356.9L884.7,348.6L866.7,338.9L827.2,347.2L819.4,344.4L814.4,322.2L817.2,309.7L841.7,295.8Z M902.2,363.3L911.7,363.9L908.9,370.8L903.9,369.4Z", "NZ": "M980.0,345.8L995.8,354.7L986.9,365.0L982.8,358.9L984.4,351.4Z M979.7,362.8L983.9,366.1L974.2,377.2L966.1,379.4L968.1,372.2Z", "PAC_IS": "M992.2,295.0L999.4,295.8L996.1,300.6L992.2,300.0Z"};
+        const WORLD_MAP_COUNTRIES = {"US_AK": "M65.3,51.9L94.4,55.0L108.3,56.7L108.3,82.5L113.9,84.7L125.0,91.7L137.2,97.8L129.2,93.1L116.7,86.1L93.1,81.9L79.2,84.7L61.1,94.4L45.8,97.8L50.0,87.5L38.9,83.3L40.3,75.0L33.3,68.1L38.3,59.7L55.6,54.2Z", "CA_N": "M108.3,56.7L138.9,55.6L152.8,50.0L194.4,55.6L236.1,59.7L272.2,72.2L284.7,76.4L283.3,86.1L280.6,97.2L281.9,105.6L143.1,105.6L138.9,97.2L113.9,83.3L108.3,82.5Z M284.7,76.4L300.0,77.8L320.8,81.9L333.3,97.2L345.0,105.6L281.9,105.6L280.6,97.2L283.3,86.1Z M236.1,44.4L277.8,43.1L305.6,55.6L327.8,66.7L316.7,73.6L272.2,61.1L250.0,51.4Z M227.8,33.3L272.2,30.6L277.8,38.9L233.3,41.7Z", "CA_S": "M143.1,105.6L345.0,105.6L344.4,111.1L333.9,120.6L323.6,126.4L316.7,129.2L313.9,125.0L293.1,125.0L279.2,129.2L269.4,132.8L265.3,120.8L251.4,114.4L236.1,113.9L157.8,113.9L148.6,109.7Z M345.8,106.9L353.9,118.1L350.0,120.3L335.3,117.8L340.3,109.7Z M144.4,109.2L156.9,115.6L151.4,114.4L145.0,110.6Z", "GL": "M405.6,19.4L450.0,25.0L448.6,38.9L438.9,54.2L397.2,68.1L377.8,83.3L363.9,79.2L351.4,66.7L347.2,52.8L311.1,38.9L319.4,26.4L361.1,20.8Z", "US_MAIN": "M154.2,113.9L236.1,113.9L251.4,116.7L265.3,120.8L269.4,132.8L280.6,130.0L293.1,125.0L301.4,125.0L308.3,118.9L313.9,125.0L304.2,130.6L305.6,134.7L294.4,137.5L291.7,142.2L289.4,148.6L250.0,148.6L250.0,166.7L237.5,168.1L230.0,177.8L212.5,168.1L204.2,161.7L191.7,163.1L174.7,159.4L165.3,154.2L158.3,144.4L154.2,133.3L155.6,122.2Z", "US_SE": "M250.0,148.6L289.4,148.6L290.3,152.2L283.3,156.1L275.6,161.1L273.9,165.3L277.5,175.0L276.7,180.6L274.4,180.0L270.0,172.8L267.8,167.2L256.9,165.6L250.0,166.7Z", "US_FL_S": "M270.0,169.5L276.2,169.5L277.5,175.0L276.7,180.6L274.4,180.0L270.0,172.8Z", "US_TX_S": "M222.5,169.4L236.5,169.4L230.0,177.8L222.5,173.5Z", "US_NYC": "M287.5,131.1L305.0,131.1L305.6,135.3L295.0,137.5L291.7,142.2L285.6,141.7L285.6,136.1Z", "US_HI": "M56.1,188.3L57.5,188.9L56.9,189.4Z M60.6,190.0L61.9,190.8L60.8,191.1Z M64.7,191.7L66.7,192.8L65.3,192.5Z M67.2,193.9L70.0,195.8L67.5,197.5L66.4,195.3Z", "MX": "M174.7,159.4L191.7,163.1L204.2,161.7L212.5,168.1L230.0,177.8L228.3,188.3L233.3,197.2L237.8,199.4L247.2,197.8L249.4,191.1L258.3,190.3L255.6,198.6L247.2,200.6L243.9,209.4L234.7,205.6L220.8,202.8L209.7,197.2L204.2,185.6L193.1,173.6L181.9,162.5L186.1,172.2L195.3,186.1L189.4,181.9L182.8,170.8L175.6,161.7Z", "CAM": "M255.6,198.6L254.2,205.6L261.1,206.1L268.9,208.3L267.5,219.4L279.2,224.4L283.9,228.3L276.4,230.0L269.4,226.4L261.9,220.8L255.6,213.3L243.9,209.4L247.2,200.6Z", "CARIB": "M264.4,185.6L276.4,186.1L286.1,190.3L293.9,194.4L284.7,195.0L270.8,189.4Z M297.2,194.7L307.8,196.7L310.0,199.4L301.4,200.0L293.6,198.6Z M313.3,198.6L317.8,198.9L317.2,200.0L313.3,200.0Z M282.2,198.9L288.3,200.0L284.7,200.6Z", "CO_VE": "M300.6,216.1L313.9,220.8L327.8,220.6L333.3,226.4L331.1,236.1L313.9,245.8L290.3,251.4L280.6,245.8L285.0,234.7L283.9,228.3L290.3,220.8Z", "PE_EC": "M280.6,245.8L290.3,251.4L305.6,261.7L304.2,277.8L306.9,298.6L304.2,300.6L290.3,291.7L282.8,277.8L274.2,263.3L275.6,254.2Z", "BO_PY": "M306.9,277.8L318.1,277.8L337.5,295.8L338.9,311.1L348.3,320.8L337.5,325.6L326.1,311.1L312.5,312.5L306.9,298.6Z", "BR": "M331.1,236.1L355.6,238.9L361.1,250.0L377.8,254.2L402.2,264.4L401.4,276.4L391.7,290.3L388.1,306.9L380.0,313.9L365.3,320.8L360.6,333.3L351.7,343.6L340.3,331.9L348.3,320.8L338.9,311.1L337.5,295.8L318.1,277.8L295.0,270.8L305.6,261.7L313.9,245.8Z", "CL": "M304.2,300.6L306.9,298.6L312.5,312.5L305.6,333.3L302.2,352.8L300.6,372.2L298.6,393.1L302.8,402.8L291.7,391.7L293.1,372.2L295.8,352.8L301.1,333.3L304.2,313.9Z", "AR_UY": "M312.5,312.5L326.1,311.1L337.5,325.6L340.3,331.9L351.7,343.6L343.1,347.2L340.3,356.9L325.0,363.9L318.1,375.0L308.3,393.1L313.9,403.3L302.8,402.8L298.6,393.1L300.6,372.2L302.2,352.8L305.6,333.3Z M331.1,392.2L339.4,392.8L336.1,395.0L330.6,394.4Z", "IS": "M434.7,66.1L455.6,65.6L462.2,69.4L447.2,73.9L436.9,71.9L432.2,68.9Z", "UK": "M486.1,87.2L491.7,87.2L495.0,90.0L492.8,94.4L498.6,98.6L504.7,103.9L503.9,107.8L497.2,109.2L484.4,110.8L485.6,106.7L487.5,101.9L490.3,97.8L484.2,95.8L483.9,91.1Z M481.1,96.7L484.7,98.3L483.3,99.7L478.3,98.9Z", "IE": "M478.9,96.4L478.3,98.9L483.3,99.7L482.5,105.0L472.8,106.9L471.7,101.7L476.1,99.2Z", "PT": "M475.3,133.1L481.9,133.6L480.0,140.3L479.4,146.7L475.3,147.2L473.9,142.5L475.8,136.1Z", "ES": "M478.3,128.6L495.0,129.4L508.9,132.2L502.2,136.7L499.7,143.1L493.9,148.1L484.4,150.0L479.4,146.7L480.0,140.3L481.9,133.6L475.3,133.1L474.2,130.6Z", "ES_S": "M480.6,144.4L497.2,143.9L493.9,148.1L484.4,150.0L479.4,146.7Z", "BAL": "M506.2,139.0L510.2,139.0L509.2,141.2L506.0,140.6Z", "CANARY": "M451.0,170.5L458.0,171.2L457.0,173.2L450.2,172.2Z", "FR": "M506.9,108.3L516.7,112.5L522.8,113.9L521.1,118.1L518.9,122.2L520.8,128.3L515.0,130.3L508.9,132.2L495.0,129.4L496.4,122.2L486.9,115.6L494.7,112.2L504.2,110.8Z M526.1,130.6L525.6,135.0L523.9,134.7L524.2,131.7Z", "FR_BORDER": "M497.2,108.5L504.2,108.5L504.2,110.8L497.2,110.5Z M516.7,112.5L524.5,112.8L524.0,122.0L518.9,122.2L521.1,118.1L522.8,113.9Z", "BNL": "M519.2,101.7L517.2,106.1L516.7,112.5L506.9,108.3L512.5,104.4Z", "DE": "M523.6,97.5L529.2,98.9L539.4,100.0L541.4,108.3L537.8,113.9L536.1,118.1L521.1,117.8L522.8,113.9L516.7,112.5L517.2,106.1L519.2,101.7Z", "CH_AT": "M537.8,113.9L546.9,114.4L545.6,119.4L538.1,120.8L525.0,122.2L518.9,122.2L521.1,117.8L536.1,118.1Z", "IT": "M538.1,120.8L538.3,123.3L534.2,126.4L543.1,133.3L551.1,138.3L547.8,141.7L543.6,144.7L543.9,140.3L537.5,135.6L524.7,126.9L520.8,128.3L518.9,122.2L525.0,122.2Z M543.3,143.9L542.2,147.2L534.7,145.6L536.9,144.2Z M526.1,135.6L526.7,141.4L523.3,141.7L522.8,136.4Z", "IT_S": "M543.1,136.5L551.1,138.3L547.8,141.7L543.6,144.7L543.9,140.3Z M543.3,143.9L542.2,147.2L534.7,145.6L536.9,144.2Z", "DK": "M529.4,89.7L534.7,94.4L531.9,97.8L523.9,97.2Z", "NO": "M572.2,52.5L586.1,55.6L579.2,58.3L555.6,59.7L538.9,72.2L534.7,80.6L531.9,86.1L519.4,88.9L513.3,80.6L529.2,70.8L543.1,59.7L555.6,55.0Z M533.3,28.3L561.1,29.2L547.2,36.1L530.6,33.3Z", "SE": "M556.9,58.3L567.2,67.2L548.6,77.8L551.4,85.3L543.9,94.4L536.1,96.1L532.8,89.7L531.9,86.1L534.7,80.6L538.9,72.2L555.6,59.7Z", "FI": "M577.8,55.6L581.9,65.3L577.8,81.9L559.7,83.9L558.3,75.0L567.2,67.2L556.9,58.3Z", "PL_CZ_SK": "M539.4,98.9L551.4,97.8L566.7,98.9L566.1,107.8L562.5,113.9L547.2,116.7L546.9,114.4L537.8,113.9L541.4,108.3Z", "BALKAN_RO": "M562.5,113.9L581.9,116.1L579.4,127.8L577.2,133.3L562.5,134.7L553.9,134.7L541.7,126.4L538.3,123.3L538.1,120.8L545.6,119.4L547.2,116.7Z", "GR": "M555.6,134.7L572.8,134.7L566.7,138.3L566.7,144.4L562.5,148.6L558.3,143.9L555.6,140.3Z M565.6,151.4L573.1,151.9L570.8,152.8L566.1,152.2Z", "CYPRUS": "M589.5,151.8L595.8,151.4L594.5,153.6L589.2,153.2Z", "UA_BY": "M577.8,94.4L588.9,105.6L605.6,111.1L605.6,119.4L601.4,124.4L586.1,120.8L581.9,116.1L562.5,113.9L566.1,107.8L566.7,98.9Z", "RU_W": "M588.9,56.9L622.2,59.7L666.7,56.9L666.7,105.6L633.3,120.8L611.1,129.2L605.6,119.4L605.6,111.1L588.9,105.6L577.8,94.4L577.8,81.9L581.9,65.3Z", "RU_N": "M666.7,56.9L700.0,47.2L788.9,36.1L850.0,45.8L922.2,52.8L994.4,63.9L972.2,80.6L938.9,102.8L902.8,86.1L891.7,105.6L666.7,105.6Z M895.8,100.0L898.6,122.2L893.9,120.8L893.1,101.4Z", "MA_DZ_TN": "M483.9,150.6L508.3,147.8L529.2,146.7L531.9,156.9L531.9,194.4L452.8,194.4L463.3,173.6L472.8,162.5Z", "LY": "M531.9,156.9L536.7,158.9L548.6,163.9L559.7,158.9L569.4,162.2L569.4,194.4L531.9,194.4Z", "EG": "M569.4,162.2L590.3,162.5L595.0,163.3L595.8,172.2L602.2,188.9L569.4,188.9Z", "IL_JO_SY": "M600.0,147.2L616.7,147.2L611.1,158.3L597.2,168.1L595.0,163.3L598.9,155.6Z", "SA_ARAB": "M611.1,158.3L627.8,158.3L634.7,166.7L641.7,177.8L656.9,181.9L666.1,187.5L650.0,202.8L620.8,214.7L618.1,202.8L608.3,188.9L596.7,172.2L597.2,168.1Z", "AF_W": "M452.8,194.4L541.7,194.4L541.7,237.5L525.6,238.3L508.3,232.8L494.4,236.7L478.9,237.5L463.3,226.4L453.3,215.3L451.7,208.3Z", "AF_C": "M541.7,194.4L569.4,188.9L580.6,238.9L569.4,283.3L533.9,266.7L525.6,237.5L541.7,237.5Z", "AF_E": "M569.4,188.9L602.2,188.9L609.7,206.9L620.0,218.1L642.5,217.2L633.3,237.5L615.3,254.2L609.7,269.4L612.5,279.2L569.4,283.3L580.6,238.9Z", "AF_S": "M537.5,283.3L569.4,283.3L612.5,279.2L612.5,294.4L598.3,309.7L591.4,322.2L586.1,333.3L570.8,345.0L555.6,346.7L550.0,341.7L541.7,323.6L532.8,298.6Z", "MG": "M636.9,283.3L639.7,293.1L634.7,306.9L630.6,320.0L622.2,319.4L623.1,305.6L628.3,293.1Z", "REUNION": "M653.0,307.5L656.0,307.8L655.2,309.6L652.5,309.2Z M658.5,305.5L661.2,305.8L660.5,307.6L658.0,307.2Z", "TR": "M575.0,133.9L600.0,134.7L618.1,134.7L622.2,147.2L600.0,147.2L581.9,149.4L573.1,143.1Z", "IR_CA": "M634.7,129.2L633.3,120.8L666.7,105.6L708.3,105.6L708.3,133.3L705.6,147.2L695.8,155.6L684.7,180.0L670.8,179.2L656.9,176.4L640.3,168.1L634.7,166.7L627.8,158.3L622.2,147.2L618.1,134.7Z", "IN": "M706.9,151.4L718.1,159.7L744.4,172.2L763.9,173.6L758.3,184.7L747.2,188.9L725.0,205.6L721.7,222.2L715.3,227.5L708.3,215.3L702.2,197.2L691.7,187.5L690.3,181.9L702.8,166.7Z M722.8,222.8L727.2,229.2L723.6,233.3L721.7,228.3Z", "MN": "M744.4,105.6L819.4,111.1L827.8,125.0L788.9,133.3L750.0,125.0Z", "CN": "M708.3,105.6L744.4,113.9L750.0,125.0L788.9,133.3L827.8,125.0L841.7,102.8L874.4,115.3L863.9,130.6L845.0,138.9L840.3,145.8L831.9,152.8L838.9,163.3L832.8,177.8L817.2,188.3L800.0,190.3L783.3,187.5L769.4,172.2L744.4,172.2L718.1,159.7L705.6,147.2L708.3,133.3Z", "HK_MO": "M815.5,187.0L818.8,187.2L818.2,189.2L815.0,188.8Z", "KR": "M850.0,143.1L856.9,143.6L858.6,152.5L850.8,154.4L850.6,148.6Z", "JP": "M893.6,123.9L904.4,129.7L891.7,133.9L889.4,130.6Z M892.8,135.3L893.1,143.9L891.1,151.7L880.0,154.4L863.9,155.6L877.8,150.0L888.9,140.3Z M863.3,156.1L863.9,163.9L861.4,162.5L860.0,157.5Z", "TW": "M837.8,179.7L837.8,183.3L835.6,189.2L833.6,185.6L835.8,181.1Z", "SEA": "M769.4,172.2L783.3,187.5L800.0,190.3L801.4,205.6L803.3,218.1L791.7,225.6L787.5,220.8L779.2,212.5L784.7,233.3L788.3,246.4L778.3,234.7L773.3,222.2L770.8,205.6L761.9,204.2L756.1,191.7L758.3,184.7Z", "PH": "M836.1,198.6L845.0,211.1L843.1,215.3L833.3,209.7Z M848.6,222.8L849.4,233.3L838.9,230.6L841.7,224.4Z", "ID": "M764.7,234.7L784.7,247.2L793.9,266.1L784.7,262.5L772.2,245.8Z M794.4,266.7L817.8,271.7L817.2,273.9L795.8,270.0Z M825.0,231.1L830.0,247.2L822.2,259.7L808.3,258.9L802.8,245.8L819.4,236.7Z M846.7,245.8L840.3,262.5L831.9,263.9L832.8,252.8L837.5,247.2Z M863.9,252.8L891.7,262.5L891.7,275.0L872.2,268.1Z", "GUAM_MIC": "M899.5,211.0L905.5,212.0L904.0,215.0L898.5,213.8Z", "PG": "M891.7,254.2L901.4,261.1L910.6,268.1L918.3,278.9L908.3,275.6L897.2,272.2L891.7,275.0Z", "AU": "M863.9,283.3L880.0,284.7L879.2,293.1L891.7,298.6L895.8,280.6L905.0,295.8L916.7,311.1L926.7,327.8L920.3,344.4L916.1,355.0L901.4,356.9L884.7,348.6L866.7,338.9L827.2,347.2L819.4,344.4L814.4,322.2L817.2,309.7L841.7,295.8Z M902.2,363.3L911.7,363.9L908.9,370.8L903.9,369.4Z", "NZ": "M980.0,345.8L995.8,354.7L986.9,365.0L982.8,358.9L984.4,351.4Z M979.7,362.8L983.9,366.1L974.2,377.2L966.1,379.4L968.1,372.2Z", "PAC_IS": "M992.2,295.0L999.4,295.8L996.1,300.6L992.2,300.0Z", "TAHITI_POLY": "M82.0,296.0L88.5,297.5L86.5,301.5L80.5,299.5Z M21.0,287.5L27.0,288.5L25.5,292.0L19.8,290.8Z"};
 
-        const REG_GROUP_EU = ['IS', 'UK', 'IE', 'PT', 'ES', 'FR', 'BNL', 'DE', 'CH_AT', 'IT', 'DK', 'NO', 'SE', 'FI', 'PL_CZ_SK', 'BALKAN_RO', 'GR', 'UA_BY', 'RU_W'];
-        const REG_GROUP_AFRICA = ['MA_DZ_TN', 'LY', 'EG', 'AF_W', 'AF_C', 'AF_E', 'AF_S', 'MG'];
+        const REG_GROUP_EU = ['IS', 'UK', 'IE', 'PT', 'ES', 'ES_S', 'BAL', 'FR', 'FR_BORDER', 'BNL', 'DE', 'CH_AT', 'IT', 'IT_S', 'DK', 'NO', 'SE', 'FI', 'PL_CZ_SK', 'BALKAN_RO', 'GR', 'CYPRUS', 'UA_BY', 'RU_W'];
+        const REG_GROUP_AFRICA = ['MA_DZ_TN', 'CANARY', 'LY', 'EG', 'AF_W', 'AF_C', 'AF_E', 'AF_S', 'MG', 'REUNION'];
         const REG_GROUP_EMEA = [...REG_GROUP_EU, ...REG_GROUP_AFRICA, 'IL_JO_SY', 'SA_ARAB', 'TR', 'IR_CA'];
-        const REG_GROUP_AMER = ['US_AK', 'CA_N', 'CA_S', 'GL', 'US_MAIN', 'US_SE', 'US_NYC', 'US_HI', 'MX', 'CAM', 'CARIB', 'CO_VE', 'PE_EC', 'BO_PY', 'BR', 'CL', 'AR_UY'];
-        const REG_GROUP_ASIA_PAC = ['IN', 'MN', 'CN', 'KR', 'JP', 'TW', 'SEA', 'PH', 'ID', 'PG', 'AU', 'NZ', 'PAC_IS', 'RU_N'];
+        const REG_GROUP_AMER = ['US_AK', 'CA_N', 'CA_S', 'GL', 'US_MAIN', 'US_SE', 'US_FL_S', 'US_TX_S', 'US_NYC', 'US_HI', 'MX', 'CAM', 'CARIB', 'CO_VE', 'PE_EC', 'BO_PY', 'BR', 'CL', 'AR_UY'];
+        const REG_GROUP_ASIA_PAC = ['IN', 'MN', 'CN', 'HK_MO', 'KR', 'JP', 'TW', 'SEA', 'PH', 'ID', 'GUAM_MIC', 'PG', 'AU', 'NZ', 'PAC_IS', 'TAHITI_POLY', 'RU_N'];
         const REG_GROUP_EAST_HEMI = [...REG_GROUP_EU, ...REG_GROUP_AFRICA, 'IL_JO_SY', 'SA_ARAB', 'TR', 'IR_CA', ...REG_GROUP_ASIA_PAC];
-        const REG_GROUP_WEST_HEMI = [...REG_GROUP_AMER];
-        const REG_GROUP_SOUTH_HEMI = ['CO_VE', 'PE_EC', 'BO_PY', 'BR', 'CL', 'AR_UY', 'AF_C', 'AF_E', 'AF_S', 'MG', 'ID', 'PG', 'AU', 'NZ', 'PAC_IS'];
-        const REG_GROUP_NORTH_HEMI = ['US_AK', 'CA_N', 'CA_S', 'GL', 'US_MAIN', 'US_SE', 'US_NYC', 'US_HI', 'MX', 'CAM', 'CARIB', ...REG_GROUP_EU, 'MA_DZ_TN', 'LY', 'EG', 'IL_JO_SY', 'SA_ARAB', 'AF_W', 'TR', 'IR_CA', 'IN', 'MN', 'CN', 'KR', 'JP', 'TW', 'SEA', 'PH', 'RU_N'];
-        const REG_GROUP_TROPICS = ['MX', 'CAM', 'CARIB', 'CO_VE', 'PE_EC', 'BO_PY', 'BR', 'US_SE', 'US_HI', 'MA_DZ_TN', 'LY', 'EG', 'IL_JO_SY', 'SA_ARAB', 'AF_W', 'AF_C', 'AF_E', 'MG', 'IN', 'SEA', 'PH', 'ID', 'TW', 'PG', 'AU', 'PAC_IS'];
+        const REG_GROUP_WEST_HEMI = [...REG_GROUP_AMER, 'TAHITI_POLY'];
+        const REG_GROUP_SOUTH_HEMI = ['CO_VE', 'PE_EC', 'BO_PY', 'BR', 'CL', 'AR_UY', 'AF_C', 'AF_E', 'AF_S', 'MG', 'REUNION', 'ID', 'PG', 'AU', 'NZ', 'PAC_IS', 'TAHITI_POLY'];
+        const REG_GROUP_NORTH_HEMI = ['US_AK', 'CA_N', 'CA_S', 'GL', 'US_MAIN', 'US_SE', 'US_FL_S', 'US_TX_S', 'US_NYC', 'US_HI', 'MX', 'CAM', 'CARIB', ...REG_GROUP_EU, 'MA_DZ_TN', 'CANARY', 'LY', 'EG', 'IL_JO_SY', 'SA_ARAB', 'AF_W', 'TR', 'IR_CA', 'IN', 'MN', 'CN', 'HK_MO', 'KR', 'JP', 'TW', 'SEA', 'PH', 'GUAM_MIC', 'RU_N'];
+        const REG_GROUP_TROPICS = ['MX', 'CAM', 'CARIB', 'CO_VE', 'PE_EC', 'BO_PY', 'BR', 'US_FL_S', 'US_TX_S', 'US_HI', 'CANARY', 'MA_DZ_TN', 'LY', 'EG', 'IL_JO_SY', 'SA_ARAB', 'AF_W', 'AF_C', 'AF_E', 'MG', 'REUNION', 'IN', 'HK_MO', 'SEA', 'PH', 'ID', 'TW', 'GUAM_MIC', 'PG', 'AU', 'PAC_IS', 'TAHITI_POLY'];
+
+        const REGIONAL_BAND_OVERLAYS = {
+            'reg-corsola': { type: 'lat', latMax: 31, latMin: -26, label: 'Tropengürtel (31°N – 26°S)' },
+            'reg-bruxish': { type: 'lat', latMax: 30, latMin: -26, label: 'Tropen & Subtropen (30°N – 26°S)' },
+            'reg-pachirisu': { type: 'lat', latMax: 78, latMin: 52, label: 'Nord-Zone (ab 52°N)' },
+            'reg-chatot': { type: 'lat', latMax: 0, latMin: -60, label: 'Südliche Hemisphäre (ab 0° Äquator)' },
+            'reg-celesteela': { type: 'lat', latMax: 0, latMin: -60, label: 'Südliche Hemisphäre (ab 0° Äquator)' },
+            'reg-kartana': { type: 'lat', latMax: 75, latMin: 0, label: 'Nördliche Hemisphäre (ab 0° Äquator)' },
+            'reg-shellos-west': { type: 'lon', lonMin: -180, lonMax: 0, label: 'Westliche Hemisphäre (< 0° Meridian)' },
+            'reg-basculin-blue': { type: 'lon', lonMin: -180, lonMax: 0, label: 'Westliche Hemisphäre (< 0° Meridian)' },
+            'reg-solrock': { type: 'lon', lonMin: -180, lonMax: 0, label: 'Westliche Hemisphäre (< 0° Meridian)' },
+            'reg-heatmor': { type: 'lon', lonMin: -180, lonMax: 0, label: 'Westliche Hemisphäre (< 0° Meridian)' },
+            'reg-blacephalon': { type: 'lon', lonMin: -180, lonMax: 0, label: 'Westliche Hemisphäre (< 0° Meridian)' },
+            'reg-tauros-aqua': { type: 'lon', lonMin: -180, lonMax: 0, label: 'Westliche Hemisphäre (< 0° Meridian)' },
+            'reg-shellos-east': { type: 'lon', lonMin: 0, lonMax: 180, label: 'Östliche Hemisphäre (> 0° Meridian)' },
+            'reg-basculin-red': { type: 'lon', lonMin: 0, lonMax: 180, label: 'Östliche Hemisphäre (> 0° Meridian)' },
+            'reg-lunatone': { type: 'lon', lonMin: 0, lonMax: 180, label: 'Östliche Hemisphäre (> 0° Meridian)' },
+            'reg-durant': { type: 'lon', lonMin: 0, lonMax: 180, label: 'Östliche Hemisphäre (> 0° Meridian)' },
+            'reg-stakataka': { type: 'lon', lonMin: 0, lonMax: 180, label: 'Östliche Hemisphäre (> 0° Meridian)' },
+            'reg-tauros-blaze': { type: 'lon', lonMin: 0, lonMax: 180, label: 'Östliche Hemisphäre (> 0° Meridian)' }
+        };
 
         const REGIONAL_COUNTRY_OVERRIDES = {
             'reg-mrmime': REG_GROUP_EU,
             'reg-mimejr': REG_GROUP_EU,
             'reg-tauros': ['US_MAIN', 'US_SE', 'US_NYC', 'CA_S'],
-            'reg-farfetchd': ['JP', 'KR', 'TW'],
+            'reg-farfetchd': ['JP', 'KR', 'TW', 'HK_MO'],
             'reg-kangaskhan': ['AU', 'PG'],
-            'reg-heracross': ['MX', 'CAM', 'CARIB', 'CO_VE', 'PE_EC', 'BO_PY', 'BR', 'CL', 'AR_UY', 'US_SE'],
+            'reg-heracross': ['MX', 'CAM', 'CARIB', 'CO_VE', 'PE_EC', 'BO_PY', 'BR', 'CL', 'AR_UY', 'US_FL_S', 'US_TX_S'],
             'reg-corsola': REG_GROUP_TROPICS,
+            'reg-bruxish': REG_GROUP_TROPICS,
+            'reg-vivillon': Object.keys(WORLD_MAP_COUNTRIES),
             'reg-torkoal': ['IN', 'SEA', 'SA_ARAB', 'IL_JO_SY'],
             'reg-zangoose': [...REG_GROUP_EU, 'TR', 'IR_CA', ...REG_GROUP_ASIA_PAC],
             'reg-seviper': [...REG_GROUP_AMER, ...REG_GROUP_AFRICA],
             'reg-lunatone': REG_GROUP_EAST_HEMI,
             'reg-solrock': REG_GROUP_WEST_HEMI,
-            'reg-relicanth': ['NZ', 'PAC_IS'],
-            'reg-tropius': [...REG_GROUP_AFRICA, 'IL_JO_SY', 'SA_ARAB', 'ES', 'PT', 'IT', 'GR'],
+            'reg-relicanth': ['NZ', 'PAC_IS', 'TAHITI_POLY'],
+            'reg-tropius': [...REG_GROUP_AFRICA, 'IL_JO_SY', 'SA_ARAB', 'ES_S', 'IT_S', 'GR', 'CYPRUS'],
             'reg-volbeat': [...REG_GROUP_EU, 'TR', 'IR_CA', ...REG_GROUP_ASIA_PAC],
             'reg-illumise': [...REG_GROUP_AMER, ...REG_GROUP_AFRICA],
             'reg-pachirisu': ['US_AK', 'CA_N', 'RU_N'],
             'reg-shellos-west': REG_GROUP_WEST_HEMI,
             'reg-shellos-east': REG_GROUP_EAST_HEMI,
             'reg-chatot': REG_GROUP_SOUTH_HEMI,
-            'reg-carnivine': ['US_SE'],
+            'reg-carnivine': ['US_SE', 'US_FL_S'],
             'reg-uxie': REG_GROUP_ASIA_PAC,
             'reg-mesprit': [...REG_GROUP_EMEA, 'IN'],
             'reg-azelf': REG_GROUP_AMER,
@@ -17332,8 +17544,8 @@
             'reg-sawk': [...REG_GROUP_EU, 'TR', 'IR_CA', ...REG_GROUP_ASIA_PAC],
             'reg-basculin-red': REG_GROUP_EAST_HEMI,
             'reg-basculin-blue': REG_GROUP_WEST_HEMI,
-            'reg-maractus': ['US_SE', 'MX', 'CAM', 'CARIB', 'CO_VE', 'PE_EC', 'BO_PY', 'BR', 'CL', 'AR_UY'],
-            'reg-sigilyph': ['EG', 'GR', 'IL_JO_SY'],
+            'reg-maractus': ['US_SE', 'US_FL_S', 'US_TX_S', 'MX', 'CAM', 'CARIB', 'CO_VE', 'PE_EC', 'BO_PY', 'BR', 'CL', 'AR_UY'],
+            'reg-sigilyph': ['EG', 'GR', 'IL_JO_SY', 'CYPRUS'],
             'reg-bouffalant': ['US_NYC'],
             'reg-heatmor': REG_GROUP_WEST_HEMI,
             'reg-durant': REG_GROUP_EAST_HEMI,
@@ -17341,11 +17553,11 @@
             'reg-flabebe-blue': REG_GROUP_ASIA_PAC,
             'reg-flabebe-yellow': REG_GROUP_AMER,
             'reg-furfrou': ['FR', 'EG', 'JP', 'US_MAIN', 'DE', 'AU'],
-            'reg-hawlucha': ['MX'],
-            'reg-klefki': ['FR'],
+            'reg-hawlucha': ['MX', 'US_TX_S'],
+            'reg-klefki': ['FR', 'FR_BORDER'],
             'reg-oricorio-baile': REG_GROUP_EMEA,
             'reg-oricorio-pom': REG_GROUP_AMER,
-            'reg-oricorio-pau': ['US_HI', 'CARIB', 'MG', 'PAC_IS'],
+            'reg-oricorio-pau': ['US_HI', 'CARIB', 'CANARY', 'BAL', 'MG', 'REUNION', 'GUAM_MIC', 'PAC_IS', 'TAHITI_POLY'],
             'reg-oricorio-sensu': REG_GROUP_ASIA_PAC,
             'reg-comfey': ['US_HI'],
             'reg-celesteela': REG_GROUP_SOUTH_HEMI,
@@ -17355,21 +17567,22 @@
             'reg-stonjourner': ['UK'],
             'reg-tauros-blaze': REG_GROUP_EAST_HEMI,
             'reg-tauros-aqua': REG_GROUP_WEST_HEMI,
-            'reg-tauros-combat': ['ES', 'PT'],
+            'reg-tauros-combat': ['ES', 'ES_S', 'PT'],
             'reg-tatsugiri-curly': REG_GROUP_EMEA,
             'reg-tatsugiri-droopy': REG_GROUP_AMER,
             'reg-tatsugiri-stretchy': REG_GROUP_ASIA_PAC
         };
 
         const regionalMapView = {
-            scale: 1,
-            vx: 0,
-            vy: 0,
-            eventsBound: false
+            scale: DEFAULT_REGIONAL_SCALE,
+            vx: DEFAULT_REGIONAL_VX,
+            vy: DEFAULT_REGIONAL_VY,
+            eventsBound: false,
+            suppressNextClick: false
         };
 
         function clampRegionalMapTransform() {
-            regionalMapView.scale = Math.max(1, Math.min(5, regionalMapView.scale));
+            regionalMapView.scale = Math.max(MIN_REGIONAL_SCALE, Math.min(MAX_REGIONAL_SCALE, regionalMapView.scale));
             const vw = 1000 / regionalMapView.scale;
             const vh = 500 / regionalMapView.scale;
             if (regionalMapView.scale <= 1.001) {
@@ -17422,7 +17635,7 @@
             const rx = anchorX != null ? (anchorX / w) : 0.5;
             const ry = anchorY != null ? (anchorY / h) : 0.5;
             const oldScale = regionalMapView.scale;
-            const newScale = Math.max(1, Math.min(5, oldScale * factor));
+            const newScale = Math.max(MIN_REGIONAL_SCALE, Math.min(MAX_REGIONAL_SCALE, oldScale * factor));
             if (Math.abs(newScale - oldScale) < 0.001) return;
             const oldVw = 1000 / oldScale;
             const oldVh = 500 / oldScale;
@@ -17437,9 +17650,9 @@
         }
 
         function resetRegionalZoomOnly() {
-            regionalMapView.scale = 1;
-            regionalMapView.vx = 0;
-            regionalMapView.vy = 0;
+            regionalMapView.scale = DEFAULT_REGIONAL_SCALE;
+            regionalMapView.vx = DEFAULT_REGIONAL_VX;
+            regionalMapView.vy = DEFAULT_REGIONAL_VY;
             applyRegionalMapTransform();
         }
 
@@ -17447,49 +17660,123 @@
             if (!mapBox || regionalMapView.eventsBound) return;
             regionalMapView.eventsBound = true;
 
+            // Mausrad-Zoom (fokussiert auf Cursor-Position)
             mapBox.addEventListener('wheel', (e) => {
                 e.preventDefault();
                 const rect = mapBox.getBoundingClientRect();
                 const ax = e.clientX - rect.left;
                 const ay = e.clientY - rect.top;
-                const factor = e.deltaY < 0 ? 1.2 : (1 / 1.2);
+                const factor = e.deltaY < 0 ? 1.25 : (1 / 1.25);
                 zoomRegionalMap(factor, ax, ay);
             }, { passive: false });
 
-            let dragging = false;
-            let startX = 0, startY = 0, startVx = 0, startVy = 0;
+            // Klick-vs.-Drag-Schutz: nach echtem Drag keinen versehentlichen Pin-/Polygon-Klick auslösen
+            mapBox.addEventListener('click', (e) => {
+                if (regionalMapView.suppressNextClick) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    regionalMapView.suppressNextClick = false;
+                }
+            }, true);
+
+            const activePointers = new Map();
+            let dragStartX = 0, dragStartY = 0, dragStartVx = 0, dragStartVy = 0;
+            let didMove = false;
+            let pinchStartDist = 0, pinchStartScale = 1, pinchWorldX = 0, pinchWorldY = 0;
+
+            const startSingleDrag = (pt) => {
+                dragStartX = pt.x;
+                dragStartY = pt.y;
+                dragStartVx = regionalMapView.vx;
+                dragStartVy = regionalMapView.vy;
+            };
+
+            const startPinch = () => {
+                const pts = Array.from(activePointers.values());
+                if (pts.length < 2) return;
+                const [p1, p2] = pts;
+                pinchStartDist = Math.max(10, Math.hypot(p2.x - p1.x, p2.y - p1.y));
+                pinchStartScale = regionalMapView.scale;
+                const rect = mapBox.getBoundingClientRect();
+                const w = rect.width || 640;
+                const h = rect.height || 320;
+                const midRx = (((p1.x + p2.x) / 2) - rect.left) / w;
+                const midRy = (((p1.y + p2.y) / 2) - rect.top) / h;
+                pinchWorldX = regionalMapView.vx + midRx * (1000 / pinchStartScale);
+                pinchWorldY = regionalMapView.vy + midRy * (500 / pinchStartScale);
+                didMove = true;
+                regionalMapView.suppressNextClick = true;
+            };
 
             mapBox.addEventListener('pointerdown', (e) => {
-                if (e.target && e.target.closest && e.target.closest('.regional-map-pin')) return;
-                if (regionalMapView.scale <= 1.001) return;
-                dragging = true;
-                startX = e.clientX;
-                startY = e.clientY;
-                startVx = regionalMapView.vx;
-                startVy = regionalMapView.vy;
-                mapBox.classList.add('is-panning');
-                try { mapBox.setPointerCapture(e.pointerId); } catch (_) {}
+                if (e.button !== undefined && e.button !== 0 && e.pointerType === 'mouse') return;
+                activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+                if (activePointers.size === 1) {
+                    didMove = false;
+                    regionalMapView.suppressNextClick = false;
+                    startSingleDrag({ x: e.clientX, y: e.clientY });
+                } else if (activePointers.size === 2) {
+                    startPinch();
+                }
             });
 
             mapBox.addEventListener('pointermove', (e) => {
-                if (!dragging) return;
-                const w = mapBox.clientWidth || 640;
-                const h = mapBox.clientHeight || 320;
-                const vw = 1000 / regionalMapView.scale;
-                const vh = 500 / regionalMapView.scale;
-                regionalMapView.vx = startVx - ((e.clientX - startX) / w) * vw;
-                regionalMapView.vy = startVy - ((e.clientY - startY) / h) * vh;
-                applyRegionalMapTransform();
+                if (!activePointers.has(e.pointerId)) return;
+                activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+                if (activePointers.size >= 2) {
+                    const pts = Array.from(activePointers.values());
+                    const [p1, p2] = pts;
+                    const dist = Math.max(10, Math.hypot(p2.x - p1.x, p2.y - p1.y));
+                    const newScale = Math.max(MIN_REGIONAL_SCALE, Math.min(MAX_REGIONAL_SCALE, pinchStartScale * (dist / pinchStartDist)));
+                    const rect = mapBox.getBoundingClientRect();
+                    const w = rect.width || 640;
+                    const h = rect.height || 320;
+                    const midRx = (((p1.x + p2.x) / 2) - rect.left) / w;
+                    const midRy = (((p1.y + p2.y) / 2) - rect.top) / h;
+                    regionalMapView.scale = newScale;
+                    regionalMapView.vx = pinchWorldX - midRx * (1000 / newScale);
+                    regionalMapView.vy = pinchWorldY - midRy * (500 / newScale);
+                    applyRegionalMapTransform();
+                    return;
+                }
+
+                // 1-Finger- / Maus-Dragging
+                const dx = e.clientX - dragStartX;
+                const dy = e.clientY - dragStartY;
+                if (!didMove && Math.hypot(dx, dy) > 6) {
+                    didMove = true;
+                    regionalMapView.suppressNextClick = true;
+                    mapBox.classList.add('is-panning');
+                    try { mapBox.setPointerCapture(e.pointerId); } catch (_) {}
+                }
+                if (didMove && regionalMapView.scale > 1.001) {
+                    const w = mapBox.clientWidth || 640;
+                    const h = mapBox.clientHeight || 320;
+                    const vw = 1000 / regionalMapView.scale;
+                    const vh = 500 / regionalMapView.scale;
+                    regionalMapView.vx = dragStartVx - (dx / w) * vw;
+                    regionalMapView.vy = dragStartVy - (dy / h) * vh;
+                    applyRegionalMapTransform();
+                }
             });
 
-            const endDrag = (e) => {
-                if (!dragging) return;
-                dragging = false;
-                mapBox.classList.remove('is-panning');
+            const endPointer = (e) => {
+                activePointers.delete(e.pointerId);
                 try { if (e && e.pointerId != null && mapBox.hasPointerCapture?.(e.pointerId)) mapBox.releasePointerCapture(e.pointerId); } catch (_) {}
+                if (activePointers.size === 1) {
+                    const remaining = Array.from(activePointers.values())[0];
+                    startSingleDrag(remaining);
+                } else if (activePointers.size === 0) {
+                    mapBox.classList.remove('is-panning');
+                    if (didMove) {
+                        setTimeout(() => { regionalMapView.suppressNextClick = false; }, 60);
+                    }
+                    didMove = false;
+                }
             };
-            mapBox.addEventListener('pointerup', endDrag);
-            mapBox.addEventListener('pointercancel', endDrag);
+            mapBox.addEventListener('pointerup', endPointer);
+            mapBox.addEventListener('pointercancel', endPointer);
         }
 
         function renderStaticWorldMapSvg(selectedItem) {
@@ -17497,22 +17784,46 @@
             const countryPathsHtml = Object.entries(WORLD_MAP_COUNTRIES).map(([code, d]) => {
                 const isHit = activeKeys && activeKeys.has(code);
                 if (isHit) {
-                    return `<path data-country="${code}" d="${d}" fill="${selectedItem.color}" fill-opacity="0.72" stroke="#ffffff" stroke-opacity="0.85" stroke-width="1.4" stroke-linejoin="round" vector-effect="non-scaling-stroke" />`;
+                    return `<path data-country="${code}" d="${d}" fill="${selectedItem.color}" fill-opacity="0.76" stroke="#ffffff" stroke-opacity="0.88" stroke-width="1.35" stroke-linejoin="round" vector-effect="non-scaling-stroke" />`;
                 }
                 return `<path data-country="${code}" d="${d}" class="regional-land" />`;
             }).join('');
+
+            // Optionale Breitengrad-/Hemisphären-Zone für Tropen, Nord/Süd oder Ost/West Splits
+            let bandOverlayHtml = '';
+            const band = selectedItem ? REGIONAL_BAND_OVERLAYS[selectedItem.id] : null;
+            if (band && selectedItem) {
+                if (band.type === 'lat') {
+                    const yTop = geoToSvgY(band.latMax);
+                    const yBot = geoToSvgY(band.latMin);
+                    bandOverlayHtml = `
+                        <rect x="0" y="${yTop.toFixed(1)}" width="1000" height="${Math.max(4, yBot - yTop).toFixed(1)}" fill="${selectedItem.color}" fill-opacity="0.14" />
+                        <line x1="0" y1="${yTop.toFixed(1)}" x2="1000" y2="${yTop.toFixed(1)}" stroke="${selectedItem.color}" stroke-opacity="0.85" stroke-width="1.6" stroke-dasharray="6 4" vector-effect="non-scaling-stroke" />
+                        <line x1="0" y1="${yBot.toFixed(1)}" x2="1000" y2="${yBot.toFixed(1)}" stroke="${selectedItem.color}" stroke-opacity="0.85" stroke-width="1.6" stroke-dasharray="6 4" vector-effect="non-scaling-stroke" />
+                    `;
+                } else if (band.type === 'lon') {
+                    const xLeft = geoToSvgX(band.lonMin);
+                    const xRight = geoToSvgX(band.lonMax);
+                    bandOverlayHtml = `
+                        <rect x="${xLeft.toFixed(1)}" y="0" width="${Math.max(4, xRight - xLeft).toFixed(1)}" height="500" fill="${selectedItem.color}" fill-opacity="0.12" />
+                        <line x1="500" y1="0" x2="500" y2="500" stroke="${selectedItem.color}" stroke-opacity="0.9" stroke-width="1.8" stroke-dasharray="6 4" vector-effect="non-scaling-stroke" />
+                    `;
+                }
+            }
 
             const vw = 1000 / regionalMapView.scale;
             const vh = 500 / regionalMapView.scale;
             return `
                 <svg id="regionalWorldSvg" viewBox="${regionalMapView.vx.toFixed(2)} ${regionalMapView.vy.toFixed(2)} ${vw.toFixed(2)} ${vh.toFixed(2)}" class="w-full h-full block pointer-events-none" preserveAspectRatio="none" aria-hidden="true">
-                    <!-- Dezente Gradnetz-Referenzlinien: Äquator (0°), Nullmeridian (0°), Wendekreise -->
+                    <!-- Gradnetz-Referenzlinien: Äquator (0°), Nullmeridian (0°), Wendekreise (23.5°N/S) -->
                     <line x1="0" y1="250" x2="1000" y2="250" stroke="currentColor" stroke-opacity="0.22" stroke-width="1" stroke-dasharray="4 4" vector-effect="non-scaling-stroke" />
                     <line x1="500" y1="0" x2="500" y2="500" stroke="currentColor" stroke-opacity="0.22" stroke-width="1" stroke-dasharray="4 4" vector-effect="non-scaling-stroke" />
-                    <line x1="0" y1="164" x2="1000" y2="164" stroke="currentColor" stroke-opacity="0.11" stroke-width="0.8" stroke-dasharray="2 5" vector-effect="non-scaling-stroke" />
-                    <line x1="0" y1="322" x2="1000" y2="322" stroke="currentColor" stroke-opacity="0.11" stroke-width="0.8" stroke-dasharray="2 5" vector-effect="non-scaling-stroke" />
+                    <line x1="0" y1="184.7" x2="1000" y2="184.7" stroke="currentColor" stroke-opacity="0.12" stroke-width="0.8" stroke-dasharray="2 5" vector-effect="non-scaling-stroke" />
+                    <line x1="0" y1="315.3" x2="1000" y2="315.3" stroke="currentColor" stroke-opacity="0.12" stroke-width="0.8" stroke-dasharray="2 5" vector-effect="non-scaling-stroke" />
 
-                    <!-- Detaillierte statische Weltkarte mit Ländergrenzen (62 Länder-/Regions-Polygone) -->
+                    ${bandOverlayHtml}
+
+                    <!-- Detaillierte statische Weltkarte mit Ländergrenzen & Teilregionen (74 Polygone) -->
                     <g>
                         ${countryPathsHtml}
                     </g>
@@ -17589,14 +17900,14 @@
                             class="themed-sub rounded-3xl flex flex-col justify-between border cursor-pointer transition group relative overflow-hidden shadow-sm ${isSel ? 'border-emerald-500 ring-2 ring-emerald-500/35' : 'hover:border-emerald-500/60'}"
                             ${!isSel ? 'style="border-color: var(--border-color);"' : ''}
                         >
-                            <!-- IN-GAME HERO STAGE (wie Dex-Infokarte) -->
-                            <div class="relative z-0 pt-2 pb-5 px-2 text-white overflow-hidden" style="background: ${rStageBg};">
+                            <!-- IN-GAME HERO STAGE (wie Dex-Infokarte, feste Höhe für exakte Ausrichtung) -->
+                            <div class="relative z-0 h-[102px] sm:h-[112px] shrink-0 text-white overflow-hidden" style="background: ${rStageBg};">
                                 ${renderHeroStageTypeOverlaySvg(types[0], item.dex)}
-                                <div class="relative z-10 w-full flex items-center justify-between gap-1">
-                                    <span class="px-1.5 py-0.5 rounded-md bg-black/35 backdrop-blur-sm text-white font-mono text-[9px] font-black leading-none">#${String(item.dex).padStart(4, '0')}</span>
-                                    <span class="px-1.5 py-0.5 rounded-md backdrop-blur-sm text-[8px] font-black leading-none ${srcPillCls}">${item.source}</span>
+                                <div class="absolute top-2 left-2 right-2 z-30 flex items-center justify-between gap-1">
+                                    <span class="px-1.5 py-0.5 rounded-md bg-black/35 backdrop-blur-sm text-white font-mono text-[9px] font-black leading-none whitespace-nowrap">#${String(item.dex).padStart(4, '0')}</span>
+                                    <span class="px-1.5 py-0.5 rounded-md backdrop-blur-sm text-[8px] font-black leading-none whitespace-nowrap ${srcPillCls}">${item.source}</span>
                                 </div>
-                                <div class="relative z-20 flex items-center justify-center mt-0.5 translate-y-2">
+                                <div class="absolute inset-x-0 bottom-2 z-20 flex items-center justify-center pointer-events-none">
                                     ${renderSpriteImg(item.dex, item.name, 'w-14 h-14 sm:w-16 sm:h-16 group-hover:scale-110 transition duration-200 drop-shadow-[0_8px_14px_rgba(0,0,0,0.45)]', item.dex)}
                                 </div>
                             </div>
@@ -17611,7 +17922,7 @@
                                     <div class="max-w-[90px] mx-auto">
                                         <div class="h-1 rounded-full overflow-hidden" style="background: linear-gradient(90deg, ${rMeta1.color}, ${rMeta2.color});"></div>
                                     </div>
-                                    <div class="flex items-center justify-center gap-1 pt-0.5">
+                                    <div class="flex items-center justify-center gap-1 pt-0.5 min-h-[24px]">
                                         ${renderTypeBadges(types, false)}
                                     </div>
                                 </div>
@@ -17707,13 +18018,6 @@
             if (dexTypeSel) dexTypeSel.value = 'ALL';
             if (dexTypeSel2) dexTypeSel2.value = 'ALL';
             renderEmbeddedDexTypeButtons();
-
-            // Init Typ-Filter im Regionale-Tab
-            const regTypeSel = document.getElementById('regionalTypeFilter');
-            if (regTypeSel) {
-                regTypeSel.innerHTML = `<option value="ALL">Alle 18 Typen</option>` +
-                    TYPES.map(t => `<option value="${t}">Typ: ${t}</option>`).join('');
-            }
 
             // Init Ziel-Boss-Typen im Vergleich (Quadrat-Buttons + Pop-Up Menü)
             const cmpT1 = document.getElementById('cmpBossType1');
