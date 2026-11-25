@@ -18341,7 +18341,7 @@
 
                     floatingCard.classList.remove('hidden');
                     floatingCard.innerHTML = `
-                        <div class="rounded-3xl overflow-hidden shadow-2xl border backdrop-blur-md" style="border-color: var(--border-color); background: color-mix(in srgb, var(--bg-card) 92%, transparent);">
+                        <div class="themed-sub rounded-3xl overflow-hidden shadow-2xl border" style="border-color: var(--border-color);">
                             <!-- IN-GAME HERO STAGE (wie Dex-Infokarte & Konter) -->
                             <div class="relative z-0 h-[108px] sm:h-[116px] shrink-0 text-white overflow-hidden" style="background: ${selStageBg};">
                                 ${renderHeroStageTypeOverlaySvg(selTypes[0], `reg_float_${selectedItem.dex}`)}
@@ -18360,13 +18360,13 @@
                                         &#10005;
                                     </button>
                                 </div>
-                                <div class="absolute inset-x-0 bottom-3.5 z-20 flex items-center justify-center pointer-events-none">
+                                <div class="absolute inset-x-0 bottom-4 z-20 flex items-center justify-center pointer-events-none">
                                     ${renderSpriteImg(selectedItem.dex, selectedItem.name, 'w-16 h-16 sm:w-[72px] sm:h-[72px] drop-shadow-[0_8px_14px_rgba(0,0,0,0.45)]', selectedItem.dex)}
                                 </div>
                             </div>
 
-                            <!-- ABGERUNDETES IN-GAME GLASS BOTTOM SHEET -->
-                            <div class="relative z-10 -mt-4 rounded-t-[1.4rem] px-3.5 pt-3.5 pb-3 space-y-2 text-center backdrop-blur-md" style="background: color-mix(in srgb, var(--bg-card) 92%, transparent); box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.16);">
+                            <!-- ABGERUNDETES IN-GAME BOTTOM SHEET (wie Dex-Infokarte & Konter) -->
+                            <div class="relative z-10 -mt-4 rounded-t-[1.5rem] themed-card px-3.5 pt-4 pb-3 space-y-2 text-center" style="box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.16); border: none;">
                                 <div class="space-y-1">
                                     <div class="flex items-center justify-center gap-1.5 flex-wrap">
                                         <span class="text-sm font-black leading-tight">${selectedItem.name}</span>
