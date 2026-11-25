@@ -9274,19 +9274,19 @@
 
             container.innerHTML = `
                 <div class="pogo-card-shell overflow-hidden">
-                    <div class="relative z-0 overflow-hidden flex flex-col items-center justify-end pt-4 pb-12 text-white" style="background: ${cmpStageBgStyle};">
+                    <div class="relative z-0 pt-3.5 pb-14 px-4 sm:px-5 text-white overflow-hidden" style="background: ${cmpStageBgStyle};">
                         ${renderHeroStageTypeOverlaySvg(p.types?.[0], `cmp_${slotLetter}_${p.dex}`)}
 
                         <div class="text-center z-10 relative">
                             <div id="slot${slotLetter}-heroLvl" class="text-[10px] font-extrabold uppercase tracking-widest text-white/80 leading-none whitespace-nowrap">${ivPct}% IV • Lvl ${Number.isInteger(s.level) ? s.level : s.level.toFixed(1)}</div>
                             <div class="font-black tracking-tight">
                                 <span class="text-xs uppercase opacity-80 mr-1">WP</span>
-                                <span id="slot${slotLetter}-cp" class="text-3xl font-mono drop-shadow">${formatNum(m.cp, 0)}</span>
+                                <span id="slot${slotLetter}-cp" class="text-xl sm:text-2xl font-black font-mono leading-tight drop-shadow">${formatNum(m.cp, 0)}</span>
                             </div>
                         </div>
 
                         <!-- Interaktiver Level-Bogen (Drag & Drop für Level 1–50) wie im Dex -->
-                        <div class="relative z-20 mt-1 w-full flex flex-col items-center justify-center h-28 sm:h-32">
+                        <div class="relative z-20 mt-1 flex flex-col items-center justify-center h-28 sm:h-32">
                             <svg
                                 id="slot${slotLetter}-arcSvg"
                                 class="absolute inset-x-0 bottom-0 z-30 w-full max-w-[300px] mx-auto h-28 sm:h-32 overflow-visible select-none"
@@ -9308,7 +9308,7 @@
                             </svg>
                             <div
                                 onclick="openPokemonPickerModal('${slotLetter}')"
-                                class="relative z-20 translate-y-4 cursor-pointer group"
+                                class="relative z-20 translate-y-4 w-28 h-28 sm:w-32 sm:h-32 flex items-center justify-center cursor-pointer group"
                                 title="Klicken, um Pokémon für Slot ${slotLetter} zu tauschen"
                             >
                                 ${renderSpriteImg(p.spriteId, displayTitle, `w-28 h-28 sm:w-32 sm:h-32 sprite-float group-hover:scale-105 transition ${s.isShadow ? 'sprite-glow-crypto' : ((p.isGmax || s.isDmax) ? 'sprite-glow-dmax' : 'drop-shadow-[0_10px_18px_rgba(0,0,0,0.42)]')}`, p.dex)}
@@ -9316,17 +9316,21 @@
                         </div>
                     </div>
 
-                    <div class="relative z-10 -mt-7 rounded-t-[2rem] themed-card p-5 pt-7 space-y-4" style="box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.14);">
+                    <div class="relative z-10 -mt-7 rounded-t-[2rem] themed-card px-4 sm:px-5 pt-7 pb-4 sm:pb-5 space-y-4" style="box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.14);">
                         <div id="slot${slotLetter}-lvlTag" class="absolute top-5 right-0 pogo-lvl-tag font-mono">
                             LVL ${s.level.toFixed(1)}${m.isSuperMaxMega ? ' (+2)' : ''}
                         </div>
 
-                        <div class="text-center pt-1">
-                            <h3 class="text-xl font-black text-center">
+                        <div class="text-center space-y-1.5">
+                            <h3 class="text-xl sm:text-2xl font-black tracking-tight text-center ${s.isShadow ? 'text-purple-500' : ''}">
                                 ${displayTitle}
                             </h3>
-                            <div class="w-44 h-2 ${barAccentClass} rounded-full mx-auto mt-2"></div>
-                            <div id="slot${slotLetter}-hpMoves" class="text-xs font-extrabold font-mono mt-1.5 opacity-85 flex flex-wrap items-center justify-center gap-x-1 gap-y-0.5">${renderSlotHpMovesHtml(m)}</div>
+                            <div class="max-w-[280px] mx-auto">
+                                <div class="h-2 rounded-full bg-emerald-500/20 overflow-hidden">
+                                    <div class="h-full w-full rounded-full ${barAccentClass}"></div>
+                                </div>
+                                <div id="slot${slotLetter}-hpMoves" class="mt-1 text-xs font-extrabold font-mono opacity-85 flex flex-wrap items-center justify-center gap-x-1 gap-y-0.5">${renderSlotHpMovesHtml(m)}</div>
+                            </div>
                         </div>
 
                         ${formSelectorHtml}
