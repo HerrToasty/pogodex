@@ -1451,11 +1451,11 @@
             <!-- DialgaDex Top 6 Ranking Per Type -->
             <div class="themed-card rounded-3xl p-5 shadow-sm space-y-4">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
-                    <div>
-                        <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 text-[10px] font-extrabold uppercase tracking-wider">
+                    <div class="shrink-0">
+                        <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 text-[10px] font-extrabold uppercase tracking-wider whitespace-nowrap">
                             DialgaDex Meta-Rangliste pro Typ
                         </span>
-                        <h3 id="top6SectionHeading" class="text-lg font-black mt-0.5">
+                        <h3 id="top6SectionHeading" class="text-lg font-black mt-0.5 whitespace-nowrap">
                             Beste 6 Angreifer pro Elementar-Typ
                         </h3>
                     </div>
@@ -9743,7 +9743,12 @@
 
             ['tierlistMegaLevelGroup', 'top6MegaLevelGroup', 'fullRankingMegaLevelGroup'].forEach(grpId => {
                 const megaLvlGrp = document.getElementById(grpId);
-                if (megaLvlGrp) {
+                if (!megaLvlGrp) return;
+                if (grpId === 'top6MegaLevelGroup') {
+                    megaLvlGrp.classList.toggle('opacity-45', isMax);
+                    megaLvlGrp.classList.toggle('pointer-events-none', isMax);
+                    megaLvlGrp.classList.toggle('select-none', isMax);
+                } else {
                     megaLvlGrp.classList.toggle('hidden', isMax);
                     megaLvlGrp.classList.toggle('inline-flex', !isMax);
                 }
