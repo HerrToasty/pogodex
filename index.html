@@ -1495,10 +1495,10 @@
                         </label>
                         <div id="top6MegaLevelGroup" class="themed-sub rounded-full px-1.5 py-[3px] h-[31px] inline-flex items-center gap-1 border" style="border-color: var(--border-color);" title="Mega-Level für Rangliste &amp; DPS-Berechnung (Stufe 4 nur für Super-Max-Megas)">
                             <span class="text-[10px] font-extrabold uppercase tracking-wider opacity-70 pl-1 pr-0.5 leading-none">Mega-Lv.</span>
-                            <button type="button" data-mlvl="1" onclick="setRankingMegaLevel(1)" class="ranking-mega-lvl-btn px-2 h-[22px] inline-flex items-center justify-center rounded-full text-[10px] leading-none font-extrabold themed-card opacity-80 hover:opacity-100 cursor-pointer transition">1</button>
-                            <button type="button" data-mlvl="2" onclick="setRankingMegaLevel(2)" class="ranking-mega-lvl-btn px-2 h-[22px] inline-flex items-center justify-center rounded-full text-[10px] leading-none font-extrabold themed-card opacity-80 hover:opacity-100 cursor-pointer transition">2</button>
-                            <button type="button" data-mlvl="3" onclick="setRankingMegaLevel(3)" class="ranking-mega-lvl-btn px-2 h-[22px] inline-flex items-center justify-center rounded-full text-[10px] leading-none font-extrabold themed-card opacity-80 hover:opacity-100 cursor-pointer transition">3</button>
-                            <button type="button" data-mlvl="4" onclick="setRankingMegaLevel(4)" class="ranking-mega-lvl-btn px-2 h-[22px] inline-flex items-center justify-center rounded-full text-[10px] leading-none font-black text-white shadow-sm cursor-pointer transition" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 55%, #f59e0b 100%);">4 ★</button>
+                            <button type="button" data-mlvl="1" onclick="setRankingMegaLevel(1)" title="Basisstufe (Stufe 1)" aria-label="Mega-Level 1" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                            <button type="button" data-mlvl="2" onclick="setRankingMegaLevel(2)" title="Hohe Stufe (Stufe 2)" aria-label="Mega-Level 2" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                            <button type="button" data-mlvl="3" onclick="setRankingMegaLevel(3)" title="Maximalstufe (Stufe 3)" aria-label="Mega-Level 3" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                            <button type="button" data-mlvl="4" onclick="setRankingMegaLevel(4)" title="Super-Max (Stufe 4): +2 Lvl &amp; +30% +-Attacke" aria-label="Mega-Level 4 (Super-Max)" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: linear-gradient(135deg, #ec4899 0%, #a855f7 55%, #f59e0b 100%); box-shadow: 0 0 0 1.5px var(--card-sub), 0 0 0 3px #e8a95c;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
                         </div>
                         <label id="top6ShadowLabel" data-pill-tone="purple" class="pogo-pill-toggle cursor-pointer">
                             <input
@@ -1848,10 +1848,10 @@
                     </label>
                     <div id="tierlistMegaLevelGroup" class="themed-sub rounded-full px-1.5 py-[3px] h-[31px] inline-flex items-center gap-1 border" style="border-color: var(--border-color);" title="Mega-Level für Rangliste &amp; DPS-Berechnung (Stufe 4 nur für Super-Max-Megas)">
                         <span class="text-[10px] font-extrabold uppercase tracking-wider opacity-70 pl-1 pr-0.5 leading-none">Mega-Lv.</span>
-                        <button type="button" data-mlvl="1" onclick="setRankingMegaLevel(1)" class="ranking-mega-lvl-btn px-2 h-[22px] inline-flex items-center justify-center rounded-full text-[10px] leading-none font-extrabold themed-card opacity-80 hover:opacity-100 cursor-pointer transition">1</button>
-                        <button type="button" data-mlvl="2" onclick="setRankingMegaLevel(2)" class="ranking-mega-lvl-btn px-2 h-[22px] inline-flex items-center justify-center rounded-full text-[10px] leading-none font-extrabold themed-card opacity-80 hover:opacity-100 cursor-pointer transition">2</button>
-                        <button type="button" data-mlvl="3" onclick="setRankingMegaLevel(3)" class="ranking-mega-lvl-btn px-2 h-[22px] inline-flex items-center justify-center rounded-full text-[10px] leading-none font-extrabold themed-card opacity-80 hover:opacity-100 cursor-pointer transition">3</button>
-                        <button type="button" data-mlvl="4" onclick="setRankingMegaLevel(4)" class="ranking-mega-lvl-btn px-2 h-[22px] inline-flex items-center justify-center rounded-full text-[10px] leading-none font-black text-white shadow-sm cursor-pointer transition" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 55%, #f59e0b 100%);">4 ★</button>
+                        <button type="button" data-mlvl="1" onclick="setRankingMegaLevel(1)" title="Basisstufe (Stufe 1)" aria-label="Mega-Level 1" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                        <button type="button" data-mlvl="2" onclick="setRankingMegaLevel(2)" title="Hohe Stufe (Stufe 2)" aria-label="Mega-Level 2" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                        <button type="button" data-mlvl="3" onclick="setRankingMegaLevel(3)" title="Maximalstufe (Stufe 3)" aria-label="Mega-Level 3" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                        <button type="button" data-mlvl="4" onclick="setRankingMegaLevel(4)" title="Super-Max (Stufe 4): +2 Lvl &amp; +30% +-Attacke" aria-label="Mega-Level 4 (Super-Max)" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: linear-gradient(135deg, #ec4899 0%, #a855f7 55%, #f59e0b 100%); box-shadow: 0 0 0 1.5px var(--card-sub), 0 0 0 3px #e8a95c;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
                     </div>
                     <label id="tierlistShadowLabel" data-pill-tone="purple" class="pogo-pill-toggle cursor-pointer">
                         <input
@@ -1986,10 +1986,10 @@
                         </label>
                         <div id="fullRankingMegaLevelGroup" class="themed-sub rounded-full px-1.5 py-[3px] h-[31px] inline-flex items-center gap-1 border" style="border-color: var(--border-color);" title="Mega-Level für Rangliste &amp; DPS-Berechnung (Stufe 4 nur für Super-Max-Megas)">
                             <span class="text-[10px] font-extrabold uppercase tracking-wider opacity-70 pl-1 pr-0.5 leading-none">Mega-Lv.</span>
-                            <button type="button" data-mlvl="1" onclick="setRankingMegaLevel(1)" class="ranking-mega-lvl-btn px-2 h-[22px] inline-flex items-center justify-center rounded-full text-[10px] leading-none font-extrabold themed-card opacity-80 hover:opacity-100 cursor-pointer transition">1</button>
-                            <button type="button" data-mlvl="2" onclick="setRankingMegaLevel(2)" class="ranking-mega-lvl-btn px-2 h-[22px] inline-flex items-center justify-center rounded-full text-[10px] leading-none font-extrabold themed-card opacity-80 hover:opacity-100 cursor-pointer transition">2</button>
-                            <button type="button" data-mlvl="3" onclick="setRankingMegaLevel(3)" class="ranking-mega-lvl-btn px-2 h-[22px] inline-flex items-center justify-center rounded-full text-[10px] leading-none font-extrabold themed-card opacity-80 hover:opacity-100 cursor-pointer transition">3</button>
-                            <button type="button" data-mlvl="4" onclick="setRankingMegaLevel(4)" class="ranking-mega-lvl-btn px-2 h-[22px] inline-flex items-center justify-center rounded-full text-[10px] leading-none font-black text-white shadow-sm cursor-pointer transition" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 55%, #f59e0b 100%);">4 ★</button>
+                            <button type="button" data-mlvl="1" onclick="setRankingMegaLevel(1)" title="Basisstufe (Stufe 1)" aria-label="Mega-Level 1" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                            <button type="button" data-mlvl="2" onclick="setRankingMegaLevel(2)" title="Hohe Stufe (Stufe 2)" aria-label="Mega-Level 2" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                            <button type="button" data-mlvl="3" onclick="setRankingMegaLevel(3)" title="Maximalstufe (Stufe 3)" aria-label="Mega-Level 3" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                            <button type="button" data-mlvl="4" onclick="setRankingMegaLevel(4)" title="Super-Max (Stufe 4): +2 Lvl &amp; +30% +-Attacke" aria-label="Mega-Level 4 (Super-Max)" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: linear-gradient(135deg, #ec4899 0%, #a855f7 55%, #f59e0b 100%); box-shadow: 0 0 0 1.5px var(--card-sub), 0 0 0 3px #e8a95c;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
                         </div>
                         <label id="fullRankingShadowLabel" data-pill-tone="purple" class="pogo-pill-toggle cursor-pointer">
                             <input
@@ -7817,6 +7817,7 @@
             if (lvl === 4) {
                 return {
                     level: 4,
+                    ribbonLabel: 'Super Max Level',
                     title: 'Super-Max (Stufe 4)',
                     shortBonus: '+2 Lvl-Boost & +30% +-Attacke',
                     cpLevelBoost: 2
@@ -7825,6 +7826,7 @@
             if (lvl === 3) {
                 return {
                     level: 3,
+                    ribbonLabel: 'Max Level',
                     title: 'Maximalstufe (Stufe 3)',
                     shortBonus: '3 Tage Cooldown • +2 Bonbons • Max XL-Chance',
                     cpLevelBoost: 0
@@ -7833,6 +7835,7 @@
             if (lvl === 2) {
                 return {
                     level: 2,
+                    ribbonLabel: 'Hohe Stufe',
                     title: 'Hohe Stufe (Stufe 2)',
                     shortBonus: '5 Tage Cooldown • +1 Bonbon • +50 EP • Erhöhte XL-Chance',
                     cpLevelBoost: 0
@@ -7840,10 +7843,22 @@
             }
             return {
                 level: 1,
+                ribbonLabel: 'Basisstufe',
                 title: 'Basisstufe (Stufe 1)',
                 shortBonus: '7 Tage Cooldown • +1 Fang-Bonbon',
                 cpLevelBoost: 0
             };
+        }
+
+        function renderIngameMegaHelixIconSvg(sizeClass = 'w-5 h-5') {
+            return `
+                <svg class="${sizeClass} shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                    <!-- In-Game Mega Evolution DNA Helix Emblem -->
+                    <path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round" />
+                    <line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.4" stroke-linecap="round" />
+                    <line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.4" stroke-linecap="round" />
+                </svg>
+            `;
         }
 
         function renderMegaLevelSelectorHtml(p, currentLevel, onSelectFnExpr, compact = false) {
@@ -7853,30 +7868,55 @@
             const hasLv4 = maxLvl === 4;
             const info = getMegaLevelBonusInfo(activeLvl, hasLv4);
             const levels = hasLv4 ? [1, 2, 3, 4] : [1, 2, 3];
+            const circleSize = compact ? 'w-10 h-10' : 'w-11 h-11';
+            const iconSize = compact ? 'w-5 h-5' : 'w-6 h-6';
+            const ribbonBg = activeLvl === 4
+                ? 'linear-gradient(90deg, #ec4899 0%, #a855f7 52%, #e8a95c 100%)'
+                : '#e8a95c';
+
             return `
-                <div class="themed-sub rounded-2xl ${compact ? 'p-2' : 'p-2.5 px-3'} space-y-1.5 border" style="border-color: var(--border-color);">
-                    <div class="flex items-center justify-between gap-2 flex-wrap">
-                        <span class="text-[10px] font-extrabold uppercase tracking-wider opacity-75">Mega-Level (Stufe 1–${maxLvl})</span>
-                        <span class="text-[10px] font-bold ${activeLvl === 4 ? 'text-fuchsia-500 font-black' : 'opacity-75'} truncate">${info.shortBonus}</span>
+                <div class="themed-sub rounded-2xl ${compact ? 'p-2.5' : 'p-3 px-3.5'} space-y-2 border text-center" style="border-color: var(--border-color);">
+                    <div class="flex items-center justify-between gap-2 text-[10px] font-extrabold uppercase tracking-wider opacity-75">
+                        <span>Mega-Level</span>
+                        <span class="font-bold normal-case ${activeLvl === 4 ? 'text-fuchsia-500 font-black' : ''} truncate">${info.shortBonus}</span>
                     </div>
-                    <div class="grid ${hasLv4 ? 'grid-cols-4' : 'grid-cols-3'} gap-1.5">
+
+                    <!-- In-Game Ribbon Banner (wie "Max Level" im Spiel) -->
+                    <div class="flex justify-center">
+                        <div
+                            class="px-6 py-0.5 text-[11px] font-black text-white tracking-wide shadow-sm select-none"
+                            style="background: ${ribbonBg}; clip-path: polygon(0% 0%, 100% 0%, 93% 50%, 100% 100%, 0% 100%, 7% 50%);"
+                        >
+                            ${info.ribbonLabel}
+                        </div>
+                    </div>
+
+                    <!-- In-Game runde Mega-Helix Medaillons (erreichte Stufen pink, aktuelle Stufe mit goldenem Doppelring, höhere Stufen grau) -->
+                    <div class="flex items-center justify-center ${compact ? 'gap-3.5' : 'gap-4'} py-0.5">
                         ${levels.map(lv => {
-                            const isAct = lv === activeLvl;
+                            const isReached = lv <= activeLvl;
+                            const isCurrent = lv === activeLvl;
                             const isLv4 = lv === 4;
-                            const activeStyle = isAct
+                            const lvInfo = getMegaLevelBonusInfo(lv, hasLv4);
+                            const circleBg = isReached
                                 ? (isLv4
-                                    ? 'background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 55%, #f59e0b 100%); color: #ffffff;'
-                                    : 'background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%); color: #ffffff;')
+                                    ? 'background: linear-gradient(135deg, #ec4899 0%, #a855f7 55%, #f59e0b 100%);'
+                                    : 'background: #da5c81;')
+                                : 'background: rgba(148, 163, 184, 0.38);';
+                            const ringStyle = isCurrent
+                                ? 'box-shadow: 0 0 0 2.5px var(--card-sub), 0 0 0 5px #e8a95c;'
                                 : '';
                             return `
                                 <button
                                     type="button"
                                     onclick="${onSelectFnExpr}(${lv})"
-                                    class="py-1 px-2 rounded-xl text-[11px] font-black cursor-pointer transition border ${isAct ? 'border-transparent shadow-sm' : 'themed-card opacity-85 hover:opacity-100'}"
-                                    style="${isAct ? activeStyle : 'border-color: var(--border-color);'}"
-                                    title="${getMegaLevelBonusInfo(lv, hasLv4).title}: ${getMegaLevelBonusInfo(lv, hasLv4).shortBonus}"
+                                    aria-pressed="${isCurrent ? 'true' : 'false'}"
+                                    aria-label="${lvInfo.title}"
+                                    title="${lvInfo.title}: ${lvInfo.shortBonus}"
+                                    class="${circleSize} rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-105 active:scale-95 shrink-0"
+                                    style="${circleBg} ${ringStyle}"
                                 >
-                                    ${isLv4 ? 'Stufe 4 ★' : `Stufe ${lv}`}
+                                    ${renderIngameMegaHelixIconSvg(iconSize)}
                                 </button>
                             `;
                         }).join('')}
@@ -7903,12 +7943,14 @@
             appState.rankingMegaLevel = clamped;
             document.querySelectorAll('.ranking-mega-lvl-btn').forEach(btn => {
                 const lv = Number(btn.getAttribute('data-mlvl'));
-                const active = lv === clamped;
-                btn.className = active
-                    ? 'ranking-mega-lvl-btn px-2 h-[22px] inline-flex items-center justify-center rounded-full text-[10px] leading-none font-black text-white shadow-sm cursor-pointer transition'
-                    : 'ranking-mega-lvl-btn px-2 h-[22px] inline-flex items-center justify-center rounded-full text-[10px] leading-none font-extrabold themed-card opacity-80 hover:opacity-100 cursor-pointer transition';
-                btn.style.background = active
-                    ? (lv === 4 ? 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 55%, #f59e0b 100%)' : 'var(--mega-grad)')
+                const isReached = lv <= clamped;
+                const isCurrent = lv === clamped;
+                btn.className = 'ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition';
+                btn.style.background = isReached
+                    ? (lv === 4 ? 'linear-gradient(135deg, #ec4899 0%, #a855f7 55%, #f59e0b 100%)' : '#da5c81')
+                    : 'rgba(148, 163, 184, 0.38)';
+                btn.style.boxShadow = isCurrent
+                    ? '0 0 0 1.5px var(--card-sub), 0 0 0 3px #e8a95c'
                     : '';
             });
             renderTop6ByTypeSection();
@@ -9340,27 +9382,150 @@
             `;
         }
 
+        const EVOLUTION_ITEM_ICONS = {"dragon-scale": {"label": "Drachenhaut", "src": "data:image/webp;base64,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"}, "gimmighoul-coins": {"label": "Gierspenst-Münzen", "src": "data:image/webp;base64,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"}, "kings-rock": {"label": "King-Stein", "src": "data:image/webp;base64,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"}, "metal-coat": {"label": "Metallmantel", "src": "data:image/webp;base64,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"}, "sinnoh-stone": {"label": "Sinnoh-Stein", "src": "data:image/webp;base64,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"}, "sun-stone": {"label": "Sonnenstein", "src": "data:image/webp;base64,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"}, "sweet-apple": {"label": "Süßer Apfel", "src": "data:image/webp;base64,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"}, "syrupy-apple": {"label": "Sirup-Apfel", "src": "data:image/webp;base64,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"}, "tart-apple": {"label": "Saurer Apfel", "src": "data:image/webp;base64,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"}, "unova-stone": {"label": "Einall-Stein", "src": "data:image/webp;base64,UklGRrYFAABXRUJQVlA4WAoAAAAQAAAANwAANwAAQUxQSEICAAABoATJtmnbGnPN/Wy/b9u/Z9u2bdu2bfu3bNst27ax5prj476z8NGOiAlAYQFEBP/A/02i2nVdFxoTVUwySEOiAAbNuPy2Rx2++VyAqjSiwKi1L3s58u/xggkApImAsYe8Q5KezBL5znVbCEIDAZu9Q6aYnH0ayXumQKgWsCtpzl5TjHxtSoRKIYz/wo3ZkQ8PCVIjdIqJ39PzGHk2tIICmGLZz4rQfGF0ktlDwIyH3fMdCyc+1k8EZRVbfMmKiQtAywSs4YzmxYyXoZPe+xIZ8zGNNVNcFIqCipNprGq8W4LkBcz1U/I6dC4GLXEbjZWNlxdQLM7E2s4PR0JyAu6kVaNzIWiGYiF31jfugi5HLqE1cUwWxnxGbyDy1LxV6WzizLzzGNs4J0ueYmrjrKxpvqO3cSL6SY8Alk5tGPfP2oRtJm4KRe97MzXhXCTrmDacP0yNkHFCG4kvDJAgPQI4so3ol0ORuRO9hcTN8tZrwvndVAg5Sxi9nvEmBOTO/FMLiatBswa90UDylweJZOFmWjXjTlDk71Mv8cVBQQrM/pt7JfNlocgPuIpWJ/IUdJLbx9w/udcwPjBQQwkE7MZUwfj2lFApIooH3IolfjM/FIU7HMhYKvHXFaAoHWSqT2hljD+vjg7lA5b8zVMBj/x8OXSoqVjPmHI8ks/ODUVdxTo/MfqkPMVEfn/sYChq98Pib5E0d0+WSPLTM2cHAqqLYvwxrxv7tjfO3WAMoIIWFRi++GmvfPbaPefvttQ4ABpQFVZQOCBOAwAAMBAAnQEqOAA4AD5JHo1EIqGhFQzN0CgEhLKAaO5H/V80MTJzaGjXbgGZfxp8Lf1Cc9b0f7AX8k/pf/G/MTjMP1POWiZXVWQ/2+u50TmokmT2VeRkyzxfxYFjJuOUQgub2FzFVbHy5deeuKi2tITf5tIbdtp5ekQMSwMSxFz0YNkhmgaavFyfkZJwAP7/ubaRRH/kanxBiGYcLlVy2B+Gl3Ss2gpRwle+x7aJNzXJHo35E5brVEJv763H8e9n/BHCo6+gSSlyP242uowYna2AZxjITHvJ15UhBTJZdMqGdm1buxSULh4CAVzwNS1hlv2Hu67CE+3iChzV3L4QGXgi6VFI2/1dC1vv7Bnf22hudKOEY/FEz+oYLTF3aGaTARgDxQXqVMwazq6Uj8f2tT//L4zY9L7+3/G1/qOS2dDa7W76Iz6W+WRoN5H/9v8PMP/4a49xiRg5N/n/yI7vw3a3O0RGr8/E3BIzIgX49YX1jfjy5mhWI3JIkpkM/mZS2KppNiDFunzJkeWa6H7XCQqmdxM0FUh8uHmlL45054zPKBhH5/uH5pD5VcE6cCatgL6YtTqk7comzvhugGS4k1wPiUURJPXH0BAcZwPA2n4lnHeXz3rWb+W/642tGsns4vWk0nZJngIjg5sTa+hYETN83rcm3XrcO1ksRtidCGTRyRb77JnyCq2jqBJ5GirsdOlZbpTHUcDRYs9dCIoov/IMEpDEuCp53Bexm/Nqyp3CMcvg+1TwnF//fhVC6YWekf4SSJlqzOnkvXg42BpGx2fvsegCfa9IS88ff0FPOorIqYypBSGt/5c8Vt0tTeuu0LEc2asHgBX3f7xIx5jBj+v/f/hvOfvzoAdD5VRhqOL9H7j6j+c5PyYZrOtOersjIK27IjGxS/fXoY9z7WDGvs1OLT7jU5eoK8zvtBpb/AWrjbnVI5bTgzRTWl0Dn6n9GOxJZhEnN9QeBjd3DFAaENr/xA3dBi+afH/+RUhdcAUyMg35E8cOVl4rtsi3Su18N4yeC5RQi1/4Zj5iNhJo4NY5cnHZF8JEgUPjlmZ32edeO3XpWwSP7xtu3xWLtM2D9XT0yTzHMXNYsgjZ3Oxfy8vK6AJ/aGM/nb7H0D+gAAAA"}, "upgrade": {"label": "Up-Grade", "src": "data:image/webp;base64,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"}, "blaze-fusion-energy": {"label": "Flammen-Fusionsenergie", "src": "data:image/webp;base64,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"}, "crowned-shield-energy": {"label": "König-des-Schildes-Energie", "src": "data:image/webp;base64,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"}, "crowned-sword-energy": {"label": "König-des-Schwertes-Energie", "src": "data:image/webp;base64,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"}, "lunar-fusion-energy": {"label": "Lunar-Fusionsenergie", "src": "data:image/webp;base64,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"}, "solar-fusion-energy": {"label": "Solar-Fusionsenergie", "src": "data:image/webp;base64,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"}, "volt-fusion-energy": {"label": "Volt-Fusionsenergie", "src": "data:image/webp;base64,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"}};
+
+        const EVOLUTION_ITEM_MATCHERS = [
+            { key: 'sinnoh-stone', regex: /Sinnoh[-\s]*Stein|Sinnoh\s*Stone|ITEM_GEN4_EVOLUTION_STONE/i },
+            { key: 'unova-stone', regex: /Einall[-\s]*Stein|Unova[-\s]*Stein|Unova\s*Stone|ITEM_GEN5_EVOLUTION_STONE/i },
+            { key: 'sun-stone', regex: /Sonnen[-\s]*stein|Sun\s*Stone|ITEM_SUN_STONE/i },
+            { key: 'kings-rock', regex: /King[-\s]*Stein|Kings?\s*Rock|Königs[-\s]*stein|ITEM_KINGS_ROCK/i },
+            { key: 'metal-coat', regex: /Metall[-\s]*mantel|Metall[-\s]*legierung|Metal\s*Coat|Metal\s*Alloy|ITEM_METAL_COAT/i },
+            { key: 'dragon-scale', regex: /Drachen[-\s]*haut|Drachen[-\s]*schuppe|Dragon\s*Scale|ITEM_DRAGON_SCALE/i },
+            { key: 'upgrade', regex: /Up[-\s]*Grade|ITEM_UP_GRADE/i },
+            { key: 'gimmighoul-coins', regex: /Gierspenst[-\s]*Münzen?|Gimmighoul\s*Coins?|999\s*Münzen/i },
+            { key: 'sweet-apple', regex: /Süßer?\s*Apfel|Sweet\s*Apple/i },
+            { key: 'tart-apple', regex: /Saurer?\s*Apfel|Tart\s*Apple/i },
+            { key: 'syrupy-apple', regex: /Sirup[-\s]*Apfel|Syrupy\s*Apple/i },
+            { key: 'blaze-fusion-energy', regex: /Flammen[-\s]*Fusions[-\s]*energie|Blaze\s*Fusion\s*Energy/i },
+            { key: 'volt-fusion-energy', regex: /Volt[-\s]*Fusions[-\s]*energie|Volt\s*Fusion\s*Energy/i },
+            { key: 'solar-fusion-energy', regex: /Solar[-\s]*Fusions[-\s]*energie|Solar\s*Fusion\s*Energy/i },
+            { key: 'lunar-fusion-energy', regex: /Lunar[-\s]*Fusions[-\s]*energie|Lunar\s*Fusion\s*Energy/i },
+            { key: 'crowned-sword-energy', regex: /König[-\s]*des[-\s]*Schwertes[-\s]*Energie|Crowned\s*Sword\s*Energy/i },
+            { key: 'crowned-shield-energy', regex: /König[-\s]*des[-\s]*Schildes[-\s]*Energie|Crowned\s*Shield\s*Energy/i }
+        ];
+
+        // Bekannte Item-Entwicklungen (Fallback falls vor/ohne Live-GameMaster-Sync geöffnet)
+        const KNOWN_EVO_ITEM_BY_TARGET_DEX = {
+            182: 'sun-stone', 192: 'sun-stone', 547: 'sun-stone', 549: 'sun-stone', 695: 'sun-stone',
+            186: 'kings-rock', 199: 'kings-rock',
+            208: 'metal-coat', 212: 'metal-coat', 1018: 'metal-coat',
+            230: 'dragon-scale',
+            233: 'upgrade',
+            424: 'sinnoh-stone', 429: 'sinnoh-stone', 430: 'sinnoh-stone', 461: 'sinnoh-stone',
+            463: 'sinnoh-stone', 464: 'sinnoh-stone', 465: 'sinnoh-stone', 466: 'sinnoh-stone',
+            467: 'sinnoh-stone', 468: 'sinnoh-stone', 469: 'sinnoh-stone', 472: 'sinnoh-stone',
+            473: 'sinnoh-stone', 474: 'sinnoh-stone', 475: 'sinnoh-stone', 477: 'sinnoh-stone',
+            478: 'sinnoh-stone', 407: 'sinnoh-stone',
+            512: 'unova-stone', 514: 'unova-stone', 516: 'unova-stone', 518: 'unova-stone',
+            604: 'unova-stone', 609: 'unova-stone',
+            841: 'tart-apple', 842: 'sweet-apple', 1011: 'syrupy-apple', 1019: 'syrupy-apple',
+            1000: 'gimmighoul-coins'
+        };
+
+        function renderEvolutionItemIconHtml(itemKey, opts = {}) {
+            const meta = EVOLUTION_ITEM_ICONS[itemKey];
+            if (!meta) return '';
+            const sizeClass = opts.sizeClass || 'w-4 h-4';
+            const safeTitle = String(opts.title || meta.label).replace(/"/g, '&quot;');
+            return `<img src="${meta.src}" alt="${safeTitle}" title="${safeTitle}" class="${sizeClass} inline-block shrink-0 object-contain align-middle select-none drop-shadow-sm" draggable="false" />`;
+        }
+
+        function getFusionOrCrownedEnergyKeyForEntry(entryOrId) {
+            if (!entryOrId) return null;
+            const id = String(typeof entryOrId === 'string' ? entryOrId : (entryOrId.id || '')).toLowerCase();
+            const name = String(typeof entryOrId === 'object' ? (entryOrId.name || '') : '').toLowerCase();
+            if (id.includes('kyurem-white') || name.includes('weißes kyurem')) return 'blaze-fusion-energy';
+            if (id.includes('kyurem-black') || name.includes('schwarzes kyurem')) return 'volt-fusion-energy';
+            if (id === 'necrozma-dawn' || id.includes('dusk-mane') || name.includes('abendmähne')) return 'solar-fusion-energy';
+            if (id === 'necrozma-wings' || id.includes('dawn-wings') || name.includes('morgenschwingen')) return 'lunar-fusion-energy';
+            if (id.includes('zacian-crowned') || name.includes('könig des schwertes')) return 'crowned-sword-energy';
+            if (id.includes('zamazenta-crowned') || name.includes('könig des schildes')) return 'crowned-shield-energy';
+            return null;
+        }
+
+        function getSpecialFormEnergyTransformsForDex(dexNum) {
+            if (dexNum === 646) {
+                return [
+                    { id: 'kyurem-white', dex: 646, name: 'Weißes Kyurem', energyKey: 'blaze-fusion-energy', energyCost: 1000, candyCost: 30 },
+                    { id: 'kyurem-black', dex: 646, name: 'Schwarzes Kyurem', energyKey: 'volt-fusion-energy', energyCost: 1000, candyCost: 30 }
+                ];
+            }
+            if (dexNum === 800) {
+                return [
+                    { id: 'necrozma-dawn', dex: 800, name: 'Abendmähne-Necrozma', energyKey: 'solar-fusion-energy', energyCost: 1000, candyCost: 30 },
+                    { id: 'necrozma-wings', dex: 800, name: 'Morgenschwingen-Necrozma', energyKey: 'lunar-fusion-energy', energyCost: 1000, candyCost: 30 }
+                ];
+            }
+            if (dexNum === 888) {
+                return [
+                    { id: 'zacian-crowned', dex: 888, name: 'Zacian (König des Schwertes)', energyKey: 'crowned-sword-energy', energyCost: 1000, candyCost: 30 }
+                ];
+            }
+            if (dexNum === 889) {
+                return [
+                    { id: 'zamazenta-crowned', dex: 889, name: 'Zamazenta (König des Schildes)', energyKey: 'crowned-shield-energy', energyCost: 1000, candyCost: 30 }
+                ];
+            }
+            return [];
+        }
+
+        function formatEvolutionStepCostHtml(rawCost, familyDex, familyName, targetDex) {
+            let text = String(rawCost || '').trim();
+            const hasCandyCost = /Bonbon/i.test(text);
+            if (hasCandyCost) {
+                text = text.replace(/\s*Bonbons?\b/gi, '').trim();
+            }
+            const candyIcon = hasCandyCost
+                ? renderPokemonCandySvg(familyDex, { sizeClass: 'w-4 h-4', title: `${familyName}-Bonbon` })
+                : '';
+
+            let matchedKey = null;
+            for (const m of EVOLUTION_ITEM_MATCHERS) {
+                if (m.regex.test(text)) {
+                    matchedKey = m.key;
+                    text = text.replace(m.regex, '').trim();
+                    break;
+                }
+            }
+            if (!matchedKey && targetDex && KNOWN_EVO_ITEM_BY_TARGET_DEX[targetDex] && hasCandyCost) {
+                matchedKey = KNOWN_EVO_ITEM_BY_TARGET_DEX[targetDex];
+            }
+
+            if (!matchedKey) {
+                return `${candyIcon}<span>${text}</span>`;
+            }
+
+            // Bereinige ein nachlaufendes '+' falls der Itemname durch das Icon ersetzt wurde
+            text = text.replace(/\+\s*$/, '').trim();
+            const itemMeta = EVOLUTION_ITEM_ICONS[matchedKey];
+            const itemIcon = renderEvolutionItemIconHtml(matchedKey, { sizeClass: 'w-4 h-4', title: itemMeta?.label || '' });
+            if (matchedKey === 'gimmighoul-coins') {
+                return `${candyIcon}<span>${text || '400'}</span><span class="opacity-70">+</span>${itemIcon}<span>999</span>`;
+            }
+            return `${candyIcon}<span>${text}</span><span class="opacity-70">+</span>${itemIcon}`;
+        }
+
         function renderEvolutionChainHtml(dexNum) {
             const fallbackName = getBaseEntryForDex(dexNum)?.name || `#${String(dexNum).padStart(4, '0')}`;
             const chain = EVOLUTION_CHAINS_DATA[dexNum] || [{ dex: dexNum, name: fallbackName, cost: 'Keine weitere Entwicklung' }];
             const familyDex = chain[0]?.dex || dexNum;
+            const familyName = chain[0]?.name || fallbackName;
             return chain.map((step, idx) => {
                 const rawCost = String(step.cost || '');
-                const hasCandyCost = /Bonbon/i.test(rawCost);
-                const displayCost = hasCandyCost
-                    ? rawCost.replace(/\s*Bonbons?\b/gi, '').trim()
+                const knownKey = KNOWN_EVO_ITEM_BY_TARGET_DEX[step.dex];
+                const knownLabel = knownKey ? EVOLUTION_ITEM_ICONS[knownKey]?.label : '';
+                const tooltipCost = (knownLabel && !rawCost.includes('+') && /Bonbon/i.test(rawCost))
+                    ? `${rawCost} + ${knownLabel}`
                     : rawCost;
-                const candyIcon = hasCandyCost
-                    ? renderPokemonCandySvg(familyDex, { sizeClass: 'w-4 h-4', title: `${chain[0]?.name || step.name}-Bonbon` })
-                    : '';
+                const costInnerHtml = formatEvolutionStepCostHtml(rawCost, familyDex, familyName, step.dex);
                 return `
                     <div class="inline-flex items-center gap-1.5 shrink-0">
                         ${idx > 0 ? '<span class="text-xs font-black opacity-45 select-none">&#8594;</span>' : ''}
-                        <div onclick="openPokemonInInspector(${step.dex})" class="themed-card rounded-xl px-2.5 py-1.5 flex items-center gap-2 cursor-pointer hover:border-emerald-500 transition" title="${step.name}: ${rawCost}">
+                        <div onclick="openPokemonInInspector(${step.dex})" class="themed-card rounded-xl px-2.5 py-1.5 flex items-center gap-2 cursor-pointer hover:border-emerald-500 transition" title="${step.name}: ${tooltipCost}">
                             ${renderSpriteImg(step.dex, step.name, 'w-7 h-7', step.dex)}
                             <div>
                                 <div class="text-[11px] font-black leading-tight whitespace-nowrap">${step.name}</div>
-                                <div class="text-[11px] font-black font-mono text-emerald-600 dark:text-emerald-400 inline-flex items-center gap-1 whitespace-nowrap">${candyIcon}<span>${displayCost}</span></div>
+                                <div class="text-[11px] font-black font-mono text-emerald-600 dark:text-emerald-400 inline-flex items-center gap-1 whitespace-nowrap">${costInnerHtml}</div>
                             </div>
                         </div>
                     </div>
@@ -9422,13 +9587,16 @@
                                 : ((f.entry.isMega || f.isFusionMode)
                                     ? 'bg-amber-500 text-white shadow-sm'
                                     : ((f.entry.isGmax || f.isDmaxMode) ? 'bg-rose-500 text-white shadow-sm' : 'bg-emerald-500 text-white shadow-sm'));
+                            const fEnergyKey = getFusionOrCrownedEnergyKeyForEntry(f.entry);
                             const formIcon = f.entry.isMega
                                 ? renderMegaEnergySvg(f.entry, { sizeClass: 'w-3.5 h-3.5', title: `${f.entry.name}` })
-                                : ((f.entry.isGmax || f.isDmaxMode)
-                                    ? renderDynamaxSvg({ isGmax: Boolean(f.entry.isGmax), monochrome: isActive, sizeClass: 'w-3.5 h-3.5' })
-                                    : (f.isShadowMode
-                                        ? renderShadowSvg({ monochrome: isActive, sizeClass: 'w-3.5 h-3.5' })
-                                        : ''));
+                                : (fEnergyKey
+                                    ? renderEvolutionItemIconHtml(fEnergyKey, { sizeClass: 'w-3.5 h-3.5' })
+                                    : ((f.entry.isGmax || f.isDmaxMode)
+                                        ? renderDynamaxSvg({ isGmax: Boolean(f.entry.isGmax), monochrome: isActive, sizeClass: 'w-3.5 h-3.5' })
+                                        : (f.isShadowMode
+                                            ? renderShadowSvg({ monochrome: isActive, sizeClass: 'w-3.5 h-3.5' })
+                                            : '')));
                             return `
                                 <button
                                     type="button"
@@ -12493,11 +12661,14 @@
                                 ? '(+20% ANG / -16,7% VERT)'
                                 : 'Basis aktiv'))));
 
+            const activeEnergyKey = getFusionOrCrownedEnergyKeyForEntry(p);
             const formStatusIconHtml = isShadowActive
                 ? renderShadowSvg({ monochrome: false, sizeClass: 'w-3.5 h-3.5' })
                 : ((p.isGmax || isDmaxActive)
                     ? renderDynamaxSvg({ isGmax: Boolean(p.isGmax), monochrome: false, sizeClass: 'w-3.5 h-3.5' })
-                    : (p.isMega ? renderMegaEnergySvg(p, { sizeClass: 'w-3.5 h-3.5', title: p.name }) : ''));
+                    : (p.isMega
+                        ? renderMegaEnergySvg(p, { sizeClass: 'w-3.5 h-3.5', title: p.name })
+                        : (activeEnergyKey ? renderEvolutionItemIconHtml(activeEnergyKey, { sizeClass: 'w-3.5 h-3.5' }) : '')));
 
             const inspectorFormSelectorHtml = `
                 <div class="relative z-10 themed-card rounded-2xl p-3 flex flex-col gap-2.5 border" style="border-color: var(--border-color);">
@@ -12514,13 +12685,16 @@
                                     ? 'bg-amber-500 text-white shadow-sm'
                                     : ((f.entry.isGmax || f.isDmaxMode) ? 'bg-rose-500 text-white shadow-sm' : 'bg-emerald-500 text-white shadow-sm'));
                             const popCls = (isActive && activeFormAnim) ? ' form-switch-btn-pop' : '';
+                            const fEnergyKey = getFusionOrCrownedEnergyKeyForEntry(f.entry);
                             const formIcon = f.entry.isMega
                                 ? renderMegaEnergySvg(f.entry, { sizeClass: 'w-4 h-4', title: `${f.entry.name}` })
-                                : ((f.entry.isGmax || f.isDmaxMode)
-                                    ? renderDynamaxSvg({ isGmax: Boolean(f.entry.isGmax), monochrome: isActive, sizeClass: 'w-4 h-4' })
-                                    : (f.isShadowMode
-                                        ? renderShadowSvg({ monochrome: isActive, sizeClass: 'w-4 h-4' })
-                                        : ''));
+                                : (fEnergyKey
+                                    ? renderEvolutionItemIconHtml(fEnergyKey, { sizeClass: 'w-4 h-4' })
+                                    : ((f.entry.isGmax || f.isDmaxMode)
+                                        ? renderDynamaxSvg({ isGmax: Boolean(f.entry.isGmax), monochrome: isActive, sizeClass: 'w-4 h-4' })
+                                        : (f.isShadowMode
+                                            ? renderShadowSvg({ monochrome: isActive, sizeClass: 'w-4 h-4' })
+                                            : '')));
                             return `
                                 <button
                                     type="button"
@@ -13035,6 +13209,35 @@
                                                 </div>
                                             </div>
                                         `).join('')}
+                                    </div>
+                                `;
+                            })()}
+                            ${(() => {
+                                if (isShadowActive || isDmaxActive || p.isGmax) return '';
+                                const energyForms = getSpecialFormEnergyTransformsForDex(p.dex);
+                                if (!energyForms.length) return '';
+                                const baseName = getBaseEntryForDex(p.dex)?.name || p.name;
+                                return `
+                                    <div class="inline-flex items-center gap-1.5 flex-wrap">
+                                        <span class="text-xs font-black text-amber-500/80 select-none">&#8594;</span>
+                                        ${energyForms.map(ef => {
+                                            const entry = FULL_DEX_LIST.find(x => x.id === ef.id) || { id: ef.id, spriteId: ef.dex, name: ef.name, dex: ef.dex };
+                                            const energyMeta = EVOLUTION_ITEM_ICONS[ef.energyKey];
+                                            const energyIcon = renderEvolutionItemIconHtml(ef.energyKey, { sizeClass: 'w-4 h-4', title: energyMeta?.label || '' });
+                                            const candyIcon = renderPokemonCandySvg(ef.dex, { sizeClass: 'w-4 h-4', title: `${baseName}-Bonbon` });
+                                            const tip = `${entry.name}: ${ef.candyCost} ${baseName}-Bonbons + ${ef.energyCost} ${energyMeta?.label || 'Energie'}`;
+                                            return `
+                                                <div onclick="openPokemonInInspector('${entry.id}')" class="themed-card rounded-xl px-2.5 py-1.5 flex items-center gap-2 cursor-pointer hover:border-amber-500 transition shadow-sm shrink-0" style="border-left: 3px solid #f59e0b;" title="${tip}">
+                                                    ${renderSpriteImg(entry.spriteId, entry.name, 'w-7 h-7', entry.dex, isShinyActive)}
+                                                    <div>
+                                                        <div class="text-[11px] font-black leading-tight whitespace-nowrap">${entry.name}</div>
+                                                        <div class="text-[11px] font-black font-mono text-amber-500 inline-flex items-center gap-1 whitespace-nowrap">
+                                                            ${candyIcon}<span>${ef.candyCost}</span><span class="opacity-70">+</span>${energyIcon}<span>${ef.energyCost}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            `;
+                                        }).join('')}
                                     </div>
                                 `;
                             })()}
@@ -14157,7 +14360,8 @@
                             const nextSp = gmById[ev.id];
                             if (!nextSp || seenDex.has(nextSp.dexNr)) continue;
                             seenDex.add(nextSp.dexNr);
-                            const itemName = ev.item?.names?.German || '';
+                            const knownKey = KNOWN_EVO_ITEM_BY_TARGET_DEX[nextSp.dexNr];
+                            const itemName = ev.item?.names?.German || ev.item?.names?.English || ev.item?.id || (knownKey ? (EVOLUTION_ITEM_ICONS[knownKey]?.label || '') : '');
                             const costLabel = `${ev.candies || 25} Bonbons${itemName ? ` + ${itemName}` : ''}`;
                             chain.push({
                                 dex: nextSp.dexNr,
