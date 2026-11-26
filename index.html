@@ -8203,7 +8203,7 @@
             const effMegaLevel = p.isMega
                 ? getEffectiveMegaLevel(p, opts.megaLevel ?? (opts.applySuperMaxBoost === false ? 3 : 4))
                 : 0;
-            const allowMegaPlus = isEntrySuperMaxMega(p) && effMegaLevel >= 4 && opts.applySuperMaxBoost !== false;
+            const allowMegaPlus = isEntrySuperMaxMega(p);
             const nonPlusCharged = chargedList.filter(cRaw => {
                 const cClean = String(cRaw).replace('*', '').trim();
                 const cMove = CHARGED_MOVES_DATA[cClean];
@@ -13291,15 +13291,14 @@
                     const dps = ((effPower * stab) / m.duration).toFixed(1);
                     const dpe = ((m.pvpPower * stab) / m.pvpEnergy).toFixed(2);
                     const isBest = mRaw === dialgaBase.chargedRaw;
-                    const lockedPlus = isPlusMove && !isSuperMaxLv4Active;
                     return `
-                        <tr class="border-b ${isBest ? 'bg-emerald-500/10' : ''} ${lockedPlus ? 'opacity-55' : ''}" style="border-color: var(--border-color);">
+                        <tr class="border-b ${isBest ? 'bg-emerald-500/10' : ''}" style="border-color: var(--border-color);">
                             <td class="py-2 pr-2">
                                 <div class="flex items-center gap-1.5 flex-wrap">
                                     ${renderTypeBadges([m.type], false)}
                                     <span class="font-black text-xs">${mRaw}</span>
                                     ${isElite ? '<span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-500 text-[10px] font-extrabold">Top-TM*</span>' : ''}
-                                    ${isPlusMove ? (isSuperMaxLv4Active ? '<span class="px-1.5 py-0.5 rounded bg-fuchsia-500/20 text-fuchsia-500 text-[10px] font-extrabold">Mega Lv.4 (+30%)</span>' : '<span class="px-1.5 py-0.5 rounded bg-slate-500/20 text-slate-400 text-[10px] font-extrabold">Ab Mega Lv.4</span>') : ''}
+                                    ${isPlusMove ? (isSuperMaxLv4Active ? '<span class="px-1.5 py-0.5 rounded bg-fuchsia-500/20 text-fuchsia-500 text-[10px] font-extrabold">Mega Lv.4 (+30%)</span>' : '<span class="px-1.5 py-0.5 rounded bg-fuchsia-500/15 text-fuchsia-500/85 text-[10px] font-extrabold">+-Attacke (+30% auf Lv.4)</span>') : ''}
                                     ${isBest ? '<span class="px-1.5 py-0.5 rounded bg-emerald-500 text-white text-[10px] font-extrabold">Optimal</span>' : ''}
                                 </div>
                             </td>
@@ -13314,10 +13313,6 @@
                 const allCombos = [];
                 fastList.forEach(fRaw => {
                     chargedList.forEach(cRaw => {
-                        const cClean = String(cRaw).replace('*', '').trim();
-                        const cData = CHARGED_MOVES_DATA[cClean];
-                        const isPlus = Boolean(cData?.isMegaPlus || cClean.endsWith('+'));
-                        if (isPlus && !isSuperMaxLv4Active) return;
                         const cm = computeDialgaDexMetrics(p, fRaw, cRaw, { level: 40, isShadow: false, megaLevel: fsMegaLvl });
                         if (cm) allCombos.push(cm);
                     });
