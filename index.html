@@ -1218,8 +1218,26 @@
             content-visibility: auto;
             contain-intrinsic-size: auto 240px;
         }
+        @keyframes megaMedallionSweep {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .mega-medallion-reached {
+            background: linear-gradient(130deg, #e97ba0 0%, #da5c81 40%, #b055a2 75%, #e97ba0 100%);
+            background-size: 240% 240%;
+            color: #ffffff;
+            animation: megaMedallionSweep 4.5s ease-in-out infinite;
+        }
+        .mega-medallion-lv4 {
+            background: linear-gradient(125deg, #ec4899 0%, #a855f7 40%, #f59e0b 78%, #ec4899 100%);
+            background-size: 250% 250%;
+            color: #ffffff;
+            animation: megaMedallionSweep 4.2s ease-in-out infinite;
+        }
         @media (prefers-reduced-motion: reduce) {
-            .filter-card-enter, .filter-btn-pop {
+            .filter-card-enter, .filter-btn-pop,
+            .mega-medallion-reached, .mega-medallion-lv4 {
                 animation: none !important;
             }
         }
@@ -1495,10 +1513,10 @@
                         </label>
                         <div id="top6MegaLevelGroup" class="themed-sub rounded-full px-1.5 py-[3px] h-[31px] inline-flex items-center gap-1 border" style="border-color: var(--border-color);" title="Mega-Level für Rangliste &amp; DPS-Berechnung (Stufe 4 nur für Super-Max-Megas)">
                             <span class="text-[10px] font-extrabold uppercase tracking-wider opacity-70 pl-1 pr-0.5 leading-none">Mega-Lv.</span>
-                            <button type="button" data-mlvl="1" onclick="setRankingMegaLevel(1)" title="Basisstufe (Stufe 1)" aria-label="Mega-Level 1" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
-                            <button type="button" data-mlvl="2" onclick="setRankingMegaLevel(2)" title="Hohe Stufe (Stufe 2)" aria-label="Mega-Level 2" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
-                            <button type="button" data-mlvl="3" onclick="setRankingMegaLevel(3)" title="Maximalstufe (Stufe 3)" aria-label="Mega-Level 3" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
-                            <button type="button" data-mlvl="4" onclick="setRankingMegaLevel(4)" title="Super-Max (Stufe 4): +2 Lvl &amp; +30% +-Attacke" aria-label="Mega-Level 4 (Super-Max)" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: linear-gradient(135deg, #ec4899 0%, #a855f7 55%, #f59e0b 100%); box-shadow: 0 0 0 1.5px var(--card-sub), 0 0 0 3px #e8a95c;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                            <button type="button" data-mlvl="1" onclick="setRankingMegaLevel(1)" title="Basisstufe (Stufe 1)" aria-label="Mega-Level 1" class="ranking-mega-lvl-btn mega-medallion-reached w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                            <button type="button" data-mlvl="2" onclick="setRankingMegaLevel(2)" title="Hohe Stufe (Stufe 2)" aria-label="Mega-Level 2" class="ranking-mega-lvl-btn mega-medallion-reached w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                            <button type="button" data-mlvl="3" onclick="setRankingMegaLevel(3)" title="Maximalstufe (Stufe 3)" aria-label="Mega-Level 3" class="ranking-mega-lvl-btn mega-medallion-reached w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                            <button type="button" data-mlvl="4" onclick="setRankingMegaLevel(4)" title="Super-Max (Stufe 4): +2 Lvl &amp; +30% +-Attacke" aria-label="Mega-Level 4 (Super-Max)" class="ranking-mega-lvl-btn mega-medallion-lv4 w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="box-shadow: 0 0 0 1.5px var(--card-sub), 0 0 0 3px #e8a95c;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /></svg></button>
                         </div>
                         <label id="top6ShadowLabel" data-pill-tone="purple" class="pogo-pill-toggle cursor-pointer">
                             <input
@@ -1848,10 +1866,10 @@
                     </label>
                     <div id="tierlistMegaLevelGroup" class="themed-sub rounded-full px-1.5 py-[3px] h-[31px] inline-flex items-center gap-1 border" style="border-color: var(--border-color);" title="Mega-Level für Rangliste &amp; DPS-Berechnung (Stufe 4 nur für Super-Max-Megas)">
                         <span class="text-[10px] font-extrabold uppercase tracking-wider opacity-70 pl-1 pr-0.5 leading-none">Mega-Lv.</span>
-                        <button type="button" data-mlvl="1" onclick="setRankingMegaLevel(1)" title="Basisstufe (Stufe 1)" aria-label="Mega-Level 1" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
-                        <button type="button" data-mlvl="2" onclick="setRankingMegaLevel(2)" title="Hohe Stufe (Stufe 2)" aria-label="Mega-Level 2" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
-                        <button type="button" data-mlvl="3" onclick="setRankingMegaLevel(3)" title="Maximalstufe (Stufe 3)" aria-label="Mega-Level 3" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
-                        <button type="button" data-mlvl="4" onclick="setRankingMegaLevel(4)" title="Super-Max (Stufe 4): +2 Lvl &amp; +30% +-Attacke" aria-label="Mega-Level 4 (Super-Max)" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: linear-gradient(135deg, #ec4899 0%, #a855f7 55%, #f59e0b 100%); box-shadow: 0 0 0 1.5px var(--card-sub), 0 0 0 3px #e8a95c;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                        <button type="button" data-mlvl="1" onclick="setRankingMegaLevel(1)" title="Basisstufe (Stufe 1)" aria-label="Mega-Level 1" class="ranking-mega-lvl-btn mega-medallion-reached w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                        <button type="button" data-mlvl="2" onclick="setRankingMegaLevel(2)" title="Hohe Stufe (Stufe 2)" aria-label="Mega-Level 2" class="ranking-mega-lvl-btn mega-medallion-reached w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                        <button type="button" data-mlvl="3" onclick="setRankingMegaLevel(3)" title="Maximalstufe (Stufe 3)" aria-label="Mega-Level 3" class="ranking-mega-lvl-btn mega-medallion-reached w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                        <button type="button" data-mlvl="4" onclick="setRankingMegaLevel(4)" title="Super-Max (Stufe 4): +2 Lvl &amp; +30% +-Attacke" aria-label="Mega-Level 4 (Super-Max)" class="ranking-mega-lvl-btn mega-medallion-lv4 w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="box-shadow: 0 0 0 1.5px var(--card-sub), 0 0 0 3px #e8a95c;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /></svg></button>
                     </div>
                     <label id="tierlistShadowLabel" data-pill-tone="purple" class="pogo-pill-toggle cursor-pointer">
                         <input
@@ -1986,10 +2004,10 @@
                         </label>
                         <div id="fullRankingMegaLevelGroup" class="themed-sub rounded-full px-1.5 py-[3px] h-[31px] inline-flex items-center gap-1 border" style="border-color: var(--border-color);" title="Mega-Level für Rangliste &amp; DPS-Berechnung (Stufe 4 nur für Super-Max-Megas)">
                             <span class="text-[10px] font-extrabold uppercase tracking-wider opacity-70 pl-1 pr-0.5 leading-none">Mega-Lv.</span>
-                            <button type="button" data-mlvl="1" onclick="setRankingMegaLevel(1)" title="Basisstufe (Stufe 1)" aria-label="Mega-Level 1" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
-                            <button type="button" data-mlvl="2" onclick="setRankingMegaLevel(2)" title="Hohe Stufe (Stufe 2)" aria-label="Mega-Level 2" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
-                            <button type="button" data-mlvl="3" onclick="setRankingMegaLevel(3)" title="Maximalstufe (Stufe 3)" aria-label="Mega-Level 3" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: #da5c81;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
-                            <button type="button" data-mlvl="4" onclick="setRankingMegaLevel(4)" title="Super-Max (Stufe 4): +2 Lvl &amp; +30% +-Attacke" aria-label="Mega-Level 4 (Super-Max)" class="ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="background: linear-gradient(135deg, #ec4899 0%, #a855f7 55%, #f59e0b 100%); box-shadow: 0 0 0 1.5px var(--card-sub), 0 0 0 3px #e8a95c;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                            <button type="button" data-mlvl="1" onclick="setRankingMegaLevel(1)" title="Basisstufe (Stufe 1)" aria-label="Mega-Level 1" class="ranking-mega-lvl-btn mega-medallion-reached w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                            <button type="button" data-mlvl="2" onclick="setRankingMegaLevel(2)" title="Hohe Stufe (Stufe 2)" aria-label="Mega-Level 2" class="ranking-mega-lvl-btn mega-medallion-reached w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                            <button type="button" data-mlvl="3" onclick="setRankingMegaLevel(3)" title="Maximalstufe (Stufe 3)" aria-label="Mega-Level 3" class="ranking-mega-lvl-btn mega-medallion-reached w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /></svg></button>
+                            <button type="button" data-mlvl="4" onclick="setRankingMegaLevel(4)" title="Super-Max (Stufe 4): +2 Lvl &amp; +30% +-Attacke" aria-label="Mega-Level 4 (Super-Max)" class="ranking-mega-lvl-btn mega-medallion-lv4 w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition" style="box-shadow: 0 0 0 1.5px var(--card-sub), 0 0 0 3px #e8a95c;"><svg class="w-3.5 h-3.5 shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" /><line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /><line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" /></svg></button>
                         </div>
                         <label id="fullRankingShadowLabel" data-pill-tone="purple" class="pogo-pill-toggle cursor-pointer">
                             <input
@@ -7854,9 +7872,9 @@
             return `
                 <svg class="${sizeClass} shrink-0 pointer-events-none" viewBox="0 0 64 64" fill="none" aria-hidden="true">
                     <!-- In-Game Mega Evolution DNA Helix Emblem -->
-                    <path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="#ffffff" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round" />
-                    <line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="#ffffff" stroke-width="4.4" stroke-linecap="round" />
-                    <line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="#ffffff" stroke-width="4.4" stroke-linecap="round" />
+                    <path d="M 32 7 C 18 11, 14 23, 18 35 C 22 46, 30 53, 30 58 C 44 53, 49 41, 45 29 C 41 18, 32 12, 32 7 Z" stroke="currentColor" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round" />
+                    <line x1="18.5" y1="22.5" x2="42.5" y2="31.5" stroke="currentColor" stroke-width="4.4" stroke-linecap="round" />
+                    <line x1="19.5" y1="33.5" x2="43.5" y2="42.5" stroke="currentColor" stroke-width="4.4" stroke-linecap="round" />
                 </svg>
             `;
         }
@@ -7898,10 +7916,11 @@
                             const isCurrent = lv === activeLvl;
                             const isLv4 = lv === 4;
                             const lvInfo = getMegaLevelBonusInfo(lv, hasLv4);
+                            const circleAnimCls = isReached
+                                ? (isLv4 ? 'mega-medallion-lv4' : 'mega-medallion-reached')
+                                : '';
                             const circleBg = isReached
-                                ? (isLv4
-                                    ? 'background: linear-gradient(135deg, #ec4899 0%, #a855f7 55%, #f59e0b 100%);'
-                                    : 'background: #da5c81;')
+                                ? ''
                                 : 'background: rgba(148, 163, 184, 0.38);';
                             const ringStyle = isCurrent
                                 ? 'box-shadow: 0 0 0 2.5px var(--card-sub), 0 0 0 5px #e8a95c;'
@@ -7913,7 +7932,7 @@
                                     aria-pressed="${isCurrent ? 'true' : 'false'}"
                                     aria-label="${lvInfo.title}"
                                     title="${lvInfo.title}: ${lvInfo.shortBonus}"
-                                    class="${circleSize} rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-105 active:scale-95 shrink-0"
+                                    class="${circleSize} ${circleAnimCls} text-white rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-105 active:scale-95 shrink-0"
                                     style="${circleBg} ${ringStyle}"
                                 >
                                     ${renderIngameMegaHelixIconSvg(iconSize)}
@@ -7945,10 +7964,9 @@
                 const lv = Number(btn.getAttribute('data-mlvl'));
                 const isReached = lv <= clamped;
                 const isCurrent = lv === clamped;
-                btn.className = 'ranking-mega-lvl-btn w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition';
-                btn.style.background = isReached
-                    ? (lv === 4 ? 'linear-gradient(135deg, #ec4899 0%, #a855f7 55%, #f59e0b 100%)' : '#da5c81')
-                    : 'rgba(148, 163, 184, 0.38)';
+                const animCls = isReached ? (lv === 4 ? 'mega-medallion-lv4' : 'mega-medallion-reached') : '';
+                btn.className = `ranking-mega-lvl-btn ${animCls} text-white w-[22px] h-[22px] inline-flex items-center justify-center rounded-full cursor-pointer transition`;
+                btn.style.background = isReached ? '' : 'rgba(148, 163, 184, 0.38)';
                 btn.style.boxShadow = isCurrent
                     ? '0 0 0 1.5px var(--card-sub), 0 0 0 3px #e8a95c'
                     : '';
@@ -8203,7 +8221,7 @@
             const effMegaLevel = p.isMega
                 ? getEffectiveMegaLevel(p, opts.megaLevel ?? (opts.applySuperMaxBoost === false ? 3 : 4))
                 : 0;
-            const allowMegaPlus = isEntrySuperMaxMega(p) && effMegaLevel >= 4 && opts.applySuperMaxBoost !== false;
+            const allowMegaPlus = isEntrySuperMaxMega(p);
             const nonPlusCharged = chargedList.filter(cRaw => {
                 const cClean = String(cRaw).replace('*', '').trim();
                 const cMove = CHARGED_MOVES_DATA[cClean];
@@ -11425,14 +11443,18 @@
                 resBox.classList.add('hidden');
                 return;
             }
+            const isMega4Query = /^mega[\s-]*4$|^super[\s-]*max$/i.test(q);
             const matches = FULL_DEX_LIST.filter(p => {
                 if (p.isMega || p.isGmax || isEntryFusionForm(p)) return false;
                 const altForms = FULL_DEX_LIST.filter(x => x.dex === p.dex && (x.isMega || x.isGmax || isEntryFusionForm(x)));
+                if (isMega4Query) {
+                    return !p.isRegionForm && altForms.some(f => isEntrySuperMaxMega(f));
+                }
                 return p.name.toLowerCase().includes(q) ||
                        String(p.dex).includes(q) ||
                        p.types.some(t => t.toLowerCase().includes(q)) ||
                        altForms.some(f => f.name.toLowerCase().includes(q));
-            }).slice(0, 12);
+            }).slice(0, isMega4Query ? 24 : 12);
 
             if (matches.length === 0) {
                 resBox.innerHTML = `<div class="p-3 text-xs font-bold opacity-70">Kein Pokémon gefunden</div>`;
@@ -11509,7 +11531,8 @@
             if (typeFilter2 && typeFilter2 !== 'ALL' && !selectedDropdownTypes.includes(typeFilter2)) {
                 selectedDropdownTypes.push(typeFilter2);
             }
-            const queryDualTypes = parseSearchTypeTokens(q);
+            const isMega4Query = /^mega[\s-]*4$|^super[\s-]*max$/i.test(q);
+            const queryDualTypes = isMega4Query ? null : parseSearchTypeTokens(q);
 
             const filtered = FULL_DEX_LIST.filter(p => {
                 // Mega-, Fusions- (Necrozma/Kyurem) und Gigadynamax-Formen sind direkt bei der Basis-Form wählbar und kein separater Dex-Eintrag
@@ -11519,6 +11542,9 @@
                 if (!onlyForms && (p.dex < minDex || p.dex > maxDex)) return false;
                 if (selectedDropdownTypes.length > 0 && !entryHasAllTypes(p, relatedForms, selectedDropdownTypes)) return false;
                 if (q) {
+                    if (isMega4Query) {
+                        return !p.isRegionForm && relatedForms.some(f => isEntrySuperMaxMega(f));
+                    }
                     if (queryDualTypes) {
                         return entryHasAllTypes(p, relatedForms, queryDualTypes);
                     }
@@ -13291,15 +13317,14 @@
                     const dps = ((effPower * stab) / m.duration).toFixed(1);
                     const dpe = ((m.pvpPower * stab) / m.pvpEnergy).toFixed(2);
                     const isBest = mRaw === dialgaBase.chargedRaw;
-                    const lockedPlus = isPlusMove && !isSuperMaxLv4Active;
                     return `
-                        <tr class="border-b ${isBest ? 'bg-emerald-500/10' : ''} ${lockedPlus ? 'opacity-55' : ''}" style="border-color: var(--border-color);">
+                        <tr class="border-b ${isBest ? 'bg-emerald-500/10' : ''}" style="border-color: var(--border-color);">
                             <td class="py-2 pr-2">
                                 <div class="flex items-center gap-1.5 flex-wrap">
                                     ${renderTypeBadges([m.type], false)}
                                     <span class="font-black text-xs">${mRaw}</span>
                                     ${isElite ? '<span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-500 text-[10px] font-extrabold">Top-TM*</span>' : ''}
-                                    ${isPlusMove ? (isSuperMaxLv4Active ? '<span class="px-1.5 py-0.5 rounded bg-fuchsia-500/20 text-fuchsia-500 text-[10px] font-extrabold">Mega Lv.4 (+30%)</span>' : '<span class="px-1.5 py-0.5 rounded bg-slate-500/20 text-slate-400 text-[10px] font-extrabold">Ab Mega Lv.4</span>') : ''}
+                                    ${isPlusMove ? (isSuperMaxLv4Active ? '<span class="px-1.5 py-0.5 rounded bg-fuchsia-500/20 text-fuchsia-500 text-[10px] font-extrabold">Mega Lv.4 (+30%)</span>' : '<span class="px-1.5 py-0.5 rounded bg-fuchsia-500/15 text-fuchsia-500/85 text-[10px] font-extrabold">+-Attacke (+30% auf Lv.4)</span>') : ''}
                                     ${isBest ? '<span class="px-1.5 py-0.5 rounded bg-emerald-500 text-white text-[10px] font-extrabold">Optimal</span>' : ''}
                                 </div>
                             </td>
@@ -13314,10 +13339,6 @@
                 const allCombos = [];
                 fastList.forEach(fRaw => {
                     chargedList.forEach(cRaw => {
-                        const cClean = String(cRaw).replace('*', '').trim();
-                        const cData = CHARGED_MOVES_DATA[cClean];
-                        const isPlus = Boolean(cData?.isMegaPlus || cClean.endsWith('+'));
-                        if (isPlus && !isSuperMaxLv4Active) return;
                         const cm = computeDialgaDexMetrics(p, fRaw, cRaw, { level: 40, isShadow: false, megaLevel: fsMegaLvl });
                         if (cm) allCombos.push(cm);
                     });
