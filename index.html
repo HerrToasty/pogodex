@@ -11443,14 +11443,18 @@
                 resBox.classList.add('hidden');
                 return;
             }
+            const isMega4Query = /^mega[\s-]*4$|^super[\s-]*max$/i.test(q);
             const matches = FULL_DEX_LIST.filter(p => {
                 if (p.isMega || p.isGmax || isEntryFusionForm(p)) return false;
                 const altForms = FULL_DEX_LIST.filter(x => x.dex === p.dex && (x.isMega || x.isGmax || isEntryFusionForm(x)));
+                if (isMega4Query) {
+                    return !p.isRegionForm && altForms.some(f => isEntrySuperMaxMega(f));
+                }
                 return p.name.toLowerCase().includes(q) ||
                        String(p.dex).includes(q) ||
                        p.types.some(t => t.toLowerCase().includes(q)) ||
                        altForms.some(f => f.name.toLowerCase().includes(q));
-            }).slice(0, 12);
+            }).slice(0, isMega4Query ? 24 : 12);
 
             if (matches.length === 0) {
                 resBox.innerHTML = `<div class="p-3 text-xs font-bold opacity-70">Kein Pokémon gefunden</div>`;
@@ -11527,7 +11531,8 @@
             if (typeFilter2 && typeFilter2 !== 'ALL' && !selectedDropdownTypes.includes(typeFilter2)) {
                 selectedDropdownTypes.push(typeFilter2);
             }
-            const queryDualTypes = parseSearchTypeTokens(q);
+            const isMega4Query = /^mega[\s-]*4$|^super[\s-]*max$/i.test(q);
+            const queryDualTypes = isMega4Query ? null : parseSearchTypeTokens(q);
 
             const filtered = FULL_DEX_LIST.filter(p => {
                 // Mega-, Fusions- (Necrozma/Kyurem) und Gigadynamax-Formen sind direkt bei der Basis-Form wählbar und kein separater Dex-Eintrag
@@ -11537,6 +11542,9 @@
                 if (!onlyForms && (p.dex < minDex || p.dex > maxDex)) return false;
                 if (selectedDropdownTypes.length > 0 && !entryHasAllTypes(p, relatedForms, selectedDropdownTypes)) return false;
                 if (q) {
+                    if (isMega4Query) {
+                        return !p.isRegionForm && relatedForms.some(f => isEntrySuperMaxMega(f));
+                    }
                     if (queryDualTypes) {
                         return entryHasAllTypes(p, relatedForms, queryDualTypes);
                     }
