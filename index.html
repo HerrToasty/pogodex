@@ -10730,17 +10730,17 @@
                         const cnt = filteredTierCounts[tierMeta.id] || 0;
                         tierHeaderHtml = `
                             <div
-                                class="sticky top-0 z-10 px-3.5 sm:px-4 py-2 flex items-center justify-between gap-2 backdrop-blur-md border-y themed-sub"
-                                style="border-color: var(--border-color);"
+                                class="sticky top-0 z-10 px-3.5 sm:px-4 py-2 flex items-center justify-between gap-2 backdrop-blur-md border-y"
+                                style="background: linear-gradient(90deg, ${tierMeta.headerBg} 0%, ${tierMeta.tint} 100%), var(--card-bg); border-color: var(--border-color); border-left: 4px solid ${tierMeta.color};"
                             >
                                 <div class="flex items-center gap-2 min-w-0">
                                     <span class="px-2 py-0.5 rounded-full text-[11px] font-black shrink-0 shadow-sm ${tierMeta.badgeBg}">
                                         ${tierMeta.id}
                                     </span>
                                     <span class="text-xs font-black truncate">${tierTitle}</span>
-                                    <span class="hidden md:inline text-[11px] font-bold opacity-65 truncate">· ${tierDesc}</span>
+                                    <span class="hidden md:inline text-[11px] font-bold opacity-75 truncate">· ${tierDesc}</span>
                                 </div>
-                                <span class="text-[10px] font-mono font-bold opacity-70 shrink-0 tabular-nums">
+                                <span class="text-[10px] font-mono font-bold opacity-75 shrink-0 tabular-nums">
                                     ${formatNum(cnt, 0)} Pokémon · ${pctLabel}
                                 </span>
                             </div>
