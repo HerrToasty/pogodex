@@ -1624,7 +1624,7 @@
                         <input
                             type="text"
                             id="embeddedDexSearch"
-                            placeholder="#Nummer, Name, Attacke oder 1–2 Typen (z. B. Feuer Flug)..."
+                            placeholder="Suche: Name, 1-151, +Bisasam, @Feuer, wp2500-, legendär, crypto, mega4..."
                             oninput="debounceUiSearch('dex', resetAndRenderEmbeddedDex, 90)"
                             class="themed-sub rounded-xl px-3.5 py-2 text-xs sm:text-sm font-bold focus:outline-none w-full"
                         />
@@ -11435,26 +11435,274 @@
             }
         }
 
+        // Offizielle Kategorien für Pokémon GO Suchbefehle im Pokédex
+        const BABY_DEX_SET = new Set([172, 173, 174, 175, 236, 238, 239, 240, 298, 360, 406, 433, 438, 439, 440, 446, 447, 458, 848]);
+        const LEGENDARY_DEX_SET = new Set([
+            144, 145, 146, 150, 243, 244, 245, 249, 250,
+            377, 378, 379, 380, 381, 382, 383, 384,
+            480, 481, 482, 483, 484, 485, 486, 487, 488,
+            638, 639, 640, 641, 642, 643, 644, 645, 646,
+            716, 717, 718, 772, 773, 785, 786, 787, 788, 789, 790, 791, 792, 800,
+            888, 889, 890, 891, 892, 894, 895, 896, 897, 898, 905,
+            1001, 1002, 1003, 1004, 1007, 1008, 1014, 1015, 1016, 1017, 1024
+        ]);
+        const MYTHICAL_DEX_SET = new Set([
+            151, 251, 385, 386, 489, 490, 491, 492, 493, 494,
+            647, 648, 649, 719, 720, 721, 801, 802, 807, 808, 809, 893, 1025
+        ]);
+        const ULTRA_BEAST_DEX_SET = new Set([793, 794, 795, 796, 797, 798, 799, 803, 804, 805, 806]);
+
+        function parseNumericRangeToken(rawRange) {
+            const m = String(rawRange || '').match(/^(\d*)-(\d*)$/);
+            if (!m || (!m[1] && !m[2])) return null;
+            const min = m[1] ? Number(m[1]) : 0;
+            const max = m[2] ? Number(m[2]) : Infinity;
+            return { min, max };
+        }
+
+        function canDexPokemonEvolve(dexNum) {
+            const chain = EVOLUTION_CHAINS_DATA[dexNum];
+            if (!Array.isArray(chain) || chain.length < 2) return false;
+            const idx = chain.findIndex(s => s.dex === dexNum);
+            return idx >= 0 && idx < chain.length - 1;
+        }
+
+        function doesDexPokemonUseEvoItem(dexNum) {
+            const chain = EVOLUTION_CHAINS_DATA[dexNum];
+            if (!Array.isArray(chain) || chain.length < 2) return false;
+            const idx = chain.findIndex(s => s.dex === dexNum);
+            if (idx < 0 || idx >= chain.length - 1) return false;
+            for (let i = idx + 1; i < chain.length; i++) {
+                const step = chain[i];
+                const c = String(step.cost || '');
+                if (KNOWN_EVO_ITEM_BY_TARGET_DEX[step.dex]) return true;
+                if (EVOLUTION_ITEM_MATCHERS.some(m => m.regex.test(c))) return true;
+            }
+            return false;
+        }
+
+        function resolveFamilyDexSetForName(nameQuery, cache) {
+            if (cache && cache.has(nameQuery)) return cache.get(nameQuery);
+            const set = new Set();
+            const q = String(nameQuery || '').trim().toLowerCase();
+            if (q) {
+                FULL_DEX_LIST.forEach(entry => {
+                    if (entry.isMega || entry.isGmax || isEntryFusionForm(entry)) return;
+                    if (entry.name.toLowerCase().includes(q) || String(entry.dex) === q) {
+                        set.add(entry.dex);
+                        const chain = EVOLUTION_CHAINS_DATA[entry.dex];
+                        if (Array.isArray(chain)) {
+                            chain.forEach(st => set.add(st.dex));
+                        }
+                    }
+                });
+            }
+            if (cache) cache.set(nameQuery, set);
+            return set;
+        }
+
+        function entryHasMoveMatching(p, relatedForms, slotMode, queryVal) {
+            const pool = [p, ...(relatedForms || [])];
+            const q = String(queryVal || '').trim().toLowerCase();
+            if (!q) return false;
+
+            // @spezial / @special: Legacy / Top-TM (*) oder +-Attacken
+            if (q === 'spezial' || q === 'special') {
+                return pool.some(e =>
+                    (e.fastMoves || []).some(m => String(m).includes('*')) ||
+                    (e.chargedMoves || []).some(m => String(m).includes('*') || String(m).includes('+'))
+                );
+            }
+
+            const matchedType = TYPES.find(t => t.toLowerCase() === q);
+            const checkFast = slotMode === 'any' || slotMode === 'fast';
+            const checkCharged = slotMode === 'any' || slotMode === 'charged';
+
+            return pool.some(e => {
+                if (checkFast) {
+                    const fList = (Array.isArray(e.fastMoves) && e.fastMoves.length) ? e.fastMoves : (e.bestFast ? [e.bestFast] : []);
+                    for (const fRaw of fList) {
+                        const clean = String(fRaw || '').replace(/[*+]/g, '').trim();
+                        if (matchedType) {
+                            const fData = FAST_MOVES_DATA[clean];
+                            if (fData && fData.type === matchedType) return true;
+                        } else if (clean.toLowerCase().includes(q)) {
+                            return true;
+                        }
+                    }
+                }
+                if (checkCharged) {
+                    const cList = (Array.isArray(e.chargedMoves) && e.chargedMoves.length) ? e.chargedMoves : (e.bestCharged ? [e.bestCharged] : []);
+                    for (const cRaw of cList) {
+                        const clean = String(cRaw || '').replace('*', '').trim();
+                        const cleanBase = clean.replace(/\+$/, '').trim();
+                        if (matchedType) {
+                            const cData = CHARGED_MOVES_DATA[clean] || CHARGED_MOVES_DATA[cleanBase];
+                            if (cData && cData.type === matchedType) return true;
+                        } else if (clean.toLowerCase().includes(q) || cleanBase.toLowerCase().includes(q)) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            });
+        }
+
+        function matchSingleDexSearchTerm(p, relatedForms, rawTerm, familyCache) {
+            const term = String(rawTerm || '').trim().toLowerCase();
+            if (!term) return true;
+
+            // 1. Familie: +Bisasam
+            if (term.startsWith('+')) {
+                const famName = term.slice(1).trim();
+                if (!famName) return true;
+                const famSet = resolveFamilyDexSetForName(famName, familyCache);
+                return famSet.has(p.dex);
+            }
+
+            // 2. Attacken-Befehle: @Wasser, @Biss, @1Wasser, @2Wasser, @3Wasser, @spezial
+            if (term.startsWith('@')) {
+                const rest = term.slice(1).trim();
+                if (!rest) return true;
+                if (rest.startsWith('1')) {
+                    return entryHasMoveMatching(p, relatedForms, 'fast', rest.slice(1));
+                }
+                if (rest.startsWith('2') || rest.startsWith('3')) {
+                    return entryHasMoveMatching(p, relatedForms, 'charged', rest.slice(1));
+                }
+                return entryHasMoveMatching(p, relatedForms, 'any', rest);
+            }
+
+            // 3. WP / CP Bereich: wp2000-3000, wp2000-, wp-3000, wp2500
+            const wpMatch = term.match(/^(?:wp|cp)(\d*-\d*|\d+)$/i);
+            if (wpMatch) {
+                const cp40 = calculatePokemonCp(p.atk, p.def, p.hp, 40, 15, 15, 15);
+                const rng = parseNumericRangeToken(wpMatch[1]);
+                if (rng) return cp40 >= rng.min && cp40 <= rng.max;
+                return cp40 === Number(wpMatch[1]);
+            }
+
+            // 4. KP / HP Bereich: kp200-300, kp200-, kp-300, kp200
+            const kpMatch = term.match(/^(?:kp|hp)(\d*-\d*|\d+)$/i);
+            if (kpMatch) {
+                const hp40 = Math.max(10, Math.floor((p.hp + 15) * getCpmForLevel(40)));
+                const rng = parseNumericRangeToken(kpMatch[1]);
+                if (rng) return hp40 >= rng.min && hp40 <= rng.max;
+                return hp40 === Number(kpMatch[1]);
+            }
+
+            // 5. Pokédex-Nummern & Bereiche: 1, #0001, 1-12, 1-, -12
+            const dexClean = term.startsWith('#') ? term.slice(1) : term;
+            if (/^\d+$/.test(dexClean)) {
+                return p.dex === Number(dexClean);
+            }
+            const dexRange = parseNumericRangeToken(dexClean);
+            if (dexRange) {
+                return p.dex >= dexRange.min && p.dex <= dexRange.max;
+            }
+
+            // 6. Kategorie- & Form-Schlüsselwörter
+            if (/^mega[\s-]*4$|^super[\s-]*max$/i.test(term)) {
+                return !p.isRegionForm && (relatedForms || []).some(f => isEntrySuperMaxMega(f));
+            }
+            if (term === 'mega') {
+                return !p.isRegionForm && (relatedForms || []).some(f => f.isMega);
+            }
+            if (term === 'dynamax' || term === 'dmax') {
+                return isEntryDmaxBaseEligible(p);
+            }
+            if (term === 'gigadynamax' || term === 'gmax') {
+                return (relatedForms || []).some(f => f.isGmax);
+            }
+            if (term === 'fusion') {
+                return (relatedForms || []).some(f => isEntryFusionForm(f));
+            }
+            if (term === 'crypto' || term === 'shadow') {
+                return Boolean(p.canShadow);
+            }
+            if (term === 'legendär' || term === 'legendaer' || term === 'legendary') {
+                return LEGENDARY_DEX_SET.has(p.dex);
+            }
+            if (term === 'mysteriös' || term === 'mysterioes' || term === 'mythical') {
+                return MYTHICAL_DEX_SET.has(p.dex);
+            }
+            if (term === 'ultrabestie' || term === 'ultrabeast') {
+                return ULTRA_BEAST_DEX_SET.has(p.dex);
+            }
+            if (term === 'nurauseiern' || term === 'baby') {
+                return BABY_DEX_SET.has(p.dex);
+            }
+            if (term === 'alola' || term === 'galar' || term === 'hisui' || term === 'paldea') {
+                return p.name.toLowerCase().includes(term) || String(p.id || '').toLowerCase().includes(term);
+            }
+            if (term === 'entwickeln' || term === 'evolve') {
+                return canDexPokemonEvolve(p.dex);
+            }
+            if (term === 'item') {
+                return doesDexPokemonUseEvoItem(p.dex);
+            }
+            if (term === 'schillernd' || term === 'shiny') {
+                return isEntryReleasedInPogo(p);
+            }
+
+            // 7. Standard-Textsuche (Name, Typ, Attacke, Alternativform)
+            return p.name.toLowerCase().includes(term) ||
+                   String(p.dex).includes(term) ||
+                   `#${String(p.dex).padStart(4, '0')}`.includes(term) ||
+                   p.types.some(t => t.toLowerCase().includes(term)) ||
+                   (p.bestFast && p.bestFast.toLowerCase().includes(term)) ||
+                   (p.bestCharged && p.bestCharged.toLowerCase().includes(term)) ||
+                   (relatedForms || []).some(f => f.name.toLowerCase().includes(term));
+        }
+
+        function matchesDexSearchQuery(p, relatedForms, rawQuery, familyCache) {
+            const q = String(rawQuery || '').trim();
+            if (!q) return true;
+
+            // Dual-Typ-Suche wie "Feuer Flug" weiterhin direkt unterstützen (sofern keine Suchoperatoren genutzt werden)
+            if (!/[&,;!+@\d-]/.test(q)) {
+                const dualTypes = parseSearchTypeTokens(q);
+                if (dualTypes) {
+                    return entryHasAllTypes(p, relatedForms, dualTypes);
+                }
+            }
+
+            // Pokémon GO Operator-Logik: '&' = UND, ',' / ';' = ODER, '!' = NICHT
+            const andClauses = q.split('&').map(s => s.trim()).filter(Boolean);
+            if (andClauses.length === 0) return true;
+
+            return andClauses.every(clause => {
+                const orTerms = clause.split(/[,;]/).map(s => s.trim()).filter(Boolean);
+                if (orTerms.length === 0) return true;
+                return orTerms.some(rawTerm => {
+                    let negated = false;
+                    let t = rawTerm;
+                    if (t.startsWith('!')) {
+                        negated = true;
+                        t = t.slice(1).trim();
+                    }
+                    if (!t) return true;
+                    const hit = matchSingleDexSearchTerm(p, relatedForms, t, familyCache);
+                    return negated ? !hit : hit;
+                });
+            });
+        }
+
         function handleInspectorQuickSearch(query) {
             const resBox = document.getElementById('inspectorQuickResults');
             if (!resBox) return;
-            const q = (query || '').trim().toLowerCase();
+            const q = (query || '').trim();
             if (!q) {
                 resBox.classList.add('hidden');
                 return;
             }
-            const isMega4Query = /^mega[\s-]*4$|^super[\s-]*max$/i.test(q);
+            const familyCache = new Map();
+            const isSpecialCmd = /[&,;!+@]|^mega|^legend|^mysteri|^crypto|^nurauseiern|^alola|^galar|^hisui|^paldea|^item|^entwickeln|^(?:wp|cp|kp|hp)\d/i.test(q);
             const matches = FULL_DEX_LIST.filter(p => {
                 if (p.isMega || p.isGmax || isEntryFusionForm(p)) return false;
                 const altForms = FULL_DEX_LIST.filter(x => x.dex === p.dex && (x.isMega || x.isGmax || isEntryFusionForm(x)));
-                if (isMega4Query) {
-                    return !p.isRegionForm && altForms.some(f => isEntrySuperMaxMega(f));
-                }
-                return p.name.toLowerCase().includes(q) ||
-                       String(p.dex).includes(q) ||
-                       p.types.some(t => t.toLowerCase().includes(q)) ||
-                       altForms.some(f => f.name.toLowerCase().includes(q));
-            }).slice(0, isMega4Query ? 24 : 12);
+                return matchesDexSearchQuery(p, altForms, q, familyCache);
+            }).slice(0, isSpecialCmd ? 24 : 12);
 
             if (matches.length === 0) {
                 resBox.innerHTML = `<div class="p-3 text-xs font-bold opacity-70">Kein Pokémon gefunden</div>`;
@@ -11514,7 +11762,7 @@
         }
 
         function getFilteredSortedDex(searchQuery, genRange, typeFilter, sortMode, hideGmaxInRaid = false, typeFilter2 = 'ALL') {
-            const q = (searchQuery || '').trim().toLowerCase();
+            const q = (searchQuery || '').trim();
             let minDex = 1, maxDex = 9999;
             let onlyForms = false;
 
@@ -11531,8 +11779,7 @@
             if (typeFilter2 && typeFilter2 !== 'ALL' && !selectedDropdownTypes.includes(typeFilter2)) {
                 selectedDropdownTypes.push(typeFilter2);
             }
-            const isMega4Query = /^mega[\s-]*4$|^super[\s-]*max$/i.test(q);
-            const queryDualTypes = isMega4Query ? null : parseSearchTypeTokens(q);
+            const familyCache = new Map();
 
             const filtered = FULL_DEX_LIST.filter(p => {
                 // Mega-, Fusions- (Necrozma/Kyurem) und Gigadynamax-Formen sind direkt bei der Basis-Form wählbar und kein separater Dex-Eintrag
@@ -11542,19 +11789,7 @@
                 if (!onlyForms && (p.dex < minDex || p.dex > maxDex)) return false;
                 if (selectedDropdownTypes.length > 0 && !entryHasAllTypes(p, relatedForms, selectedDropdownTypes)) return false;
                 if (q) {
-                    if (isMega4Query) {
-                        return !p.isRegionForm && relatedForms.some(f => isEntrySuperMaxMega(f));
-                    }
-                    if (queryDualTypes) {
-                        return entryHasAllTypes(p, relatedForms, queryDualTypes);
-                    }
-                    return p.name.toLowerCase().includes(q) ||
-                           String(p.dex).includes(q) ||
-                           `#${String(p.dex).padStart(4, '0')}`.includes(q) ||
-                           p.types.some(t => t.toLowerCase().includes(q)) ||
-                           (p.bestFast && p.bestFast.toLowerCase().includes(q)) ||
-                           (p.bestCharged && p.bestCharged.toLowerCase().includes(q)) ||
-                           relatedForms.some(f => f.name.toLowerCase().includes(q));
+                    return matchesDexSearchQuery(p, relatedForms, q, familyCache);
                 }
                 return true;
             });
