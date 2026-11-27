@@ -14064,6 +14064,21 @@
             openPokemonInInspector(match.id, 'counters');
         }
 
+        function jumpToBossDex(bossId) {
+            const boss = RAID_BOSSES_DATA.find(b => b.id === bossId);
+            if (!boss) return;
+            const isCrypto = boss.tier === 'Crypto';
+            const isMax = boss.tier === 'Max';
+            const isGmaxBoss = isMax && /g-max|gigadynamax/i.test(`${boss.tierSubLabel || ''} ${boss.name || ''}`);
+            const bossNameLow = String(boss.name || '').toLowerCase();
+            const match = (isGmaxBoss && FULL_DEX_LIST.find(p => p.isGmax && (p.spriteId === boss.spriteId || p.dex === boss.spriteId || p.name.toLowerCase() === bossNameLow)))
+                || FULL_DEX_LIST.find(p => p.spriteId === boss.spriteId || p.name.toLowerCase() === bossNameLow)
+                || FULL_DEX_LIST.find(p => p.dex === boss.spriteId)
+                || FULL_DEX_LIST[0];
+            if (!match) return;
+            openPokemonInInspector(match.id, 'overview', isCrypto, isMax && !match.isGmax);
+        }
+
         // =========================================================================
         // 4. VOLLSTÄNDIGE SYNCHRONISIERUNG DES GAMEMASTER-POKÉDEX (#0001 - #1025+)
         //    INKL. ALLER MOVESETS, MEGA-ENTWICKLUNGEN, REGIONALFORMEN & EVOLUTIONEN
@@ -15192,9 +15207,15 @@
                                     : '<span class="px-1.5 py-0.5 rounded-full bg-black/35 text-white/80 backdrop-blur-sm text-[9px] font-bold leading-none whitespace-nowrap">Kein \u2726</span>'
                                 }
                             </div>
-                            <div class="absolute inset-x-0 bottom-6 z-20 flex items-center justify-center pointer-events-none">
+                            <button
+                                type="button"
+                                onclick="jumpToBossDex('${b.id}')"
+                                class="absolute inset-x-0 bottom-6 z-20 flex items-center justify-center cursor-pointer focus:outline-none"
+                                title="${b.name} im Pokédex öffnen"
+                                aria-label="${b.name} im Pokédex öffnen"
+                            >
                                 ${imgHtml}
-                            </div>
+                            </button>
                         </div>
 
                         <!-- IN-GAME BOTTOM SHEET -->
