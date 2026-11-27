@@ -11121,27 +11121,16 @@
                 return `
                     <div class="themed-card rounded-3xl overflow-hidden shadow-sm border" style="border-color: var(--border-color);">
                         <div class="flex flex-col xl:flex-row">
-                            <!-- Linker Tierlist-Typ-Header-Block -->
+                            <!-- Linker Tierlist-Typ-Header-Block (Draft A: schmal & pur, nur Symbol) -->
                             <div
-                                class="xl:w-52 p-4 sm:p-5 flex xl:flex-col items-center xl:items-start justify-between xl:justify-center gap-3 text-white shrink-0"
+                                class="xl:w-24 py-3 px-4 xl:p-4 flex items-center justify-center text-white shrink-0"
                                 style="background: ${rowBgGradient};"
+                                title="${rowHeading}"
+                                aria-label="${rowHeading}"
                             >
-                                <div class="flex items-center gap-3">
-                                    <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-inner shrink-0">
-                                        ${isGeneralTankRow
-                                            ? `<svg class="w-7 h-7" viewBox="0 0 24 24">${meta.svg}</svg>`
-                                            : renderTypeIconImg(typeName, 'w-9 h-9', 'ring-2 ring-white/50 shadow-sm')}
-                                    </div>
-                                    <div>
-                                        <div class="text-[10px] font-black uppercase tracking-widest opacity-85">${rowKicker}</div>
-                                        <h3 class="text-lg sm:text-xl font-black leading-tight">${rowHeading}</h3>
-                                    </div>
-                                </div>
-                                <div class="text-right xl:text-left xl:mt-2 xl:pt-2 xl:border-t border-white/20 xl:w-full">
-                                    <div class="text-[10px] font-extrabold uppercase opacity-85">${rowLeaderLabel}</div>
-                                    <div class="text-xs font-black truncate">${top6[0]?.displayName || '–'}</div>
-                                    <div class="text-[11px] font-mono font-bold opacity-90">${rowLeaderStat}</div>
-                                </div>
+                                ${isGeneralTankRow
+                                    ? `<div class="w-14 h-14 rounded-full bg-white/20 ring-2 ring-white/50 shadow-md flex items-center justify-center"><svg class="w-8 h-8" viewBox="0 0 24 24">${meta.svg}</svg></div>`
+                                    : renderTypeIconImg(typeName, 'w-14 h-14', 'ring-2 ring-white/50 shadow-md')}
                             </div>
 
                             <!-- Rechte Top-6 Pokémon-Tierlist-Reihe mit großen Bildern -->
