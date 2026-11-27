@@ -1951,14 +1951,6 @@
                         <div class="flex items-center gap-2 shrink-0 flex-wrap">
                             <button
                                 type="button"
-                                onclick="selectTierlistTypeFilter('ALL')"
-                                class="px-3 py-1.5 rounded-xl themed-sub hover:brightness-95 text-xs font-black cursor-pointer transition"
-                                title="Alle 1.025+ Pokémon im Gesamt-Ranking anzeigen"
-                            >
-                                Alle Typen
-                            </button>
-                            <button
-                                type="button"
                                 onclick="scrollToFullRankingTop()"
                                 class="px-3 py-1.5 rounded-xl themed-sub hover:brightness-95 text-xs font-black cursor-pointer transition"
                                 title="Zum Anfang der Rangliste scrollen"
@@ -2039,6 +2031,8 @@
                             </span>
                         </label>
                     </div>
+
+                    <div id="fullRankingTypeFilterRow" class="pogo-tierlist-block-grid grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-10 gap-1.5 w-full pt-0.5"></div>
                 </div>
 
                 <div
@@ -10566,11 +10560,42 @@
             const countBadge = document.getElementById('fullRankingCountBadge');
             const footerInfo = document.getElementById('fullRankingFooterInfo');
             const loadMoreBtn = document.getElementById('fullRankingLoadMoreBtn');
+            const typeFilterRow = document.getElementById('fullRankingTypeFilterRow');
             if (!listEl) return;
 
             const isMaxMode = appState.compareMode === 'max';
             const isMaxTankMode = isMaxMode && appState.tierlistMaxRole === 'tank';
             const typeFilter = appState.tierlistTypeFilter || 'ALL';
+
+            if (typeFilterRow) {
+                const allActive = typeFilter === 'ALL';
+                const allActiveClass = isMaxTankMode ? 'bg-sky-600 text-white shadow-sm' : (isMaxMode ? 'bg-rose-500 text-white shadow-sm' : 'bg-emerald-500 text-white shadow-sm');
+                const allBtnHtml = `
+                    <button
+                        type="button"
+                        onclick="selectTierlistTypeFilter('ALL')"
+                        class="pogo-tierlist-all-btn col-span-3 sm:col-span-2 px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs font-black flex items-center justify-center whitespace-nowrap cursor-pointer transition ${allActive ? allActiveClass : 'themed-sub opacity-85 hover:opacity-100'}"
+                    >
+                        ${isMaxTankMode ? 'Alle Typen (Generalisten)' : 'Alle 18 Typen'}
+                    </button>
+                `;
+                const typeBtnsHtml = TYPES.map(t => {
+                    const active = typeFilter === t;
+                    const meta = TYPE_META[t];
+                    return `
+                        <button
+                            type="button"
+                            onclick="selectTierlistTypeFilter('${t}')"
+                            class="px-1.5 xl:px-2 py-1.5 rounded-xl text-[11px] xl:text-xs font-extrabold flex items-center justify-center gap-1 whitespace-nowrap cursor-pointer transition ${active ? 'text-white shadow-sm ring-2 ring-white/40' : 'themed-sub opacity-85 hover:opacity-100'}"
+                            style="${active ? `background:${meta.color}` : ''}"
+                        >
+                            ${renderTypeIconImg(t, 'w-4 h-4', active ? 'ring-1 ring-white/60' : '')}
+                            <span>${t}</span>
+                        </button>
+                    `;
+                }).join('');
+                typeFilterRow.innerHTML = allBtnHtml + typeBtnsHtml;
+            }
             const fullRanked = isMaxTankMode
                 ? getFullRankedMaxTanksList(typeFilter)
                 : getFullRankedAttackersList(typeFilter);
@@ -10674,21 +10699,25 @@
                 });
 
                 const legendBarHtml = `
-                    <div class="px-3.5 sm:px-4 py-2 themed-sub flex flex-wrap items-center gap-1.5 text-[10px] font-black border-b" style="border-color: var(--border-color);">
-                        <span class="opacity-70 uppercase tracking-wider mr-1">Eignung:</span>
+                    <div class="px-3.5 sm:px-4 py-2 themed-sub/60 flex flex-wrap items-center gap-1.5 text-[10px] font-black border-b" style="border-color: var(--border-color);">
+                        <span class="opacity-65 uppercase tracking-wider mr-1">Eignung:</span>
                         ${FULL_RANKING_TIERS.map(t => {
                             const cnt = filteredTierCounts[t.id] || 0;
                             if (cnt === 0) return '';
                             return `
-                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg" style="background:${t.headerBg}; border-left: 3px solid ${t.color};">
-                                    <span class="px-1 rounded text-[9px] font-black ${t.badgeBg}">${t.id}</span>
+                                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full themed-card border shadow-2xs" style="border-color: var(--border-color);">
+                                    <span class="px-1.5 py-0.2 rounded-full text-[9px] font-black ${t.badgeBg}">${t.id}</span>
                                     <span>${isMaxTankMode ? t.tankTitle : t.title}</span>
-                                    <span class="opacity-70 font-mono">(${formatNum(cnt, 0)})</span>
+                                    <span class="opacity-65 font-mono">(${formatNum(cnt, 0)})</span>
                                 </span>
                             `;
                         }).join('')}
                     </div>
                 `;
+
+                const barFillStyle = isMaxTankMode
+                    ? 'background: linear-gradient(90deg, #38bdf8 0%, #0284c7 100%);'
+                    : (isMaxMode ? 'background: var(--max-grad);' : 'background: var(--powerup-grad);');
 
                 let lastTierId = null;
                 const rowsHtml = visible.map(({ item, rank, tierMeta }) => {
@@ -10701,18 +10730,18 @@
                         const cnt = filteredTierCounts[tierMeta.id] || 0;
                         tierHeaderHtml = `
                             <div
-                                class="sticky top-0 z-10 px-3.5 sm:px-4 py-1.5 flex items-center justify-between gap-2 backdrop-blur-md border-y"
-                                style="background: ${tierMeta.headerBg}; border-left: 4px solid ${tierMeta.color}; border-color: var(--border-color);"
+                                class="sticky top-0 z-10 px-3.5 sm:px-4 py-2 flex items-center justify-between gap-2 backdrop-blur-md border-y themed-sub"
+                                style="border-color: var(--border-color);"
                             >
                                 <div class="flex items-center gap-2 min-w-0">
-                                    <span class="px-2 py-0.5 rounded-lg text-[11px] font-black shrink-0 shadow-sm ${tierMeta.badgeBg}">
-                                        Tier ${tierMeta.id}
+                                    <span class="px-2 py-0.5 rounded-full text-[11px] font-black shrink-0 shadow-sm ${tierMeta.badgeBg}">
+                                        ${tierMeta.id}
                                     </span>
                                     <span class="text-xs font-black truncate">${tierTitle}</span>
-                                    <span class="hidden md:inline text-[11px] font-bold opacity-80 truncate">– ${tierDesc}</span>
+                                    <span class="hidden md:inline text-[11px] font-bold opacity-65 truncate">· ${tierDesc}</span>
                                 </div>
-                                <span class="text-[10px] font-mono font-black opacity-80 shrink-0">
-                                    ${formatNum(cnt, 0)} Pokémon • ${pctLabel}
+                                <span class="text-[10px] font-mono font-bold opacity-70 shrink-0 tabular-nums">
+                                    ${formatNum(cnt, 0)} Pokémon · ${pctLabel}
                                 </span>
                             </div>
                         `;
@@ -10720,12 +10749,12 @@
 
                     const isHighlighted = appState.fullRankingHighlightKey && item.rankKey === appState.fullRankingHighlightKey;
                     const rankPillClass = rank === 1
-                        ? 'bg-amber-500 text-white'
+                        ? 'bg-amber-500 text-white shadow-sm'
                         : (rank === 2
-                            ? 'bg-slate-400 text-white'
+                            ? 'bg-slate-400 text-white shadow-sm'
                             : (rank === 3
-                                ? 'bg-amber-700 text-white'
-                                : 'themed-sub'));
+                                ? 'bg-amber-700 text-white shadow-sm'
+                                : 'themed-sub opacity-85 border'));
                     const formBadge = renderRankingFormBadge(item);
                     const unreleasedBadge = !item.isReleased
                         ? '<span class="px-1.5 py-0.5 rounded-md bg-slate-600 text-white text-[9px] font-black uppercase">Unreleast</span>'
@@ -10738,6 +10767,21 @@
                     const cBase = cClean.replace(/\+$/, '').trim();
                     const fType = FAST_MOVES_DATA[fClean]?.type || item.p.types[0] || 'Normal';
                     const cType = CHARGED_MOVES_DATA[cClean]?.type || CHARGED_MOVES_DATA[cBase]?.type || item.p.types[0] || 'Normal';
+
+                    const rMeta1 = TYPE_META[item.p.types?.[0]] || TYPE_META.Normal;
+                    const rMeta2 = (item.p.types?.[1] && TYPE_META[item.p.types[1]]) ? TYPE_META[item.p.types[1]] : rMeta1;
+                    const spriteBgStyle = item.isShadow
+                        ? `radial-gradient(circle at 50% 30%, #7e22ce 0%, #3b0764 55%, #0f172a 100%)`
+                        : (item.p.isMega
+                            ? `radial-gradient(circle at 50% 28%, ${rMeta1.color}ee 0%, #d85a8a 55%, #6b215e 82%, #240c29 100%)`
+                            : ((item.p.isGmax || item.isDmax)
+                                ? `radial-gradient(circle at 50% 30%, #e11d48 0%, #881337 55%, #0f172a 100%)`
+                                : `radial-gradient(circle at 50% 28%, ${rMeta1.color}ee 0%, ${rMeta2.color}cc 55%, #0f172ad9 100%)`));
+
+                    const itemScore = isMaxTankMode
+                        ? (item.tankScore || 0)
+                        : (isMaxMode ? (item.maxDmg || 0) : (item.eDps || 0));
+                    const relPct = Math.max(4, Math.min(100, Math.round((itemScore / topScore) * 100)));
 
                     const moveLineHtml = isMaxTankMode
                         ? `
@@ -10763,33 +10807,30 @@
                         `;
 
                     const scoreBlockHtml = isMaxTankMode
-                        ? `<div class="text-xs font-black text-sky-600 dark:text-sky-400">Tank ${formatNum(item.tankScore, 0)}</div>
-                           <div class="text-[10px] font-bold opacity-75">Bulk ${formatNum(item.rawBulk, 0)} • KP ${formatNum(item.effHp, 0)} • VERT ${formatNum(item.effDef, 0)}</div>`
+                        ? `<div class="text-sm font-black text-sky-600 dark:text-sky-400 tabular-nums">Tank ${formatNum(item.tankScore, 0)}</div>
+                           <div class="text-[11px] font-bold opacity-65 tabular-nums">Bulk ${formatNum(item.rawBulk, 0)} • KP ${formatNum(item.effHp, 0)} • VERT ${formatNum(item.effDef, 0)}</div>`
                         : (isMaxMode
-                            ? `<div class="text-xs font-black text-rose-500">Max-SCH ${formatNum(item.maxDmg, 0)}</div>
-                               <div class="text-[10px] font-bold opacity-75">${formatNum(item.baseTypeEdps, 2)} eDPS • WP ${formatNum(item.cp40, 0)}</div>`
-                            : `<div class="text-xs font-black text-emerald-600 dark:text-emerald-400">${formatNum(item.baseTypeEdps, 2)} eDPS</div>
-                               <div class="text-[10px] font-bold opacity-75">WP ${formatNum(item.cp40, 0)} • TDO ${formatNum(item.tdo, 0)}</div>`);
+                            ? `<div class="text-sm font-black text-rose-500 tabular-nums">${formatNum(item.maxDmg, 0)} <span class="text-[11px] font-bold opacity-75">Max-SCH</span></div>
+                               <div class="text-[11px] font-bold opacity-65 tabular-nums">${formatNum(item.baseTypeEdps, 2)} eDPS • WP ${formatNum(item.cp40, 0)}</div>`
+                            : `<div class="text-sm font-black text-emerald-600 dark:text-emerald-400 tabular-nums">${formatNum(item.baseTypeEdps, 2)} <span class="text-[11px] font-bold opacity-75">eDPS</span></div>
+                               <div class="text-[11px] font-bold opacity-65 tabular-nums">WP ${formatNum(item.cp40, 0)} • TDO ${formatNum(item.tdo, 0)}</div>`);
 
                     return `${tierHeaderHtml}
                         <div
                             data-rank-key="${item.rankKey}"
                             data-tier="${tierMeta.id}"
-                            class="px-3.5 sm:px-4 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 transition ${isHighlighted ? 'ring-2 ring-inset ring-emerald-500' : 'hover:brightness-95'}"
-                            style="border-left: 4px solid ${tierMeta.color}; background: ${isHighlighted ? 'rgba(16, 185, 129, 0.18)' : tierMeta.tint};"
+                            class="px-3.5 sm:px-4 py-2.5 flex items-center justify-between gap-3 transition ${isHighlighted ? 'ring-2 ring-inset ring-emerald-500 bg-emerald-500/10' : 'hover:bg-slate-500/[0.06]'}"
                         >
                             <div class="flex items-center gap-3 min-w-0 flex-1">
-                                <div class="flex flex-col items-center gap-0.5 shrink-0">
-                                    <span class="w-11 sm:w-12 py-0.5 rounded-lg text-center font-mono text-xs font-black ${rankPillClass}">
+                                <div class="flex flex-col items-center gap-1 shrink-0">
+                                    <span class="min-w-[2.5rem] h-7 px-2 rounded-full inline-flex items-center justify-center font-mono text-xs font-black tabular-nums ${rankPillClass}" style="${rank > 3 ? 'border-color: var(--border-color);' : ''}">
                                         #${formatNum(rank, 0)}
-                                    </span>
-                                    <span class="px-1.5 py-0.2 rounded text-[9px] font-black leading-tight ${tierMeta.badgeBg}">
-                                        ${tierMeta.id}
                                     </span>
                                 </div>
                                 <div
                                     onclick="openPokemonInInspector('${item.p.id}', null, ${item.isShadow}, ${Boolean(item.isDmax)})"
-                                    class="w-11 h-11 rounded-2xl themed-card flex items-center justify-center shrink-0 cursor-pointer hover:scale-105 transition shadow-sm"
+                                    class="w-11 h-11 rounded-full flex items-center justify-center shrink-0 cursor-pointer hover:scale-105 transition shadow-sm ring-2 ring-white/20 overflow-hidden"
+                                    style="background: ${spriteBgStyle};"
                                     title="${item.displayName} im Pokédex-Inspektor öffnen"
                                 >
                                     ${renderSpriteImg(item.p.spriteId, item.displayName, `w-10 h-10 ${item.isShadow ? 'sprite-glow-crypto' : ((item.p.isGmax || item.isDmax) ? 'sprite-glow-dmax' : '')}`, item.p.dex)}
@@ -10804,39 +10845,25 @@
                                         >
                                             ${item.displayName}
                                         </button>
-                                        <span class="text-[10px] font-mono font-bold opacity-55">#${String(item.p.dex).padStart(4, '0')}</span>
+                                        <span class="text-[10px] font-mono font-bold opacity-50">#${String(item.p.dex).padStart(4, '0')}</span>
                                         ${formBadge}
                                         ${unreleasedBadge}
                                         <div class="flex items-center gap-0.5">${renderTypeBadges(item.p.types, false)}</div>
                                     </div>
-                                    <div class="flex items-center gap-1.5 flex-wrap mt-0.5 text-[11px] font-bold opacity-85">
+                                    <div class="flex items-center gap-1.5 flex-wrap mt-0.5 text-[11px] font-bold opacity-80">
                                         ${moveLineHtml}
+                                    </div>
+                                    <div class="mt-1.5 flex items-center gap-2 max-w-[260px]">
+                                        <div class="h-1.5 flex-1 rounded-full themed-sub overflow-hidden">
+                                            <div class="h-full rounded-full transition-all" style="width:${relPct}%; ${barFillStyle}"></div>
+                                        </div>
+                                        <span class="text-[10px] font-mono font-bold opacity-60 tabular-nums shrink-0">${relPct}%</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="flex items-center justify-between sm:justify-end gap-3 shrink-0 pl-14 sm:pl-0">
-                                <div class="text-left sm:text-right font-mono">
-                                    ${scoreBlockHtml}
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <button
-                                        type="button"
-                                        onclick="loadEntryIntoSlot('A', '${item.p.id}', ${item.isShadow}, ${Boolean(item.isDmax)})"
-                                        class="px-2 py-1 rounded-lg bg-emerald-500 hover:brightness-105 text-white text-[10px] font-extrabold cursor-pointer transition"
-                                        title="In Slot A laden"
-                                    >
-                                        Slot A
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onclick="loadEntryIntoSlot('B', '${item.p.id}', ${item.isShadow}, ${Boolean(item.isDmax)})"
-                                        class="px-2 py-1 rounded-lg bg-teal-600 hover:brightness-105 text-white text-[10px] font-extrabold cursor-pointer transition"
-                                        title="In Slot B laden"
-                                    >
-                                        Slot B
-                                    </button>
-                                </div>
+                            <div class="text-right font-mono shrink-0">
+                                ${scoreBlockHtml}
                             </div>
                         </div>
                     `;
