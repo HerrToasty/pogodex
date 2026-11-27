@@ -1624,7 +1624,7 @@
                         <input
                             type="text"
                             id="embeddedDexSearch"
-                            placeholder="#Nummer, Name, Attacke oder 1–2 Typen (z. B. Feuer Flug)..."
+                            placeholder="Suche: Name, 1-151, +Bisasam, @Feuer, wp2500-, legendär, crypto, mega4..."
                             oninput="debounceUiSearch('dex', resetAndRenderEmbeddedDex, 90)"
                             class="themed-sub rounded-xl px-3.5 py-2 text-xs sm:text-sm font-bold focus:outline-none w-full"
                         />
@@ -1942,21 +1942,13 @@
                                 </span>
                             </div>
                             <h3 id="fullRankingHeading" class="text-lg sm:text-xl font-black">
-                                Gesamte Rangliste aller 1.025+ Pokémon
+                                Gesamte Rangliste
                             </h3>
                             <p id="fullRankingSubtext" class="text-xs font-bold opacity-75">
                                 Vollständige, scrollbare Rangliste nach DialgaDex eDPS (Lvl 40, 100% IV) inkl. optimaler Sofort- &amp; Lade-Attacke.
                             </p>
                         </div>
                         <div class="flex items-center gap-2 shrink-0 flex-wrap">
-                            <button
-                                type="button"
-                                onclick="selectTierlistTypeFilter('ALL')"
-                                class="px-3 py-1.5 rounded-xl themed-sub hover:brightness-95 text-xs font-black cursor-pointer transition"
-                                title="Alle 1.025+ Pokémon im Gesamt-Ranking anzeigen"
-                            >
-                                Alle Typen
-                            </button>
                             <button
                                 type="button"
                                 onclick="scrollToFullRankingTop()"
@@ -2039,6 +2031,8 @@
                             </span>
                         </label>
                     </div>
+
+                    <div id="fullRankingTypeFilterRow" class="pogo-tierlist-block-grid grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-10 gap-1.5 w-full pt-0.5"></div>
                 </div>
 
                 <div
@@ -6427,7 +6421,7 @@
           {
                     "id": "raichu-mega-x",
                     "dex": 26,
-                    "spriteId": 26,
+                    "spriteId": 10304,
                     "name": "Mega-Raichu X",
                     "types": ["Elektro"],
                     "atk": 277,
@@ -6447,7 +6441,7 @@
           {
                     "id": "raichu-mega-y",
                     "dex": 26,
-                    "spriteId": 26,
+                    "spriteId": 10305,
                     "name": "Mega-Raichu Y",
                     "types": ["Elektro"],
                     "atk": 339,
@@ -6467,7 +6461,7 @@
           {
                     "id": "clefable-mega",
                     "dex": 36,
-                    "spriteId": 36,
+                    "spriteId": 10278,
                     "name": "Mega-Pixi",
                     "types": ["Fee", "Flug"],
                     "atk": 253,
@@ -6487,7 +6481,7 @@
           {
                     "id": "victreebel-mega",
                     "dex": 71,
-                    "spriteId": 71,
+                    "spriteId": 10279,
                     "name": "Mega-Sarzenia",
                     "types": ["Pflanze", "Gift"],
                     "atk": 265,
@@ -6507,7 +6501,7 @@
           {
                     "id": "starmie-mega",
                     "dex": 121,
-                    "spriteId": 121,
+                    "spriteId": 10280,
                     "name": "Mega-Starmie",
                     "types": ["Wasser", "Psycho"],
                     "atk": 276,
@@ -6527,7 +6521,7 @@
           {
                     "id": "dragonite-mega",
                     "dex": 149,
-                    "spriteId": 149,
+                    "spriteId": 10281,
                     "name": "Mega-Dragoran",
                     "types": ["Drache", "Flug"],
                     "atk": 299,
@@ -6547,7 +6541,7 @@
           {
                     "id": "skarmory-mega",
                     "dex": 227,
-                    "spriteId": 227,
+                    "spriteId": 10284,
                     "name": "Mega-Panzaeron",
                     "types": ["Stahl", "Flug"],
                     "atk": 273,
@@ -6587,7 +6581,7 @@
           {
                     "id": "staraptor-mega",
                     "dex": 398,
-                    "spriteId": 398,
+                    "spriteId": 10308,
                     "name": "Mega-Staraptor",
                     "types": ["Normal", "Flug"],
                     "atk": 278,
@@ -6607,7 +6601,7 @@
           {
                     "id": "chandelure-mega",
                     "dex": 609,
-                    "spriteId": 609,
+                    "spriteId": 10291,
                     "name": "Mega-Skelabra",
                     "types": ["Geist", "Feuer"],
                     "atk": 335,
@@ -6627,7 +6621,7 @@
           {
                     "id": "chesnaught-mega",
                     "dex": 652,
-                    "spriteId": 652,
+                    "spriteId": 10292,
                     "name": "Mega-Brigaron",
                     "types": ["Pflanze", "Kampf"],
                     "atk": 242,
@@ -6647,7 +6641,7 @@
           {
                     "id": "delphox-mega",
                     "dex": 655,
-                    "spriteId": 655,
+                    "spriteId": 10293,
                     "name": "Mega-Fennexis",
                     "types": ["Feuer", "Psycho"],
                     "atk": 331,
@@ -6667,7 +6661,7 @@
           {
                     "id": "greninja-mega",
                     "dex": 658,
-                    "spriteId": 658,
+                    "spriteId": 10294,
                     "name": "Mega-Quajutsu",
                     "types": ["Wasser", "Unlicht"],
                     "atk": 299,
@@ -6687,7 +6681,7 @@
           {
                     "id": "malamar-mega",
                     "dex": 687,
-                    "spriteId": 687,
+                    "spriteId": 10297,
                     "name": "Mega-Calamanero",
                     "types": ["Unlicht", "Psycho"],
                     "atk": 208,
@@ -6707,7 +6701,7 @@
           {
                     "id": "falinks-mega",
                     "dex": 870,
-                    "spriteId": 870,
+                    "spriteId": 10303,
                     "name": "Mega-Legios",
                     "types": ["Kampf"],
                     "atk": 267,
@@ -9667,7 +9661,7 @@
             const cmpStageBgStyle = s.isShadow
                 ? `radial-gradient(circle at 50% 30%, #7e22ce 0%, #3b0764 55%, #0f172a 100%)`
                 : (p.isMega
-                    ? `radial-gradient(circle at 50% 30%, ${cmpT1.color} 0%, #4c1d95 58%, #0f172a 100%)`
+                    ? `radial-gradient(circle at 50% 28%, ${cmpT1.color}ee 0%, #d85a8a 55%, #6b215e 82%, #240c29 100%)`
                     : ((p.isGmax || s.isDmax)
                         ? `radial-gradient(circle at 50% 30%, #e11d48 0%, #881337 55%, #0f172a 100%)`
                         : (s.isLucky
@@ -10566,11 +10560,42 @@
             const countBadge = document.getElementById('fullRankingCountBadge');
             const footerInfo = document.getElementById('fullRankingFooterInfo');
             const loadMoreBtn = document.getElementById('fullRankingLoadMoreBtn');
+            const typeFilterRow = document.getElementById('fullRankingTypeFilterRow');
             if (!listEl) return;
 
             const isMaxMode = appState.compareMode === 'max';
             const isMaxTankMode = isMaxMode && appState.tierlistMaxRole === 'tank';
             const typeFilter = appState.tierlistTypeFilter || 'ALL';
+
+            if (typeFilterRow) {
+                const allActive = typeFilter === 'ALL';
+                const allActiveClass = isMaxTankMode ? 'bg-sky-600 text-white shadow-sm' : (isMaxMode ? 'bg-rose-500 text-white shadow-sm' : 'bg-emerald-500 text-white shadow-sm');
+                const allBtnHtml = `
+                    <button
+                        type="button"
+                        onclick="selectTierlistTypeFilter('ALL')"
+                        class="pogo-tierlist-all-btn col-span-3 sm:col-span-2 px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs font-black flex items-center justify-center whitespace-nowrap cursor-pointer transition ${allActive ? allActiveClass : 'themed-sub opacity-85 hover:opacity-100'}"
+                    >
+                        ${isMaxTankMode ? 'Alle Typen (Generalisten)' : 'Alle 18 Typen'}
+                    </button>
+                `;
+                const typeBtnsHtml = TYPES.map(t => {
+                    const active = typeFilter === t;
+                    const meta = TYPE_META[t];
+                    return `
+                        <button
+                            type="button"
+                            onclick="selectTierlistTypeFilter('${t}')"
+                            class="px-1.5 xl:px-2 py-1.5 rounded-xl text-[11px] xl:text-xs font-extrabold flex items-center justify-center gap-1 whitespace-nowrap cursor-pointer transition ${active ? 'text-white shadow-sm ring-2 ring-white/40' : 'themed-sub opacity-85 hover:opacity-100'}"
+                            style="${active ? `background:${meta.color}` : ''}"
+                        >
+                            ${renderTypeIconImg(t, 'w-4 h-4', active ? 'ring-1 ring-white/60' : '')}
+                            <span>${t}</span>
+                        </button>
+                    `;
+                }).join('');
+                typeFilterRow.innerHTML = allBtnHtml + typeBtnsHtml;
+            }
             const fullRanked = isMaxTankMode
                 ? getFullRankedMaxTanksList(typeFilter)
                 : getFullRankedAttackersList(typeFilter);
@@ -10632,7 +10657,7 @@
                 } else if (typeFilter === 'ALL') {
                     heading.textContent = isMaxMode
                         ? 'Gesamte Max-Battle-Rangliste (nur D-Max / G-Max)'
-                        : 'Gesamte Rangliste aller 1.025+ Pokémon';
+                        : 'Gesamte Rangliste';
                 } else {
                     heading.textContent = isMaxMode
                         ? `Gesamte ${typeFilter}-Rangliste (Max-Battles)`
@@ -10674,21 +10699,25 @@
                 });
 
                 const legendBarHtml = `
-                    <div class="px-3.5 sm:px-4 py-2 themed-sub flex flex-wrap items-center gap-1.5 text-[10px] font-black border-b" style="border-color: var(--border-color);">
-                        <span class="opacity-70 uppercase tracking-wider mr-1">Eignung:</span>
+                    <div class="px-3.5 sm:px-4 py-2 themed-sub/60 flex flex-wrap items-center gap-1.5 text-[10px] font-black border-b" style="border-color: var(--border-color);">
+                        <span class="opacity-65 uppercase tracking-wider mr-1">Eignung:</span>
                         ${FULL_RANKING_TIERS.map(t => {
                             const cnt = filteredTierCounts[t.id] || 0;
                             if (cnt === 0) return '';
                             return `
-                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg" style="background:${t.headerBg}; border-left: 3px solid ${t.color};">
-                                    <span class="px-1 rounded text-[9px] font-black ${t.badgeBg}">${t.id}</span>
+                                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full themed-card border shadow-2xs" style="border-color: var(--border-color);">
+                                    <span class="px-1.5 py-0.2 rounded-full text-[9px] font-black ${t.badgeBg}">${t.id}</span>
                                     <span>${isMaxTankMode ? t.tankTitle : t.title}</span>
-                                    <span class="opacity-70 font-mono">(${formatNum(cnt, 0)})</span>
+                                    <span class="opacity-65 font-mono">(${formatNum(cnt, 0)})</span>
                                 </span>
                             `;
                         }).join('')}
                     </div>
                 `;
+
+                const barFillStyle = isMaxTankMode
+                    ? 'background: linear-gradient(90deg, #38bdf8 0%, #0284c7 100%);'
+                    : (isMaxMode ? 'background: var(--max-grad);' : 'background: var(--powerup-grad);');
 
                 let lastTierId = null;
                 const rowsHtml = visible.map(({ item, rank, tierMeta }) => {
@@ -10701,18 +10730,18 @@
                         const cnt = filteredTierCounts[tierMeta.id] || 0;
                         tierHeaderHtml = `
                             <div
-                                class="sticky top-0 z-10 px-3.5 sm:px-4 py-1.5 flex items-center justify-between gap-2 backdrop-blur-md border-y"
-                                style="background: ${tierMeta.headerBg}; border-left: 4px solid ${tierMeta.color}; border-color: var(--border-color);"
+                                class="sticky top-0 z-10 px-3.5 sm:px-4 py-2 flex items-center justify-between gap-2 backdrop-blur-md border-y"
+                                style="background: linear-gradient(90deg, ${tierMeta.headerBg} 0%, ${tierMeta.tint} 100%), var(--card-bg); border-color: var(--border-color); border-left: 4px solid ${tierMeta.color};"
                             >
                                 <div class="flex items-center gap-2 min-w-0">
-                                    <span class="px-2 py-0.5 rounded-lg text-[11px] font-black shrink-0 shadow-sm ${tierMeta.badgeBg}">
-                                        Tier ${tierMeta.id}
+                                    <span class="px-2 py-0.5 rounded-full text-[11px] font-black shrink-0 shadow-sm ${tierMeta.badgeBg}">
+                                        ${tierMeta.id}
                                     </span>
                                     <span class="text-xs font-black truncate">${tierTitle}</span>
-                                    <span class="hidden md:inline text-[11px] font-bold opacity-80 truncate">– ${tierDesc}</span>
+                                    <span class="hidden md:inline text-[11px] font-bold opacity-75 truncate">· ${tierDesc}</span>
                                 </div>
-                                <span class="text-[10px] font-mono font-black opacity-80 shrink-0">
-                                    ${formatNum(cnt, 0)} Pokémon • ${pctLabel}
+                                <span class="text-[10px] font-mono font-bold opacity-75 shrink-0 tabular-nums">
+                                    ${formatNum(cnt, 0)} Pokémon · ${pctLabel}
                                 </span>
                             </div>
                         `;
@@ -10720,12 +10749,12 @@
 
                     const isHighlighted = appState.fullRankingHighlightKey && item.rankKey === appState.fullRankingHighlightKey;
                     const rankPillClass = rank === 1
-                        ? 'bg-amber-500 text-white'
+                        ? 'bg-amber-500 text-white shadow-sm'
                         : (rank === 2
-                            ? 'bg-slate-400 text-white'
+                            ? 'bg-slate-400 text-white shadow-sm'
                             : (rank === 3
-                                ? 'bg-amber-700 text-white'
-                                : 'themed-sub'));
+                                ? 'bg-amber-700 text-white shadow-sm'
+                                : 'themed-sub opacity-85 border'));
                     const formBadge = renderRankingFormBadge(item);
                     const unreleasedBadge = !item.isReleased
                         ? '<span class="px-1.5 py-0.5 rounded-md bg-slate-600 text-white text-[9px] font-black uppercase">Unreleast</span>'
@@ -10738,6 +10767,21 @@
                     const cBase = cClean.replace(/\+$/, '').trim();
                     const fType = FAST_MOVES_DATA[fClean]?.type || item.p.types[0] || 'Normal';
                     const cType = CHARGED_MOVES_DATA[cClean]?.type || CHARGED_MOVES_DATA[cBase]?.type || item.p.types[0] || 'Normal';
+
+                    const rMeta1 = TYPE_META[item.p.types?.[0]] || TYPE_META.Normal;
+                    const rMeta2 = (item.p.types?.[1] && TYPE_META[item.p.types[1]]) ? TYPE_META[item.p.types[1]] : rMeta1;
+                    const spriteBgStyle = item.isShadow
+                        ? `radial-gradient(circle at 50% 30%, #7e22ce 0%, #3b0764 55%, #0f172a 100%)`
+                        : (item.p.isMega
+                            ? `radial-gradient(circle at 50% 28%, ${rMeta1.color}ee 0%, #d85a8a 55%, #6b215e 82%, #240c29 100%)`
+                            : ((item.p.isGmax || item.isDmax)
+                                ? `radial-gradient(circle at 50% 30%, #e11d48 0%, #881337 55%, #0f172a 100%)`
+                                : `radial-gradient(circle at 50% 28%, ${rMeta1.color}ee 0%, ${rMeta2.color}cc 55%, #0f172ad9 100%)`));
+
+                    const itemScore = isMaxTankMode
+                        ? (item.tankScore || 0)
+                        : (isMaxMode ? (item.maxDmg || 0) : (item.eDps || 0));
+                    const relPct = Math.max(4, Math.min(100, Math.round((itemScore / topScore) * 100)));
 
                     const moveLineHtml = isMaxTankMode
                         ? `
@@ -10763,33 +10807,30 @@
                         `;
 
                     const scoreBlockHtml = isMaxTankMode
-                        ? `<div class="text-xs font-black text-sky-600 dark:text-sky-400">Tank ${formatNum(item.tankScore, 0)}</div>
-                           <div class="text-[10px] font-bold opacity-75">Bulk ${formatNum(item.rawBulk, 0)} • KP ${formatNum(item.effHp, 0)} • VERT ${formatNum(item.effDef, 0)}</div>`
+                        ? `<div class="text-sm font-black text-sky-600 dark:text-sky-400 tabular-nums">Tank ${formatNum(item.tankScore, 0)}</div>
+                           <div class="text-[11px] font-bold opacity-65 tabular-nums">Bulk ${formatNum(item.rawBulk, 0)} • KP ${formatNum(item.effHp, 0)} • VERT ${formatNum(item.effDef, 0)}</div>`
                         : (isMaxMode
-                            ? `<div class="text-xs font-black text-rose-500">Max-SCH ${formatNum(item.maxDmg, 0)}</div>
-                               <div class="text-[10px] font-bold opacity-75">${formatNum(item.baseTypeEdps, 2)} eDPS • WP ${formatNum(item.cp40, 0)}</div>`
-                            : `<div class="text-xs font-black text-emerald-600 dark:text-emerald-400">${formatNum(item.baseTypeEdps, 2)} eDPS</div>
-                               <div class="text-[10px] font-bold opacity-75">WP ${formatNum(item.cp40, 0)} • TDO ${formatNum(item.tdo, 0)}</div>`);
+                            ? `<div class="text-sm font-black text-rose-500 tabular-nums">${formatNum(item.maxDmg, 0)} <span class="text-[11px] font-bold opacity-75">Max-SCH</span></div>
+                               <div class="text-[11px] font-bold opacity-65 tabular-nums">${formatNum(item.baseTypeEdps, 2)} eDPS • WP ${formatNum(item.cp40, 0)}</div>`
+                            : `<div class="text-sm font-black text-emerald-600 dark:text-emerald-400 tabular-nums">${formatNum(item.baseTypeEdps, 2)} <span class="text-[11px] font-bold opacity-75">eDPS</span></div>
+                               <div class="text-[11px] font-bold opacity-65 tabular-nums">WP ${formatNum(item.cp40, 0)} • TDO ${formatNum(item.tdo, 0)}</div>`);
 
                     return `${tierHeaderHtml}
                         <div
                             data-rank-key="${item.rankKey}"
                             data-tier="${tierMeta.id}"
-                            class="px-3.5 sm:px-4 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 transition ${isHighlighted ? 'ring-2 ring-inset ring-emerald-500' : 'hover:brightness-95'}"
-                            style="border-left: 4px solid ${tierMeta.color}; background: ${isHighlighted ? 'rgba(16, 185, 129, 0.18)' : tierMeta.tint};"
+                            class="px-3.5 sm:px-4 py-2.5 flex items-center justify-between gap-3 transition ${isHighlighted ? 'ring-2 ring-inset ring-emerald-500 bg-emerald-500/10' : 'hover:bg-slate-500/[0.06]'}"
                         >
                             <div class="flex items-center gap-3 min-w-0 flex-1">
-                                <div class="flex flex-col items-center gap-0.5 shrink-0">
-                                    <span class="w-11 sm:w-12 py-0.5 rounded-lg text-center font-mono text-xs font-black ${rankPillClass}">
+                                <div class="flex flex-col items-center gap-1 shrink-0">
+                                    <span class="min-w-[2.5rem] h-7 px-2 rounded-full inline-flex items-center justify-center font-mono text-xs font-black tabular-nums ${rankPillClass}" style="${rank > 3 ? 'border-color: var(--border-color);' : ''}">
                                         #${formatNum(rank, 0)}
-                                    </span>
-                                    <span class="px-1.5 py-0.2 rounded text-[9px] font-black leading-tight ${tierMeta.badgeBg}">
-                                        ${tierMeta.id}
                                     </span>
                                 </div>
                                 <div
                                     onclick="openPokemonInInspector('${item.p.id}', null, ${item.isShadow}, ${Boolean(item.isDmax)})"
-                                    class="w-11 h-11 rounded-2xl themed-card flex items-center justify-center shrink-0 cursor-pointer hover:scale-105 transition shadow-sm"
+                                    class="w-11 h-11 rounded-full flex items-center justify-center shrink-0 cursor-pointer hover:scale-105 transition shadow-sm ring-2 ring-white/20 overflow-hidden"
+                                    style="background: ${spriteBgStyle};"
                                     title="${item.displayName} im Pokédex-Inspektor öffnen"
                                 >
                                     ${renderSpriteImg(item.p.spriteId, item.displayName, `w-10 h-10 ${item.isShadow ? 'sprite-glow-crypto' : ((item.p.isGmax || item.isDmax) ? 'sprite-glow-dmax' : '')}`, item.p.dex)}
@@ -10804,39 +10845,25 @@
                                         >
                                             ${item.displayName}
                                         </button>
-                                        <span class="text-[10px] font-mono font-bold opacity-55">#${String(item.p.dex).padStart(4, '0')}</span>
+                                        <span class="text-[10px] font-mono font-bold opacity-50">#${String(item.p.dex).padStart(4, '0')}</span>
                                         ${formBadge}
                                         ${unreleasedBadge}
                                         <div class="flex items-center gap-0.5">${renderTypeBadges(item.p.types, false)}</div>
                                     </div>
-                                    <div class="flex items-center gap-1.5 flex-wrap mt-0.5 text-[11px] font-bold opacity-85">
+                                    <div class="flex items-center gap-1.5 flex-wrap mt-0.5 text-[11px] font-bold opacity-80">
                                         ${moveLineHtml}
+                                    </div>
+                                    <div class="mt-1.5 flex items-center gap-2 max-w-[260px]">
+                                        <div class="h-1.5 flex-1 rounded-full themed-sub overflow-hidden">
+                                            <div class="h-full rounded-full transition-all" style="width:${relPct}%; ${barFillStyle}"></div>
+                                        </div>
+                                        <span class="text-[10px] font-mono font-bold opacity-60 tabular-nums shrink-0">${relPct}%</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="flex items-center justify-between sm:justify-end gap-3 shrink-0 pl-14 sm:pl-0">
-                                <div class="text-left sm:text-right font-mono">
-                                    ${scoreBlockHtml}
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <button
-                                        type="button"
-                                        onclick="loadEntryIntoSlot('A', '${item.p.id}', ${item.isShadow}, ${Boolean(item.isDmax)})"
-                                        class="px-2 py-1 rounded-lg bg-emerald-500 hover:brightness-105 text-white text-[10px] font-extrabold cursor-pointer transition"
-                                        title="In Slot A laden"
-                                    >
-                                        Slot A
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onclick="loadEntryIntoSlot('B', '${item.p.id}', ${item.isShadow}, ${Boolean(item.isDmax)})"
-                                        class="px-2 py-1 rounded-lg bg-teal-600 hover:brightness-105 text-white text-[10px] font-extrabold cursor-pointer transition"
-                                        title="In Slot B laden"
-                                    >
-                                        Slot B
-                                    </button>
-                                </div>
+                            <div class="text-right font-mono shrink-0">
+                                ${scoreBlockHtml}
                             </div>
                         </div>
                     `;
@@ -10979,7 +11006,7 @@
                     const cardStageBg = item.isShadow
                         ? `radial-gradient(circle at 50% 30%, #7e22ce 0%, #3b0764 55%, #0f172a 100%)`
                         : (item.p.isMega
-                            ? `radial-gradient(circle at 50% 30%, ${tMeta1.color} 0%, #4c1d95 58%, #0f172a 100%)`
+                            ? `radial-gradient(circle at 50% 28%, ${tMeta1.color}ee 0%, #d85a8a 55%, #6b215e 82%, #240c29 100%)`
                             : ((item.p.isGmax || item.isDmax)
                                 ? `radial-gradient(circle at 50% 30%, #e11d48 0%, #881337 55%, #0f172a 100%)`
                                 : `radial-gradient(circle at 50% 28%, ${tMeta1.color}ee 0%, ${tMeta2.color}cc 55%, #0f172ad9 100%)`));
@@ -11094,27 +11121,16 @@
                 return `
                     <div class="themed-card rounded-3xl overflow-hidden shadow-sm border" style="border-color: var(--border-color);">
                         <div class="flex flex-col xl:flex-row">
-                            <!-- Linker Tierlist-Typ-Header-Block -->
+                            <!-- Linker Tierlist-Typ-Header-Block (Draft A: schmal & pur, nur Symbol) -->
                             <div
-                                class="xl:w-52 p-4 sm:p-5 flex xl:flex-col items-center xl:items-start justify-between xl:justify-center gap-3 text-white shrink-0"
+                                class="xl:w-24 py-3 px-4 xl:p-4 flex items-center justify-center text-white shrink-0"
                                 style="background: ${rowBgGradient};"
+                                title="${rowHeading}"
+                                aria-label="${rowHeading}"
                             >
-                                <div class="flex items-center gap-3">
-                                    <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-inner shrink-0">
-                                        ${isGeneralTankRow
-                                            ? `<svg class="w-7 h-7" viewBox="0 0 24 24">${meta.svg}</svg>`
-                                            : renderTypeIconImg(typeName, 'w-9 h-9', 'ring-2 ring-white/50 shadow-sm')}
-                                    </div>
-                                    <div>
-                                        <div class="text-[10px] font-black uppercase tracking-widest opacity-85">${rowKicker}</div>
-                                        <h3 class="text-lg sm:text-xl font-black leading-tight">${rowHeading}</h3>
-                                    </div>
-                                </div>
-                                <div class="text-right xl:text-left xl:mt-2 xl:pt-2 xl:border-t border-white/20 xl:w-full">
-                                    <div class="text-[10px] font-extrabold uppercase opacity-85">${rowLeaderLabel}</div>
-                                    <div class="text-xs font-black truncate">${top6[0]?.displayName || '–'}</div>
-                                    <div class="text-[11px] font-mono font-bold opacity-90">${rowLeaderStat}</div>
-                                </div>
+                                ${isGeneralTankRow
+                                    ? `<div class="w-14 h-14 rounded-full bg-white/20 ring-2 ring-white/50 shadow-md flex items-center justify-center"><svg class="w-8 h-8" viewBox="0 0 24 24">${meta.svg}</svg></div>`
+                                    : renderTypeIconImg(typeName, 'w-14 h-14', 'ring-2 ring-white/50 shadow-md')}
                             </div>
 
                             <!-- Rechte Top-6 Pokémon-Tierlist-Reihe mit großen Bildern -->
@@ -11210,7 +11226,7 @@
                 const cardStageBg = item.isShadow
                     ? `radial-gradient(circle at 50% 30%, #7e22ce 0%, #3b0764 55%, #0f172a 100%)`
                     : (item.p.isMega
-                        ? `radial-gradient(circle at 50% 30%, ${tMeta1.color} 0%, #4c1d95 58%, #0f172a 100%)`
+                        ? `radial-gradient(circle at 50% 28%, ${tMeta1.color}ee 0%, #d85a8a 55%, #6b215e 82%, #240c29 100%)`
                         : ((item.p.isGmax || item.isDmax)
                             ? `radial-gradient(circle at 50% 30%, #e11d48 0%, #881337 55%, #0f172a 100%)`
                             : `radial-gradient(circle at 50% 28%, ${tMeta1.color}ee 0%, ${tMeta2.color}cc 55%, #0f172ad9 100%)`));
@@ -11435,26 +11451,274 @@
             }
         }
 
+        // Offizielle Kategorien für Pokémon GO Suchbefehle im Pokédex
+        const BABY_DEX_SET = new Set([172, 173, 174, 175, 236, 238, 239, 240, 298, 360, 406, 433, 438, 439, 440, 446, 447, 458, 848]);
+        const LEGENDARY_DEX_SET = new Set([
+            144, 145, 146, 150, 243, 244, 245, 249, 250,
+            377, 378, 379, 380, 381, 382, 383, 384,
+            480, 481, 482, 483, 484, 485, 486, 487, 488,
+            638, 639, 640, 641, 642, 643, 644, 645, 646,
+            716, 717, 718, 772, 773, 785, 786, 787, 788, 789, 790, 791, 792, 800,
+            888, 889, 890, 891, 892, 894, 895, 896, 897, 898, 905,
+            1001, 1002, 1003, 1004, 1007, 1008, 1014, 1015, 1016, 1017, 1024
+        ]);
+        const MYTHICAL_DEX_SET = new Set([
+            151, 251, 385, 386, 489, 490, 491, 492, 493, 494,
+            647, 648, 649, 719, 720, 721, 801, 802, 807, 808, 809, 893, 1025
+        ]);
+        const ULTRA_BEAST_DEX_SET = new Set([793, 794, 795, 796, 797, 798, 799, 803, 804, 805, 806]);
+
+        function parseNumericRangeToken(rawRange) {
+            const m = String(rawRange || '').match(/^(\d*)-(\d*)$/);
+            if (!m || (!m[1] && !m[2])) return null;
+            const min = m[1] ? Number(m[1]) : 0;
+            const max = m[2] ? Number(m[2]) : Infinity;
+            return { min, max };
+        }
+
+        function canDexPokemonEvolve(dexNum) {
+            const chain = EVOLUTION_CHAINS_DATA[dexNum];
+            if (!Array.isArray(chain) || chain.length < 2) return false;
+            const idx = chain.findIndex(s => s.dex === dexNum);
+            return idx >= 0 && idx < chain.length - 1;
+        }
+
+        function doesDexPokemonUseEvoItem(dexNum) {
+            const chain = EVOLUTION_CHAINS_DATA[dexNum];
+            if (!Array.isArray(chain) || chain.length < 2) return false;
+            const idx = chain.findIndex(s => s.dex === dexNum);
+            if (idx < 0 || idx >= chain.length - 1) return false;
+            for (let i = idx + 1; i < chain.length; i++) {
+                const step = chain[i];
+                const c = String(step.cost || '');
+                if (KNOWN_EVO_ITEM_BY_TARGET_DEX[step.dex]) return true;
+                if (EVOLUTION_ITEM_MATCHERS.some(m => m.regex.test(c))) return true;
+            }
+            return false;
+        }
+
+        function resolveFamilyDexSetForName(nameQuery, cache) {
+            if (cache && cache.has(nameQuery)) return cache.get(nameQuery);
+            const set = new Set();
+            const q = String(nameQuery || '').trim().toLowerCase();
+            if (q) {
+                FULL_DEX_LIST.forEach(entry => {
+                    if (entry.isMega || entry.isGmax || isEntryFusionForm(entry)) return;
+                    if (entry.name.toLowerCase().includes(q) || String(entry.dex) === q) {
+                        set.add(entry.dex);
+                        const chain = EVOLUTION_CHAINS_DATA[entry.dex];
+                        if (Array.isArray(chain)) {
+                            chain.forEach(st => set.add(st.dex));
+                        }
+                    }
+                });
+            }
+            if (cache) cache.set(nameQuery, set);
+            return set;
+        }
+
+        function entryHasMoveMatching(p, relatedForms, slotMode, queryVal) {
+            const pool = [p, ...(relatedForms || [])];
+            const q = String(queryVal || '').trim().toLowerCase();
+            if (!q) return false;
+
+            // @spezial / @special: Legacy / Top-TM (*) oder +-Attacken
+            if (q === 'spezial' || q === 'special') {
+                return pool.some(e =>
+                    (e.fastMoves || []).some(m => String(m).includes('*')) ||
+                    (e.chargedMoves || []).some(m => String(m).includes('*') || String(m).includes('+'))
+                );
+            }
+
+            const matchedType = TYPES.find(t => t.toLowerCase() === q);
+            const checkFast = slotMode === 'any' || slotMode === 'fast';
+            const checkCharged = slotMode === 'any' || slotMode === 'charged';
+
+            return pool.some(e => {
+                if (checkFast) {
+                    const fList = (Array.isArray(e.fastMoves) && e.fastMoves.length) ? e.fastMoves : (e.bestFast ? [e.bestFast] : []);
+                    for (const fRaw of fList) {
+                        const clean = String(fRaw || '').replace(/[*+]/g, '').trim();
+                        if (matchedType) {
+                            const fData = FAST_MOVES_DATA[clean];
+                            if (fData && fData.type === matchedType) return true;
+                        } else if (clean.toLowerCase().includes(q)) {
+                            return true;
+                        }
+                    }
+                }
+                if (checkCharged) {
+                    const cList = (Array.isArray(e.chargedMoves) && e.chargedMoves.length) ? e.chargedMoves : (e.bestCharged ? [e.bestCharged] : []);
+                    for (const cRaw of cList) {
+                        const clean = String(cRaw || '').replace('*', '').trim();
+                        const cleanBase = clean.replace(/\+$/, '').trim();
+                        if (matchedType) {
+                            const cData = CHARGED_MOVES_DATA[clean] || CHARGED_MOVES_DATA[cleanBase];
+                            if (cData && cData.type === matchedType) return true;
+                        } else if (clean.toLowerCase().includes(q) || cleanBase.toLowerCase().includes(q)) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            });
+        }
+
+        function matchSingleDexSearchTerm(p, relatedForms, rawTerm, familyCache) {
+            const term = String(rawTerm || '').trim().toLowerCase();
+            if (!term) return true;
+
+            // 1. Familie: +Bisasam
+            if (term.startsWith('+')) {
+                const famName = term.slice(1).trim();
+                if (!famName) return true;
+                const famSet = resolveFamilyDexSetForName(famName, familyCache);
+                return famSet.has(p.dex);
+            }
+
+            // 2. Attacken-Befehle: @Wasser, @Biss, @1Wasser, @2Wasser, @3Wasser, @spezial
+            if (term.startsWith('@')) {
+                const rest = term.slice(1).trim();
+                if (!rest) return true;
+                if (rest.startsWith('1')) {
+                    return entryHasMoveMatching(p, relatedForms, 'fast', rest.slice(1));
+                }
+                if (rest.startsWith('2') || rest.startsWith('3')) {
+                    return entryHasMoveMatching(p, relatedForms, 'charged', rest.slice(1));
+                }
+                return entryHasMoveMatching(p, relatedForms, 'any', rest);
+            }
+
+            // 3. WP / CP Bereich: wp2000-3000, wp2000-, wp-3000, wp2500
+            const wpMatch = term.match(/^(?:wp|cp)(\d*-\d*|\d+)$/i);
+            if (wpMatch) {
+                const cp40 = calculatePokemonCp(p.atk, p.def, p.hp, 40, 15, 15, 15);
+                const rng = parseNumericRangeToken(wpMatch[1]);
+                if (rng) return cp40 >= rng.min && cp40 <= rng.max;
+                return cp40 === Number(wpMatch[1]);
+            }
+
+            // 4. KP / HP Bereich: kp200-300, kp200-, kp-300, kp200
+            const kpMatch = term.match(/^(?:kp|hp)(\d*-\d*|\d+)$/i);
+            if (kpMatch) {
+                const hp40 = Math.max(10, Math.floor((p.hp + 15) * getCpmForLevel(40)));
+                const rng = parseNumericRangeToken(kpMatch[1]);
+                if (rng) return hp40 >= rng.min && hp40 <= rng.max;
+                return hp40 === Number(kpMatch[1]);
+            }
+
+            // 5. Pokédex-Nummern & Bereiche: 1, #0001, 1-12, 1-, -12
+            const dexClean = term.startsWith('#') ? term.slice(1) : term;
+            if (/^\d+$/.test(dexClean)) {
+                return p.dex === Number(dexClean);
+            }
+            const dexRange = parseNumericRangeToken(dexClean);
+            if (dexRange) {
+                return p.dex >= dexRange.min && p.dex <= dexRange.max;
+            }
+
+            // 6. Kategorie- & Form-Schlüsselwörter
+            if (/^mega[\s-]*4$|^super[\s-]*max$/i.test(term)) {
+                return !p.isRegionForm && (relatedForms || []).some(f => isEntrySuperMaxMega(f));
+            }
+            if (term === 'mega') {
+                return !p.isRegionForm && (relatedForms || []).some(f => f.isMega);
+            }
+            if (term === 'dynamax' || term === 'dmax') {
+                return isEntryDmaxBaseEligible(p);
+            }
+            if (term === 'gigadynamax' || term === 'gmax') {
+                return (relatedForms || []).some(f => f.isGmax);
+            }
+            if (term === 'fusion') {
+                return (relatedForms || []).some(f => isEntryFusionForm(f));
+            }
+            if (term === 'crypto' || term === 'shadow') {
+                return Boolean(p.canShadow);
+            }
+            if (term === 'legendär' || term === 'legendaer' || term === 'legendary') {
+                return LEGENDARY_DEX_SET.has(p.dex);
+            }
+            if (term === 'mysteriös' || term === 'mysterioes' || term === 'mythical') {
+                return MYTHICAL_DEX_SET.has(p.dex);
+            }
+            if (term === 'ultrabestie' || term === 'ultrabeast') {
+                return ULTRA_BEAST_DEX_SET.has(p.dex);
+            }
+            if (term === 'nurauseiern' || term === 'baby') {
+                return BABY_DEX_SET.has(p.dex);
+            }
+            if (term === 'alola' || term === 'galar' || term === 'hisui' || term === 'paldea') {
+                return p.name.toLowerCase().includes(term) || String(p.id || '').toLowerCase().includes(term);
+            }
+            if (term === 'entwickeln' || term === 'evolve') {
+                return canDexPokemonEvolve(p.dex);
+            }
+            if (term === 'item') {
+                return doesDexPokemonUseEvoItem(p.dex);
+            }
+            if (term === 'schillernd' || term === 'shiny') {
+                return isEntryReleasedInPogo(p);
+            }
+
+            // 7. Standard-Textsuche (Name, Typ, Attacke, Alternativform)
+            return p.name.toLowerCase().includes(term) ||
+                   String(p.dex).includes(term) ||
+                   `#${String(p.dex).padStart(4, '0')}`.includes(term) ||
+                   p.types.some(t => t.toLowerCase().includes(term)) ||
+                   (p.bestFast && p.bestFast.toLowerCase().includes(term)) ||
+                   (p.bestCharged && p.bestCharged.toLowerCase().includes(term)) ||
+                   (relatedForms || []).some(f => f.name.toLowerCase().includes(term));
+        }
+
+        function matchesDexSearchQuery(p, relatedForms, rawQuery, familyCache) {
+            const q = String(rawQuery || '').trim();
+            if (!q) return true;
+
+            // Dual-Typ-Suche wie "Feuer Flug" weiterhin direkt unterstützen (sofern keine Suchoperatoren genutzt werden)
+            if (!/[&,;!+@\d-]/.test(q)) {
+                const dualTypes = parseSearchTypeTokens(q);
+                if (dualTypes) {
+                    return entryHasAllTypes(p, relatedForms, dualTypes);
+                }
+            }
+
+            // Pokémon GO Operator-Logik: '&' = UND, ',' / ';' = ODER, '!' = NICHT
+            const andClauses = q.split('&').map(s => s.trim()).filter(Boolean);
+            if (andClauses.length === 0) return true;
+
+            return andClauses.every(clause => {
+                const orTerms = clause.split(/[,;]/).map(s => s.trim()).filter(Boolean);
+                if (orTerms.length === 0) return true;
+                return orTerms.some(rawTerm => {
+                    let negated = false;
+                    let t = rawTerm;
+                    if (t.startsWith('!')) {
+                        negated = true;
+                        t = t.slice(1).trim();
+                    }
+                    if (!t) return true;
+                    const hit = matchSingleDexSearchTerm(p, relatedForms, t, familyCache);
+                    return negated ? !hit : hit;
+                });
+            });
+        }
+
         function handleInspectorQuickSearch(query) {
             const resBox = document.getElementById('inspectorQuickResults');
             if (!resBox) return;
-            const q = (query || '').trim().toLowerCase();
+            const q = (query || '').trim();
             if (!q) {
                 resBox.classList.add('hidden');
                 return;
             }
-            const isMega4Query = /^mega[\s-]*4$|^super[\s-]*max$/i.test(q);
+            const familyCache = new Map();
+            const isSpecialCmd = /[&,;!+@]|^mega|^legend|^mysteri|^crypto|^nurauseiern|^alola|^galar|^hisui|^paldea|^item|^entwickeln|^(?:wp|cp|kp|hp)\d/i.test(q);
             const matches = FULL_DEX_LIST.filter(p => {
                 if (p.isMega || p.isGmax || isEntryFusionForm(p)) return false;
                 const altForms = FULL_DEX_LIST.filter(x => x.dex === p.dex && (x.isMega || x.isGmax || isEntryFusionForm(x)));
-                if (isMega4Query) {
-                    return !p.isRegionForm && altForms.some(f => isEntrySuperMaxMega(f));
-                }
-                return p.name.toLowerCase().includes(q) ||
-                       String(p.dex).includes(q) ||
-                       p.types.some(t => t.toLowerCase().includes(q)) ||
-                       altForms.some(f => f.name.toLowerCase().includes(q));
-            }).slice(0, isMega4Query ? 24 : 12);
+                return matchesDexSearchQuery(p, altForms, q, familyCache);
+            }).slice(0, isSpecialCmd ? 24 : 12);
 
             if (matches.length === 0) {
                 resBox.innerHTML = `<div class="p-3 text-xs font-bold opacity-70">Kein Pokémon gefunden</div>`;
@@ -11514,7 +11778,7 @@
         }
 
         function getFilteredSortedDex(searchQuery, genRange, typeFilter, sortMode, hideGmaxInRaid = false, typeFilter2 = 'ALL') {
-            const q = (searchQuery || '').trim().toLowerCase();
+            const q = (searchQuery || '').trim();
             let minDex = 1, maxDex = 9999;
             let onlyForms = false;
 
@@ -11531,8 +11795,7 @@
             if (typeFilter2 && typeFilter2 !== 'ALL' && !selectedDropdownTypes.includes(typeFilter2)) {
                 selectedDropdownTypes.push(typeFilter2);
             }
-            const isMega4Query = /^mega[\s-]*4$|^super[\s-]*max$/i.test(q);
-            const queryDualTypes = isMega4Query ? null : parseSearchTypeTokens(q);
+            const familyCache = new Map();
 
             const filtered = FULL_DEX_LIST.filter(p => {
                 // Mega-, Fusions- (Necrozma/Kyurem) und Gigadynamax-Formen sind direkt bei der Basis-Form wählbar und kein separater Dex-Eintrag
@@ -11542,19 +11805,7 @@
                 if (!onlyForms && (p.dex < minDex || p.dex > maxDex)) return false;
                 if (selectedDropdownTypes.length > 0 && !entryHasAllTypes(p, relatedForms, selectedDropdownTypes)) return false;
                 if (q) {
-                    if (isMega4Query) {
-                        return !p.isRegionForm && relatedForms.some(f => isEntrySuperMaxMega(f));
-                    }
-                    if (queryDualTypes) {
-                        return entryHasAllTypes(p, relatedForms, queryDualTypes);
-                    }
-                    return p.name.toLowerCase().includes(q) ||
-                           String(p.dex).includes(q) ||
-                           `#${String(p.dex).padStart(4, '0')}`.includes(q) ||
-                           p.types.some(t => t.toLowerCase().includes(q)) ||
-                           (p.bestFast && p.bestFast.toLowerCase().includes(q)) ||
-                           (p.bestCharged && p.bestCharged.toLowerCase().includes(q)) ||
-                           relatedForms.some(f => f.name.toLowerCase().includes(q));
+                    return matchesDexSearchQuery(p, relatedForms, q, familyCache);
                 }
                 return true;
             });
@@ -12758,7 +13009,7 @@
             const stageBgStyle = isShadowActive
                 ? `radial-gradient(circle at 50% 30%, #7e22ce 0%, #3b0764 55%, #0f172a 100%)`
                 : (p.isMega
-                    ? `radial-gradient(circle at 50% 30%, ${tMeta1.color} 0%, #4c1d95 58%, #0f172a 100%)`
+                    ? `radial-gradient(circle at 50% 28%, ${tMeta1.color}ee 0%, #d85a8a 55%, #6b215e 82%, #240c29 100%)`
                     : ((p.isGmax || isDmaxActive)
                         ? `radial-gradient(circle at 50% 30%, #e11d48 0%, #881337 55%, #0f172a 100%)`
                         : `radial-gradient(circle at 50% 28%, ${tMeta1.color}ee 0%, ${tMeta2.color}cc 55%, #0f172ad9 100%)`));
@@ -13502,7 +13753,7 @@
                                     const cStageBg = c.isShadow
                                         ? `radial-gradient(circle at 50% 30%, #7e22ce 0%, #3b0764 55%, #0f172a 100%)`
                                         : (c.pokemon.isMega
-                                            ? `radial-gradient(circle at 50% 30%, ${cMeta1.color} 0%, #4c1d95 58%, #0f172a 100%)`
+                                            ? `radial-gradient(circle at 50% 28%, ${cMeta1.color}ee 0%, #d85a8a 55%, #6b215e 82%, #240c29 100%)`
                                             : ((c.pokemon.isGmax || c.isDmax)
                                                 ? `radial-gradient(circle at 50% 30%, #e11d48 0%, #881337 55%, #0f172a 100%)`
                                                 : `radial-gradient(circle at 50% 28%, ${cMeta1.color}ee 0%, ${cMeta2.color}cc 55%, #0f172ad9 100%)`));
@@ -13800,6 +14051,21 @@
             if (!boss) return;
             const match = FULL_DEX_LIST.find(p => p.spriteId === boss.spriteId || p.name.toLowerCase() === boss.name.toLowerCase()) || FULL_DEX_LIST[0];
             openPokemonInInspector(match.id, 'counters');
+        }
+
+        function jumpToBossDex(bossId) {
+            const boss = RAID_BOSSES_DATA.find(b => b.id === bossId);
+            if (!boss) return;
+            const isCrypto = boss.tier === 'Crypto';
+            const isMax = boss.tier === 'Max';
+            const isGmaxBoss = isMax && /g-max|gigadynamax/i.test(`${boss.tierSubLabel || ''} ${boss.name || ''}`);
+            const bossNameLow = String(boss.name || '').toLowerCase();
+            const match = (isGmaxBoss && FULL_DEX_LIST.find(p => p.isGmax && (p.spriteId === boss.spriteId || p.dex === boss.spriteId || p.name.toLowerCase() === bossNameLow)))
+                || FULL_DEX_LIST.find(p => p.spriteId === boss.spriteId || p.name.toLowerCase() === bossNameLow)
+                || FULL_DEX_LIST.find(p => p.dex === boss.spriteId)
+                || FULL_DEX_LIST[0];
+            if (!match) return;
+            openPokemonInInspector(match.id, 'overview', isCrypto, isMax && !match.isGmax);
         }
 
         // =========================================================================
@@ -14884,7 +15150,7 @@
                 const bStageBg = isCryptoBoss
                     ? `radial-gradient(circle at 50% 30%, #7e22ce 0%, #3b0764 55%, #0f172a 100%)`
                     : (isMegaBoss
-                        ? `radial-gradient(circle at 50% 30%, ${bMeta1.color} 0%, #4c1d95 58%, #0f172a 100%)`
+                        ? `radial-gradient(circle at 50% 28%, ${bMeta1.color}ee 0%, #d85a8a 55%, #6b215e 82%, #240c29 100%)`
                         : (isMaxBoss
                             ? `radial-gradient(circle at 50% 30%, #e11d48 0%, #881337 55%, #0f172a 100%)`
                             : `radial-gradient(circle at 50% 28%, ${bMeta1.color}ee 0%, ${bMeta2.color}cc 55%, #0f172ad9 100%)`));
@@ -14930,9 +15196,15 @@
                                     : '<span class="px-1.5 py-0.5 rounded-full bg-black/35 text-white/80 backdrop-blur-sm text-[9px] font-bold leading-none whitespace-nowrap">Kein \u2726</span>'
                                 }
                             </div>
-                            <div class="absolute inset-x-0 bottom-6 z-20 flex items-center justify-center pointer-events-none">
+                            <button
+                                type="button"
+                                onclick="jumpToBossDex('${b.id}')"
+                                class="absolute inset-x-0 bottom-6 z-20 flex items-center justify-center cursor-pointer focus:outline-none"
+                                title="${b.name} im Pokédex öffnen"
+                                aria-label="${b.name} im Pokédex öffnen"
+                            >
                                 ${imgHtml}
-                            </div>
+                            </button>
                         </div>
 
                         <!-- IN-GAME BOTTOM SHEET -->
